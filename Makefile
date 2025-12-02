@@ -15,6 +15,7 @@ BIN_DIR = $(BUILD_DIR)/bin
 CC = $(MSPGCC_BIN_DIR)/msp430-elf-gcc
 RM = rm
 DEBUG = LD_LIBRARY_PATH=$(DEBUG_DRIVERS_DIR) $(DEBUG_BIN_DIR)/mspdebug
+CPPCHECK = cppcheck
 
 # Files
 TARGET = $(BIN_DIR)/robo_sumo
@@ -42,7 +43,7 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 
 
 # Phonies
-.PHONY: all clean flash
+.PHONY: all clean flash cppcheck
 
 all: $(TARGET)
 
@@ -51,3 +52,12 @@ clean:
 
 flash: $(TARGET)
 	$(DEBUG) tilib "prog $(TARGET)"
+
+cppcheck:
+	@$(CPPCHECK) --quiet --enable=all --error-exitcode=1 \
+	--inline-suppr \
+	--suppress=toomanyconfigs \
+	--suppress=checkersReport \
+       -I $(INCLUDE_DIRS) \
+	$(SOURCE_PATHS) \
+  	-i external/printf	
