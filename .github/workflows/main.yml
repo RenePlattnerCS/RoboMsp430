@@ -17,7 +17,7 @@ jobs:
         run: ls -al .git
 
       - name: Format files
-        run: make format && git diff --quiet
+        run: make format TOOLS_PATH=/opt/tools && git diff --quiet
 
       - name: Static analysis
         run: make cppcheck TOOLS_PATH=/opt/tools
