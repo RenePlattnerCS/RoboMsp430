@@ -65,4 +65,4 @@ cppcheck:
 	$(SOURCE_PATHS) \
   	-i external/printf
 format: 
-	@$(FORMAT) -i $(SOURCE_PATHS)	
+	@find . -name "*.c" -o -name "*.h" | xargs $(FORMAT) -i	
