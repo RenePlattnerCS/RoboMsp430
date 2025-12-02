@@ -16,6 +16,9 @@ jobs:
       - name: Verify .git exists
         run: ls -al .git
 
+      - name: Mark repo safe for Git
+        run: git config --global --add safe.directory $GITHUB_WORKSPACE
+
       - name: Format files
         run: make format && git diff --quiet
 
