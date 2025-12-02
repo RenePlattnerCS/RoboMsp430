@@ -1,0 +1,22 @@
+FROM ubuntu:latest
+
+#install
+# Non-interactive install
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Install dependencies for building and debugging MSP430 binaries
+RUN apt-get update && apt-get install -y \
+    wget \
+    xz-utils \
+    make \
+    git \
+    python3 \
+    libusb-1.0-0 \
+    bzip2 \
+    make \
+    unzip \
+    cppcheck \
+    && rm -rf /var/lib/apt/lists/*
+
+
+

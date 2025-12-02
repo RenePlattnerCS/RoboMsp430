@@ -1,0 +1,65 @@
+# -------------------------
+# Stage 1: Builder
+# -------------------------
+FROM ubuntu:24.04 AS builder
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Install build dependencies
+RUN apt-get update && apt-get install -y \
+    wget \
+    xz-utils \
+    unzip \
+    bzip2 \
+    make \
+    git \
+    python3 \
+    libusb-1.0-0 \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /tmp
+
+# Download GCC and support files (Linux version)
+RUN wget https://dr-download.ti.com/software-development/ide-configuration-compiler-or-debugger/MD-LlCjWuAbzH/9.3.1.2/msp430-gcc-9.3.1.11_linux64.tar.bz2 && \
+    wget https://dr-download.ti.com/software-development/ide-configuration-compiler-or-debugger/MD-LlCjWuAbzH/9.3.1.2/msp430-gcc-support-files-1.212.zip
+
+# Extract GCC into /tmp/msp430-gcc
+RUN mkdir -p /tmp/msp430-gcc && \
+    tar -xjf msp430-gcc-9.3.1.11_linux64.tar.bz2 -C /tmp/msp430-gcc --strip-components=1
+
+# Extract support files into the same folder
+RUN unzip msp430-gcc-support-files-1.212.zip -d /tmp/msp430-gcc
+
+# Clean up archives to save space
+RUN rm msp430-gcc-9.3.1.11_linux64.tar.bz2 msp430-gcc-support-files-1.212.zip
+
+# -------------------------
+# Stage 2: Final image
+# -------------------------
+FROM ubuntu:24.04
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Install runtime dependencies
+RUN apt-get update && apt-get install -y \
+    libusb-1.0-0 \
+    python3 \
+    make \
+    unzip \
+    && rm -rf /var/lib/apt/lists/*
+
+# Create target folder for MSP430 toolchain
+RUN mkdir -p /opt/tools
+
+# Copy GCC and support files from builder stage
+COPY --from=builder /tmp/msp430-gcc /opt/tools/msp430-gcc
+
+# Set environment variables
+ENV MSP430_GCC=/opt/tools/msp430-gcc
+ENV PATH="$MSP430_GCC/bin:$PATH"
+
+# Set working directory
+WORKDIR /workspace
+
+CMD ["/bin/bash"]
+
