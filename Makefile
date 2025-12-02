@@ -1,10 +1,12 @@
 # Directories
-MSPGCC_ROOT_DIR = /home/rene/tools/arm-gcc/msp430-gcc-9.3.1.11_linux64
+TOOLS_DIR = ${TOOLS_PATH}
+MSPGCC_ROOT_DIR = $(TOOLS_DIR)/msp430-gcc
 MSPGCC_BIN_DIR = $(MSPGCC_ROOT_DIR)/bin
-MSPGCC_INCLUDE_DIR = /home/rene/tools/ti/codeComposer/ccs2040/ccs/ccs_base/msp430/include_gcc
-INCLUDE_DIRS = $(MSPGCC_INCLUDE_DIR)
-LIB_DIRS = /home/rene/tools/ti/codeComposer/ccs2040/ccs/ccs_base/msp430/include_gcc/
-TI_CCS_DIR = /home/rene/tools/ti/codeComposer/ccs2040/ccs
+MSPGCC_SUPPORT_DIR = $(TOOLS_DIR)/msp430-gcc/msp430-gcc-support-files
+INCLUDE_DIRS = $(MSPGCC_SUPPORT_DIR)/include
+LIB_DIRS = $(MSPGCC_SUPPORT_DIR)/include
+
+TI_CCS_DIR = $(TOOLS_DIR)/ti/codeComposer/ccs2040/ccs
 DEBUG_BIN_DIR = $(TI_CCS_DIR)/ccs_base/DebugServer/bin
 DEBUG_DRIVERS_DIR = $(TI_CCS_DIR)/ccs_base/DebugServer/drivers
 BUILD_DIR = build
