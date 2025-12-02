@@ -16,4 +16,4 @@ jobs:
         run: make TOOLS_PATH=/opt/tools
 
       - name: Static analysis
-        run: make cppcheck
+        run: make cppcheck TOOLS_PATH=/opt/tools
