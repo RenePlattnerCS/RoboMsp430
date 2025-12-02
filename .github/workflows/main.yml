@@ -11,9 +11,15 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-
-      - name: Build project
-        run: make TOOLS_PATH=/opt/tools
+        
+      - name: format files
+        run: make format && git diff --quit
 
       - name: Static analysis
         run: make cppcheck TOOLS_PATH=/opt/tools
+
+      - name: Build project
+        run: make TOOLS_PATH=/opt/tools
+        
+
+
