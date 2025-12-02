@@ -16,6 +16,7 @@ BIN_DIR = $(BUILD_DIR)/bin
 # Toolchain
 CC = $(MSPGCC_BIN_DIR)/msp430-elf-gcc
 RM = rm
+FORMAT = clang-format
 DEBUG = LD_LIBRARY_PATH=$(DEBUG_DRIVERS_DIR) $(DEBUG_BIN_DIR)/mspdebug
 CPPCHECK = cppcheck
 
@@ -45,7 +46,7 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 
 
 # Phonies
-.PHONY: all clean flash cppcheck
+.PHONY: all clean flash cppcheck format
 
 all: $(TARGET)
 
@@ -62,4 +63,6 @@ cppcheck:
 	--suppress=checkersReport \
        -I $(INCLUDE_DIRS) \
 	$(SOURCE_PATHS) \
-  	-i external/printf	
+  	-i external/printf
+format: 
+	@$(FORMAT) -i $(SOURCE_PATHS)	
