@@ -65,4 +65,4 @@ cppcheck:
 	$(SOURCE_PATHS) \
   	-i external/printf
 format: 
-	@$(FORMAT) -i $(SOURCE_PATHS)	
+	@$(FORMAT) -i $(SOURCES)	
