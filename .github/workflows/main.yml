@@ -13,7 +13,7 @@ jobs:
         uses: actions/checkout@v3
         
       - name: format files
-        run: make format && git diff --quit
+        run: make format && git diff --quiet
 
       - name: Static analysis
         run: make cppcheck TOOLS_PATH=/opt/tools
