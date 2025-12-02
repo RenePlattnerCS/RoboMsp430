@@ -3,11 +3,16 @@ name: Build and Static Analysis
 on:
   push:
 
+defaults:
+  run:
+    working-directory: ${{ github.workspace }}
+
 jobs:
   build_and_static_analysis:
     runs-on: ubuntu-latest
     container:
       image: reneplattner/msp430-gcc:latest
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -20,6 +25,4 @@ jobs:
 
       - name: Build project
         run: make TOOLS_PATH=/opt/tools
-        
-
 
