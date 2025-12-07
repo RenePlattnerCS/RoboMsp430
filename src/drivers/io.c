@@ -3,7 +3,5 @@
 
 void io_init(void)
 {
-	return;
+    return;
 }
-
-

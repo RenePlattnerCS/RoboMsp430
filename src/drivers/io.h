@@ -20,8 +20,7 @@ typedef enum {
 } io_generic_e;
 // clang-format on
 
-typedef enum
-{
+typedef enum {
 #if defined(LAUNCHPAD) // Launchpad (MSP430G2553IN20)
     IO_TEST_LED = IO_10,
     IO_UART_RXD = IO_11,
@@ -67,40 +66,34 @@ typedef enum
 #endif
 } io_e;
 
-typedef enum
-{
+typedef enum {
     IO_SELECT_GPIO,
     IO_SELECT_ALT1,
     IO_SELECT_ALT2,
     IO_SELECT_ALT3,
 } io_select_e;
 
-typedef enum
-{
+typedef enum {
     IO_DIR_INPUT,
     IO_DIR_OUTPUT,
 } io_dir_e;
 
-typedef enum
-{
+typedef enum {
     IO_RESISTOR_DISABLED,
     IO_RESISTOR_ENABLED,
 } io_resistor_e;
 
-typedef enum
-{
+typedef enum {
     IO_OUT_LOW, // (pull-down)
     IO_OUT_HIGH, // (pull-up)
 } io_out_e;
 
-typedef enum
-{
+typedef enum {
     IO_IN_LOW,
     IO_IN_HIGH,
 } io_in_e;
 
-typedef enum
-{
+typedef enum {
     IO_TRIGGER_RISING,
     IO_TRIGGER_FALLING
 } io_trigger_e;
@@ -114,21 +107,21 @@ struct io_config
 };
 
 void io_init(void);
-//void io_configure(io_e io, const struct io_config *config);
-//void io_get_current_config(io_e io, struct io_config *current_config);
-//bool io_config_compare(const struct io_config *cfg1, const struct io_config *cfg2);
-//void io_set_select(io_e io, io_select_e select);
-//void io_set_direction(io_e io, io_dir_e direction);
-//void io_set_resistor(io_e io, io_resistor_e resistor);
-//void io_set_out(io_e io, io_out_e out);
-//io_in_e io_get_input(io_e io);
-//const io_e *io_adc_pins(uint8_t *cnt);
-//uint8_t io_to_adc_idx(io_e io);
+// void io_configure(io_e io, const struct io_config *config);
+// void io_get_current_config(io_e io, struct io_config *current_config);
+// bool io_config_compare(const struct io_config *cfg1, const struct io_config *cfg2);
+// void io_set_select(io_e io, io_select_e select);
+// void io_set_direction(io_e io, io_dir_e direction);
+// void io_set_resistor(io_e io, io_resistor_e resistor);
+// void io_set_out(io_e io, io_out_e out);
+// io_in_e io_get_input(io_e io);
+// const io_e *io_adc_pins(uint8_t *cnt);
+// uint8_t io_to_adc_idx(io_e io);
 
-//typedef void (*isr_function)(void);
-//void io_configure_interrupt(io_e io, io_trigger_e trigger, isr_function isr);
-//void io_deconfigure_interrupt(io_e io);
-//void io_enable_interrupt(io_e io);
-//void io_disable_interrupt(io_e io);
+// typedef void (*isr_function)(void);
+// void io_configure_interrupt(io_e io, io_trigger_e trigger, isr_function isr);
+// void io_deconfigure_interrupt(io_e io);
+// void io_enable_interrupt(io_e io);
+// void io_disable_interrupt(io_e io);
 
 #endif // IO_H
