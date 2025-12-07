@@ -8,7 +8,8 @@ INCLUDE_DIRS = \
     $(MSPGCC_SUPPORT_DIR)/include \
     $(STANDART_C_LIB) \
     src \
-    src/drivers
+    src/drivers \
+    src/common \ 
 LIB_DIRS = $(MSPGCC_SUPPORT_DIR)/include
 
 TI_CCS_DIR = $(TOOLS_DIR)/ti/codeComposer/ccs2040/ccs
@@ -29,7 +30,6 @@ CPPCHECK = cppcheck
 TARGET = $(BIN_DIR)/robo_sumo
 SRC_DIR = src
 SOURCES =$(SRC_DIR)/main.c $(SRC_DIR)/drivers/io.c
-DRIVERS = io.c
 
 OBJECT_NAMES = $(SOURCES:.c=.o)
 OBJECTS = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SOURCES))
