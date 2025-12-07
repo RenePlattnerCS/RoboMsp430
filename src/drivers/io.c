@@ -3,7 +3,6 @@
 #include "common/defines.h"
 
 #include <stdint.h>
-#include <assert.h>
 #include <stddef.h>
 
 #if defined(LAUNCHPAD)
@@ -41,6 +40,7 @@ typedef enum {
 #endif
 } io_port_e;
 
+// cppcheck-suppress unusedFunction
 void io_init(void)
 {
     return;
@@ -78,6 +78,7 @@ static volatile uint8_t *const port_sel2_regs[IO_PORT_CNT] = { &P1SEL2, &P2SEL2 
 // };
 
 //--------select io (alternative) function wrapper-----------
+// cppcheck-suppress unusedFunction
 void io_set_select(io_e io, io_select_e select)
 {
     const uint8_t port = io_port(io);
@@ -102,6 +103,7 @@ void io_set_select(io_e io, io_select_e select)
     }
 }
 
+// cppcheck-suppress unusedFunction
 void io_set_direction(io_e io, io_dir_e direction)
 {
     const uint8_t port = io_port(io);
@@ -116,6 +118,7 @@ void io_set_direction(io_e io, io_dir_e direction)
     }
 }
 
+// cppcheck-suppress unusedFunction
 void io_set_resistor(io_e io, io_resistor_e resistor)
 {
     const uint8_t port = io_port(io);
@@ -130,6 +133,7 @@ void io_set_resistor(io_e io, io_resistor_e resistor)
     }
 }
 
+// cppcheck-suppress unusedFunction
 void io_set_out(io_e io, io_out_e out)
 {
     const uint8_t port = io_port(io);
@@ -144,6 +148,7 @@ void io_set_out(io_e io, io_out_e out)
     }
 }
 
+// cppcheck-suppress unusedFunction
 io_in_e io_get_input(io_e io)
 {
     UNUSED(io);
