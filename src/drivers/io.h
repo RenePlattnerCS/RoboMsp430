@@ -110,11 +110,11 @@ void io_init(void);
 // void io_configure(io_e io, const struct io_config *config);
 // void io_get_current_config(io_e io, struct io_config *current_config);
 // bool io_config_compare(const struct io_config *cfg1, const struct io_config *cfg2);
-// void io_set_select(io_e io, io_select_e select);
-// void io_set_direction(io_e io, io_dir_e direction);
-// void io_set_resistor(io_e io, io_resistor_e resistor);
-// void io_set_out(io_e io, io_out_e out);
-// io_in_e io_get_input(io_e io);
+void io_set_select(io_e io, io_select_e select);
+void io_set_direction(io_e io, io_dir_e direction);
+void io_set_resistor(io_e io, io_resistor_e resistor);
+void io_set_out(io_e io, io_out_e out);
+io_in_e io_get_input(io_e io);
 // const io_e *io_adc_pins(uint8_t *cnt);
 // uint8_t io_to_adc_idx(io_e io);
 
