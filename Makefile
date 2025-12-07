@@ -3,7 +3,11 @@ TOOLS_DIR = ${TOOLS_PATH}
 MSPGCC_ROOT_DIR = $(TOOLS_DIR)/msp430-gcc
 MSPGCC_BIN_DIR = $(MSPGCC_ROOT_DIR)/bin
 MSPGCC_SUPPORT_DIR = $(TOOLS_DIR)/msp430-gcc/msp430-gcc-support-files
-INCLUDE_DIRS = $(MSPGCC_SUPPORT_DIR)/include
+INCLUDE_DIRS = \
+    $(MSPGCC_SUPPORT_DIR)/include \
+    src \
+    src/include \
+    src/drivers
 LIB_DIRS = $(MSPGCC_SUPPORT_DIR)/include
 
 TI_CCS_DIR = $(TOOLS_DIR)/ti/codeComposer/ccs2040/ccs
@@ -23,10 +27,11 @@ CPPCHECK = cppcheck
 # Files
 TARGET = $(BIN_DIR)/robo_sumo
 SRC_DIR = src
-SOURCES = main.c
-SOURCE_PATHS = $(addprefix $(SRC_DIR)/,$(SOURCES))
+SOURCES =$(SRC_DIR)/main.c $(SRC_DIR)/drivers/io.c
+DRIVERS = io.c
+
 OBJECT_NAMES = $(SOURCES:.c=.o)
-OBJECTS = $(patsubst %,$(OBJ_DIR)/%,$(OBJECT_NAMES))
+OBJECTS = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SOURCES))
 
 # Flags
 MCU = msp430g2553
@@ -62,7 +67,7 @@ cppcheck:
 	--suppress=toomanyconfigs \
 	--suppress=checkersReport \
        -I $(INCLUDE_DIRS) \
-	$(SOURCE_PATHS) \
+	$(SOURCES) \
   	-i external/printf
 format: 
 	@find . -name "*.c" -o -name "*.h" | xargs $(FORMAT) -i	
