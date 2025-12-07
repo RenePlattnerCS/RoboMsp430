@@ -3,10 +3,11 @@ TOOLS_DIR = ${TOOLS_PATH}
 MSPGCC_ROOT_DIR = $(TOOLS_DIR)/msp430-gcc
 MSPGCC_BIN_DIR = $(MSPGCC_ROOT_DIR)/bin
 MSPGCC_SUPPORT_DIR = $(TOOLS_DIR)/msp430-gcc/msp430-gcc-support-files
+STANDART_C_LIB = $(TOOLS_DIR)/msp430-gcc/lib/gcc/msp430-elf/9.3.1/include
 INCLUDE_DIRS = \
     $(MSPGCC_SUPPORT_DIR)/include \
+    $(STANDART_C_LIB) \
     src \
-    src/include \
     src/drivers
 LIB_DIRS = $(MSPGCC_SUPPORT_DIR)/include
 
@@ -66,7 +67,7 @@ cppcheck:
 	--inline-suppr \
 	--suppress=toomanyconfigs \
 	--suppress=checkersReport \
-       -I $(INCLUDE_DIRS) \
+        $(addprefix -I, $(INCLUDE_DIRS)) \
 	$(SOURCES) \
   	-i external/printf
 format: 

@@ -9,7 +9,7 @@ int main(void)
 
     while (1) {
         P1OUT ^= BIT0; // Toggle LED
-
+	io_init();
         // Simple delay
         volatile unsigned int i;
         for (i = 0; i < 20000; i++)
