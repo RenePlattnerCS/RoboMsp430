@@ -30,7 +30,7 @@ CPPCHECK = cppcheck
 # Files
 TARGET = $(BIN_DIR)/robo_sumo
 SRC_DIR = src
-SOURCES =$(SRC_DIR)/main.c $(SRC_DIR)/drivers/io.c $(SRC_DIR)/drivers/mcu_init.c
+SOURCES =$(SRC_DIR)/main.c $(SRC_DIR)/drivers/io.c $(SRC_DIR)/drivers/mcu_init.c $(SRC_DIR)/drivers/led.c
 
 OBJECT_NAMES = $(SOURCES:.c=.o)
 OBJECTS = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SOURCES))

@@ -238,3 +238,22 @@ io_in_e io_get_input(io_e io)
     return 0;
     // return (*port_in_regs[io_port(io)] & io_pin_bit(io)) ? IO_IN_HIGH : IO_IN_LOW;
 }
+
+void io_get_current_config(io_e io, struct io_config *current_config)
+{
+    const uint8_t port = io_port(io);
+    const uint8_t pin = io_pin_bit(io);
+    const uint8_t sel1 = (*port_sel1_regs[port] & pin) ? 1 : 0;
+    const uint8_t sel2 = (*port_sel2_regs[port] & pin) ? 1 : 0;
+    current_config->select = (io_select_e)((sel2 << 1) | sel1);
+    current_config->resistor =
+        (*port_ren_regs[port] & pin) ? IO_RESISTOR_ENABLED : IO_RESISTOR_DISABLED;
+    current_config->dir = (*port_dir_regs[port] & pin) ? IO_DIR_OUTPUT : IO_DIR_INPUT;
+    current_config->out = (*port_out_regs[port] & pin) ? IO_OUT_HIGH : IO_OUT_LOW;
+}
+
+bool io_config_compare(const struct io_config *cfg1, const struct io_config *cfg2)
+{
+    return (cfg1->dir == cfg2->dir) && (cfg1->out == cfg2->out)
+        && (cfg1->resistor == cfg2->resistor) && (cfg1->select == cfg2->select);
+}
