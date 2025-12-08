@@ -77,8 +77,16 @@ static volatile uint8_t *const port_sel2_regs[IO_PORT_CNT] = { &P1SEL2, &P2SEL2 
 //     [IO_PORT2] = { NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL },
 // };
 
-//--------select io (alternative) function wrapper-----------
 // cppcheck-suppress unusedFunction
+void io_configure(io_e io, const struct io_config *config)
+{
+    io_set_select(io, config->select);
+    io_set_direction(io, config->dir);
+    io_set_out(io, config->out);
+    io_set_resistor(io, config->resistor);
+}
+
+//--------select io (alternative) function wrapper-----------
 void io_set_select(io_e io, io_select_e select)
 {
     const uint8_t port = io_port(io);
@@ -103,7 +111,6 @@ void io_set_select(io_e io, io_select_e select)
     }
 }
 
-// cppcheck-suppress unusedFunction
 void io_set_direction(io_e io, io_dir_e direction)
 {
     const uint8_t port = io_port(io);
@@ -118,7 +125,6 @@ void io_set_direction(io_e io, io_dir_e direction)
     }
 }
 
-// cppcheck-suppress unusedFunction
 void io_set_resistor(io_e io, io_resistor_e resistor)
 {
     const uint8_t port = io_port(io);
@@ -133,7 +139,6 @@ void io_set_resistor(io_e io, io_resistor_e resistor)
     }
 }
 
-// cppcheck-suppress unusedFunction
 void io_set_out(io_e io, io_out_e out)
 {
     const uint8_t port = io_port(io);

@@ -24,6 +24,7 @@ CC = $(MSPGCC_BIN_DIR)/msp430-elf-gcc
 RM = rm
 FORMAT = clang-format
 DEBUG = LD_LIBRARY_PATH=$(DEBUG_DRIVERS_DIR) $(DEBUG_BIN_DIR)/mspdebug
+#DEBUG = $(DEBUG_BIN_DIR)/mspdebug
 CPPCHECK = cppcheck
 
 # Files
@@ -59,8 +60,9 @@ all: $(TARGET)
 clean:
 	$(RM) -rf $(BUILD_DIR)
 
+
 flash: $(TARGET)
-	$(DEBUG) tilib "prog $(TARGET)"
+	$(DEBUG) tilib "erase all" "prog $(TARGET)" "reset"
 
 cppcheck:
 	@$(CPPCHECK) --quiet --enable=all --error-exitcode=1 \
