@@ -30,7 +30,7 @@ CPPCHECK = cppcheck
 # Files
 TARGET = $(BIN_DIR)/robo_sumo
 SRC_DIR = src
-SOURCES =$(SRC_DIR)/main.c $(SRC_DIR)/drivers/io.c
+SOURCES =$(SRC_DIR)/main.c $(SRC_DIR)/drivers/io.c $(SRC_DIR)/drivers/mcu_init.c
 
 OBJECT_NAMES = $(SOURCES:.c=.o)
 OBJECTS = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SOURCES))
@@ -68,6 +68,7 @@ cppcheck:
 	@$(CPPCHECK) --quiet --enable=all --error-exitcode=1 \
 	--inline-suppr \
 	--suppress=toomanyconfigs \
+	--suppress=unusedFunction \
 	--suppress=checkersReport \
         $(addprefix -I, $(INCLUDE_DIRS)) \
 	$(SOURCES) \

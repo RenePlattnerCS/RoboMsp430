@@ -40,12 +40,6 @@ typedef enum {
 #endif
 } io_port_e;
 
-// cppcheck-suppress unusedFunction
-void io_init(void)
-{
-    return;
-}
-
 /* TI's helper header (msp430.h) provides defines/variables for accessing the
  * registers, and the address of these are resolved during linking. For cleaner
  * code, smaller executable, and to avoid mapping between IO_PORT-enum and these
@@ -77,7 +71,91 @@ static volatile uint8_t *const port_sel2_regs[IO_PORT_CNT] = { &P1SEL2, &P2SEL2 
 //     [IO_PORT2] = { NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL },
 // };
 
+#define UNUSED_CONFIG                                                                              \
+    {                                                                                              \
+        IO_SELECT_GPIO, IO_RESISTOR_ENABLED, IO_DIR_OUTPUT, IO_OUT_LOW                             \
+    }
+
+// Overriden by ADC, so just default it to floating input here
+#define ADC_CONFIG                                                                                 \
+    {                                                                                              \
+        IO_SELECT_GPIO, IO_RESISTOR_DISABLED, IO_DIR_INPUT, IO_OUT_LOW                             \
+    }
+
+// This array holds the initial configuration for all IO pins.
+static const struct io_config io_initial_configs[IO_PORT_CNT * IO_PIN_CNT_PER_PORT] = {
+    // Output
+    [IO_TEST_LED] = { IO_SELECT_GPIO, IO_RESISTOR_DISABLED, IO_DIR_OUTPUT, IO_OUT_LOW },
+
+    /* UART RX/TX
+     * Resistor: Not needed (pulled by transmitter/receiver)
+     * Direction: Not applicable
+     * Output: Not applicable */
+    [IO_UART_RXD] = { IO_SELECT_ALT3, IO_RESISTOR_DISABLED, IO_DIR_OUTPUT, IO_OUT_LOW },
+    [IO_UART_TXD] = { IO_SELECT_ALT3, IO_RESISTOR_DISABLED, IO_DIR_OUTPUT, IO_OUT_LOW },
+
+    // Input (no resistor required according to datasheet of IR receiver)
+    [IO_IR_REMOTE] = { IO_SELECT_GPIO, IO_RESISTOR_DISABLED, IO_DIR_INPUT, IO_OUT_LOW },
+
+    // Output driven by timer A0, direction must be set to output
+    [IO_PWM_MOTORS_LEFT] = { IO_SELECT_ALT1, IO_RESISTOR_DISABLED, IO_DIR_OUTPUT, IO_OUT_LOW },
+
+    // Output
+    [IO_MOTORS_LEFT_CC_1] = { IO_SELECT_GPIO, IO_RESISTOR_DISABLED, IO_DIR_OUTPUT, IO_OUT_LOW },
+    [IO_MOTORS_LEFT_CC_2] = { IO_SELECT_GPIO, IO_RESISTOR_DISABLED, IO_DIR_OUTPUT, IO_OUT_LOW },
+
+    [IO_LINE_DETECT_FRONT_LEFT] = ADC_CONFIG,
+
+    [IO_XSHUT_FRONT] = { IO_SELECT_GPIO, IO_RESISTOR_DISABLED, IO_DIR_OUTPUT, IO_OUT_LOW },
+
+    /* I2C clock/data
+     * Resistor: Disabled (there are external pull-up resistors)
+     * Direction: Not applicable
+     * Output: Not applicable */
+    [IO_I2C_SCL] = { IO_SELECT_ALT3, IO_RESISTOR_DISABLED, IO_DIR_OUTPUT, IO_OUT_LOW },
+    [IO_I2C_SDA] = { IO_SELECT_ALT3, IO_RESISTOR_DISABLED, IO_DIR_OUTPUT, IO_OUT_LOW },
+
+    /* Input
+     * Range sensor provides open-drain output and should be connected to an external pull-up,
+     * and there is one on the breakout board, so no internal pull-up needed. */
+    [IO_RANGE_SENSOR_FRONT_INT] = { IO_SELECT_GPIO, IO_RESISTOR_DISABLED, IO_DIR_INPUT,
+                                    IO_OUT_LOW },
+
+#if defined(LAUNCHPAD)
+    // Unused pins
+    [IO_UNUSED_2] = UNUSED_CONFIG,
+    [IO_UNUSED_3] = UNUSED_CONFIG,
+    [IO_UNUSED_11] = UNUSED_CONFIG,
+    [IO_UNUSED_13] = UNUSED_CONFIG,
+#elif defined(NSUMO)
+
+    // Output
+    [IO_MOTORS_RIGHT_CC_1] = { IO_SELECT_GPIO, IO_RESISTOR_DISABLED, IO_DIR_OUTPUT, IO_OUT_LOW },
+    [IO_MOTORS_RIGHT_CC_2] = { IO_SELECT_GPIO, IO_RESISTOR_DISABLED, IO_DIR_OUTPUT, IO_OUT_LOW },
+
+    // Output driven by timer A0, direction must be set to output
+    [IO_PWM_MOTORS_RIGHT] = { IO_SELECT_ALT1, IO_RESISTOR_DISABLED, IO_DIR_OUTPUT, IO_OUT_LOW },
+
+    // Outputs
+    [IO_XSHUT_FRONT_LEFT] = { IO_SELECT_GPIO, IO_RESISTOR_DISABLED, IO_DIR_OUTPUT, IO_OUT_LOW },
+    [IO_XSHUT_RIGHT] = { IO_SELECT_GPIO, IO_RESISTOR_DISABLED, IO_DIR_OUTPUT, IO_OUT_LOW },
+    [IO_XSHUT_LEFT] = { IO_SELECT_GPIO, IO_RESISTOR_DISABLED, IO_DIR_OUTPUT, IO_OUT_LOW },
+    [IO_XSHUT_FRONT_RIGHT] = { IO_SELECT_GPIO, IO_RESISTOR_DISABLED, IO_DIR_OUTPUT, IO_OUT_LOW },
+
+    [IO_LINE_DETECT_FRONT_RIGHT] = ADC_CONFIG,
+    [IO_LINE_DETECT_BACK_RIGHT] = ADC_CONFIG,
+    [IO_LINE_DETECT_BACK_LEFT] = ADC_CONFIG,
+#endif
+};
+
 // cppcheck-suppress unusedFunction
+void io_init(void)
+{
+    for (io_e io = (io_e)IO_10; io < ARRAY_SIZE(io_initial_configs); io++) {
+        io_configure(io, &io_initial_configs[io]);
+    }
+}
+
 void io_configure(io_e io, const struct io_config *config)
 {
     io_set_select(io, config->select);
