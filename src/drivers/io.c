@@ -148,7 +148,6 @@ static const struct io_config io_initial_configs[IO_PORT_CNT * IO_PIN_CNT_PER_PO
 #endif
 };
 
-// cppcheck-suppress unusedFunction
 void io_init(void)
 {
     for (io_e io = (io_e)IO_10; io < ARRAY_SIZE(io_initial_configs); io++) {
