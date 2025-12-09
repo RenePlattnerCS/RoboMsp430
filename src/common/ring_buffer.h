@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 #include <stdbool.h>
-#include <assert.h>
+
 
 // Circular buffer (FIFO) that can store elements of any size.
 

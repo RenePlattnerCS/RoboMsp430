@@ -1,5 +1,4 @@
 #include "common/ring_buffer.h"
-#include "common/assert_handler.h"
 #include <string.h>
 
 void ring_buffer_put(struct ring_buffer *rb, const void *data)
@@ -22,7 +21,7 @@ void ring_buffer_put(struct ring_buffer *rb, const void *data)
 
 void ring_buffer_get(struct ring_buffer *rb, void *data)
 {
-    ASSERT(!ring_buffer_empty(rb));
+
     if (data) {
         memcpy(data, &rb->buffer[rb->tail_idx * rb->elem_size], rb->elem_size);
     }
@@ -39,13 +38,13 @@ void ring_buffer_get(struct ring_buffer *rb, void *data)
 
 void ring_buffer_peek_tail(const struct ring_buffer *rb, void *data)
 {
-    ASSERT(!ring_buffer_empty(rb));
+
     memcpy(data, &rb->buffer[rb->tail_idx * rb->elem_size], rb->elem_size);
 }
 
 void ring_buffer_peek_head(const struct ring_buffer *rb, void *data, uint8_t offset)
 {
-    ASSERT(offset < ring_buffer_count(rb));
+
     // Note, head_idx is pointing to the next empty slot, so decrement by 1
     int16_t offset_idx = ((int16_t)rb->head_idx - 1) - offset;
     if (offset_idx < 0) {

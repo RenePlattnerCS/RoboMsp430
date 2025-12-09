@@ -9,7 +9,9 @@ INCLUDE_DIRS = \
     $(STANDART_C_LIB) \
     src \
     src/drivers \
-    src/common \ 
+    src/common \
+    external/printf
+
 LIB_DIRS = $(MSPGCC_SUPPORT_DIR)/include
 
 TI_CCS_DIR = $(TOOLS_DIR)/ti/codeComposer/ccs2040/ccs
@@ -30,15 +32,21 @@ CPPCHECK = cppcheck
 # Files
 TARGET = $(BIN_DIR)/robo_sumo
 SRC_DIR = src
-SOURCES =$(SRC_DIR)/main.c $(SRC_DIR)/drivers/io.c $(SRC_DIR)/drivers/mcu_init.c $(SRC_DIR)/drivers/led.c
+#SOURCES =$(SRC_DIR)/main.c $(SRC_DIR)/drivers/io.c $(SRC_DIR)/drivers/mcu_init.c $(SRC_DIR)/drivers/led.c $(SRC_DIR)/drivers/uart.c $(SRC_DIR)/common/ring_buffer.c $(SRC_DIR)/external/printf/printf.c
+
+SOURCES := $(shell find $(SRC_DIR) -name '*.c')
+
+
+OBJECTS = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SOURCES))
 
 OBJECT_NAMES = $(SOURCES:.c=.o)
-OBJECTS = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SOURCES))
+
+
 
 # Flags
 MCU = msp430g2553
 WFLAGS = -Wall -Wextra -Werror -Wshadow
-CFLAGS = -mmcu=$(MCU) $(WFLAGS) $(addprefix -I, $(INCLUDE_DIRS)) -Og -g
+CFLAGS = -mmcu=$(MCU) $(WFLAGS) $(addprefix -I, $(INCLUDE_DIRS)) -Og -g -DPRINTF_INCLUDE_CONFIG_H
 LDFLAGS = -mmcu=$(MCU) $(addprefix -L,$(LIB_DIRS))
 
 # Linking
@@ -49,7 +57,8 @@ $(TARGET): $(OBJECTS)
 # Compiling
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) -c -o $@ $^
+	$(CC) $(CFLAGS) -c -o $@ $<
+
 
 
 # Phonies
@@ -64,14 +73,25 @@ clean:
 flash: $(TARGET)
 	$(DEBUG) tilib "erase all" "prog $(TARGET)" "reset"
 
+SYSTEM_INCLUDES = \
+    $(MSPGCC_SUPPORT_DIR)/include \
+    $(TOOLS_DIR)/msp430-gcc/lib/gcc/msp430-elf/9.3.1/include \
+    $(TOOLS_DIR)/msp430-gcc/msp430-elf/include
+
 cppcheck:
 	@$(CPPCHECK) --quiet --enable=all --error-exitcode=1 \
+	--std=c11 \
 	--inline-suppr \
 	--suppress=toomanyconfigs \
 	--suppress=unusedFunction \
-	--suppress=checkersReport \
-        $(addprefix -I, $(INCLUDE_DIRS)) \
+	--suppress=constParameterPointer \
+	$(addprefix -I, $(INCLUDE_DIRS)) \
+	$(addprefix -I, $(SYSTEM_INCLUDES)) \
 	$(SOURCES) \
-  	-i external/printf
+	-i external/printf
+
+
+
+
 format: 
 	@find . -name "*.c" -o -name "*.h" | xargs $(FORMAT) -i	

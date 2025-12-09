@@ -1,7 +1,8 @@
 #include "common/assert_handler.h"
 #include "common/defines.h"
 #include "drivers/uart.h"
-// #include "external/printf/printf.h"
+#include "printf.h"
+
 #include <msp430.h>
 
 /* The TI compiler provides intrinsic support for calling a specific opcode, which means
