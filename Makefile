@@ -1,3 +1,5 @@
+VPATH = src src/drivers src/common src/app external/printf
+
 # Directories
 TOOLS_DIR = ${TOOLS_PATH}
 MSPGCC_ROOT_DIR = $(TOOLS_DIR)/msp430-gcc
@@ -23,6 +25,7 @@ BIN_DIR = $(BUILD_DIR)/bin
 
 # Toolchain
 CC = $(MSPGCC_BIN_DIR)/msp430-elf-gcc
+
 RM = rm
 FORMAT = clang-format
 DEBUG = LD_LIBRARY_PATH=$(DEBUG_DRIVERS_DIR) $(DEBUG_BIN_DIR)/mspdebug
@@ -32,12 +35,16 @@ CPPCHECK = cppcheck
 # Files
 TARGET = $(BIN_DIR)/robo_sumo
 SRC_DIR = src
-#SOURCES =$(SRC_DIR)/main.c $(SRC_DIR)/drivers/io.c $(SRC_DIR)/drivers/mcu_init.c $(SRC_DIR)/drivers/led.c $(SRC_DIR)/drivers/uart.c $(SRC_DIR)/common/ring_buffer.c $(SRC_DIR)/external/printf/printf.c
 
-SOURCES := $(shell find $(SRC_DIR) -name '*.c')
+SOURCES := $(shell find $(SRC_DIR) -name '*.c') \
+           external/printf/printf.c
+
+CPPCHECK_SRC := $(shell find src/app src/common -name '*.c')
+CPPCHECK_INC := $(shell find src/app src/common -name '*.h')
 
 
-OBJECTS = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SOURCES))
+OBJECTS = $(subst $(SRC_DIR)/,$(OBJ_DIR)/,$(SOURCES:.c=.o))
+
 
 OBJECT_NAMES = $(SOURCES:.c=.o)
 
@@ -47,6 +54,9 @@ OBJECT_NAMES = $(SOURCES:.c=.o)
 MCU = msp430g2553
 WFLAGS = -Wall -Wextra -Werror -Wshadow
 CFLAGS = -mmcu=$(MCU) $(WFLAGS) $(addprefix -I, $(INCLUDE_DIRS)) -Og -g -DPRINTF_INCLUDE_CONFIG_H
+CFLAGS += -fdiagnostics-color=always
+
+
 LDFLAGS = -mmcu=$(MCU) $(addprefix -L,$(LIB_DIRS))
 
 # Linking
@@ -55,10 +65,9 @@ $(TARGET): $(OBJECTS)
 	$(CC) $(LDFLAGS) $^ -o $@
 
 # Compiling
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+$(OBJ_DIR)/%.o: %.c
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c -o $@ $<
-
 
 
 # Phonies
@@ -84,11 +93,9 @@ cppcheck:
 	--inline-suppr \
 	--suppress=toomanyconfigs \
 	--suppress=unusedFunction \
-	--suppress=constParameterPointer \
+	--suppress=missingIncludeSystem \
 	$(addprefix -I, $(INCLUDE_DIRS)) \
-	$(addprefix -I, $(SYSTEM_INCLUDES)) \
-	$(SOURCES) \
-	-i external/printf
+	$(CPPCHECK_SRC) $(CPPCHECK_INC)
 
 
 

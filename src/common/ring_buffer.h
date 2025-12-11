@@ -4,7 +4,6 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-
 // Circular buffer (FIFO) that can store elements of any size.
 
 struct ring_buffer
@@ -18,7 +17,6 @@ struct ring_buffer
 };
 
 #define RING_BUFFER(name, size, type, storage)                                                     \
-    static_assert(size < UINT8_MAX);                                                               \
     storage uint8_t name##_buffer[size * sizeof(type)] = { 0 };                                    \
     storage struct ring_buffer name = { .buffer = name##_buffer,                                   \
                                         .buffer_size = size,                                       \

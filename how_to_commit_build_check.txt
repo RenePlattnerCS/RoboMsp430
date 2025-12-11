@@ -1,0 +1,3 @@
+make all TOOLS_PATH=/home/rene/tools
+make format
+make cppcheck TOOLS_PATH=/home/rene/tools

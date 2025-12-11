@@ -3,7 +3,6 @@
 
 #include "common/defines.h"
 #include <msp430.h>
-
 #include <stdint.h>
 #include <stddef.h>
 
@@ -23,7 +22,6 @@ STATIC_RING_BUFFER(tx_buffer, UART_BUFFER_SIZE, uint8_t);
 #define UART_BAUD_RATE (115200u)
 
 #define UART_DIVISOR ((float)BRCLK / UART_BAUD_RATE)
-
 #define UART_DIVISOR_INT_16BIT ((uint16_t)UART_DIVISOR)
 #define UART_DIVISOR_INT_LOW_BYTE (UART_DIVISOR_INT_16BIT & 0xFF)
 #define UART_DIVISOR_INT_HIGH_BYTE (UART_DIVISOR_INT_16BIT >> 8)
@@ -99,8 +97,12 @@ static bool initialized = false;
 void uart_init(void)
 {
 
+    
+    // Configure UART pins: P1.1 = RXD, P1.2 = TXD
+    P1SEL |= BIT1 + BIT2;
+    P1SEL2 |= BIT1 + BIT2;
+    
     uart_configure();
-    // Interrupt triggers when TX buffer is empty, which it is after boot, so clear it here.
     uart_tx_clear_interrupt();
     uart_tx_enable_interrupt();
     initialized = true;
@@ -132,20 +134,3 @@ void uart_init_assert(void)
     uart_configure();
 }
 
-static void uart_putchar_polling(char c)
-{
-    if (c == '\n') {
-        uart_putchar_polling('\r');
-    }
-    UCA0TXBUF = c;
-    while (!(IFG2 & UCA0TXIFG)) { }
-}
-
-void uart_trace_assert(const char *string)
-{
-    int i = 0;
-    while (string[i] != '\0') {
-        uart_putchar_polling(string[i]);
-        i++;
-    }
-}

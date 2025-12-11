@@ -1,32 +1,36 @@
 #include <msp430.h>
 #include "drivers/mcu_init.h"
 #include "drivers/io.h"
+#include "led.h"
 
 // 16 MHz / 32768 = ~2000 Hz
 #define WDT_MDLY_0_5_16MHZ (WDTPW + WDTTMSEL + WDTCNTCL + WDTIS0)
 
-static inline void init_clocks()
+static void init_clocks()
 {
-    /* There are some variations between individual units, so TI calibrates
-     * each unit during manufacturing and stores the calibration value in
-     * memory to achieve a similar clock rate between different units. Sanity
-     * check that the calibration data has not been erased. */
-
-    /* Configure the internal oscillator (main clock) to run at 16 MHz.
-     * This clock is used as a reference to produce a more stable DCO. */
+    led_init();
+    led_state_e l_state = LED_STATE_OFF;
+    const struct io_config led_config = { .dir = IO_DIR_OUTPUT,
+                                          .select = IO_SELECT_GPIO,
+                                          .resistor = IO_RESISTOR_DISABLED,
+                                          .out = IO_OUT_LOW };
+    io_configure(IO_TEST_LED, &led_config);
+    
+    if (CALBC1_16MHZ == 0xFF || CALDCO_16MHZ == 0xFF) {
+        l_state = LED_STATE_ON;
+        led_set(LED_TEST, l_state);
+        while(1); // halt if calibration erased
+    }
+    
     BCSCTL1 = CALBC1_16MHZ;
-
-    // Sets the clock rate of the digitally controlled oscillator (DCO)
     DCOCTL = CALDCO_16MHZ;
-
-    /* Set DCO as source for
-     * MCLK: Master clock drives the CPU and some peripherals
-     * SMCLK: Subsystem master clock drives some peripherals */
-    // BCSCTL2 default
-
-    // Select the internal Very Low Frequency oscillator (VLO) as ACLK source
+    
+    // **CRITICAL: Explicitly configure SMCLK**
+    BCSCTL2 = 0;  // SMCLK = DCO/1, MCLK = DCO/1
+    
     BCSCTL3 = LFXT1S_2;
 }
+
 
 static inline void watchdog_setup(void)
 {
@@ -44,6 +48,8 @@ void mcu_init(void)
     watchdog_setup();
     init_clocks();
     io_init();
+
+
     //  Enables globally
     _enable_interrupts();
 }
