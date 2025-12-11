@@ -12,6 +12,7 @@ INCLUDE_DIRS = \
     src \
     src/drivers \
     src/common \
+    external \
     external/printf
 
 LIB_DIRS = $(MSPGCC_SUPPORT_DIR)/include
@@ -100,5 +101,9 @@ cppcheck:
 
 
 
-format: 
-	@find . -name "*.c" -o -name "*.h" | xargs $(FORMAT) -i	
+format:
+	@find . \
+	    -path ./external/printf -prune -o \
+	    -name "*.c" -o -name "*.h" \
+	    -print | xargs $(FORMAT) -i
+
