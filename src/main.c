@@ -2,18 +2,18 @@
 #include "io.h"
 #include "drivers/mcu_init.h"
 #include "drivers/led.h"
-#include "uart.h"
+#include "trace.h"
 #include "printf.h"
 
 int main(void)
 {
     mcu_init();
-    uart_init();
+    trace_init();
 
     
 
     while (1) {
-	    printf("Halo");
+	    TRACE("Hallo %d", 2121);
 	    __delay_cycles(16000000);
     }
 
