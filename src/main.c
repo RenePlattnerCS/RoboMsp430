@@ -10,11 +10,9 @@ int main(void)
     mcu_init();
     trace_init();
 
-    
-
     while (1) {
-	    TRACE("Hallo %d", 2121);
-	    __delay_cycles(16000000);
+        TRACE("Hallo %d", 2121);
+        __delay_cycles(16000000);
     }
 
     return 0;

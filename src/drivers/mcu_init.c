@@ -15,22 +15,22 @@ static void init_clocks()
                                           .resistor = IO_RESISTOR_DISABLED,
                                           .out = IO_OUT_LOW };
     io_configure(IO_TEST_LED, &led_config);
-    
+
     if (CALBC1_16MHZ == 0xFF || CALDCO_16MHZ == 0xFF) {
         l_state = LED_STATE_ON;
         led_set(LED_TEST, l_state);
-        while(1); // halt if calibration erased
+        while (1)
+            ; // halt if calibration erased
     }
-    
+
     BCSCTL1 = CALBC1_16MHZ;
     DCOCTL = CALDCO_16MHZ;
-    
+
     // **CRITICAL: Explicitly configure SMCLK**
-    BCSCTL2 = 0;  // SMCLK = DCO/1, MCLK = DCO/1
-    
+    BCSCTL2 = 0; // SMCLK = DCO/1, MCLK = DCO/1
+
     BCSCTL3 = LFXT1S_2;
 }
-
 
 static inline void watchdog_setup(void)
 {
@@ -48,7 +48,6 @@ void mcu_init(void)
     watchdog_setup();
     init_clocks();
     io_init();
-
 
     //  Enables globally
     _enable_interrupts();

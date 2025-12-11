@@ -5,7 +5,6 @@
 #include "printf.h"
 #include <stdbool.h>
 
-
 void trace_init(void)
 {
     uart_init();

@@ -97,11 +97,10 @@ static bool initialized = false;
 void uart_init(void)
 {
 
-    
     // Configure UART pins: P1.1 = RXD, P1.2 = TXD
     P1SEL |= BIT1 + BIT2;
     P1SEL2 |= BIT1 + BIT2;
-    
+
     uart_configure();
     uart_tx_clear_interrupt();
     uart_tx_enable_interrupt();
@@ -133,7 +132,6 @@ void uart_init_assert(void)
     uart_tx_disable_interrupt();
     uart_configure();
 }
-
 
 static void uart_putchar_polling(char c)
 {
