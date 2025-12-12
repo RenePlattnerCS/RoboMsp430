@@ -4,16 +4,26 @@
 #include "drivers/led.h"
 #include "trace.h"
 #include "printf.h"
+#include "drivers/ir_remote.h"
+#include "common/defines.h"
 
-int main(void)
+static void test_ir(void)
 {
     mcu_init();
     trace_init();
-
+    ir_remote_init();
     while (1) {
-        TRACE("Hallo %d", 2121);
-        __delay_cycles(16000000);
+        TRACE("cmd %d", ir_remote_get_cmd());
+	BUSY_WAIT_ms(250);
+
+	TRACE("------");
+        BUSY_WAIT_ms(250);
     }
 
+}
+
+int main(void)
+{
+    test_ir();
     return 0;
 }

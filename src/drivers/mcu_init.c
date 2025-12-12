@@ -38,8 +38,8 @@ static inline void watchdog_setup(void)
     WDTCTL = WDTPW + WDTHOLD;
 
     // Re-purpose watchdog to count milliseconds instead (see millis.c)
-    // WDTCTL = WDT_MDLY_0_5_16MHZ;
-    // IE1 |= WDTIE;
+    //WDTCTL = WDT_MDLY_0_5_16MHZ;
+    //IE1 |= WDTIE;
 }
 
 void mcu_init(void)
