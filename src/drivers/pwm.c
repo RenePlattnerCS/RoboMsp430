@@ -89,7 +89,7 @@ static inline uint8_t pwm_scale_duty_cycle(uint8_t duty_cycle_percent)
 
 void pwm_set_duty_cycle(pwm_e pwm, uint8_t duty_cycle_percent)
 {
-    if(duty_cycle_percent >= 100)
+    if(duty_cycle_percent > 100)
     {
     	return;
     }
