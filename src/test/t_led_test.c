@@ -1,7 +1,28 @@
 #include <msp430.h>
 #include "io.h"
-
+#include "drivers/mcu_init.h"
+#include "printf.h"
+#include "common/defines.h"
 #include "drivers/led.h"
+#include "drivers/ir_remote.h"
+#include "common/trace.h"
+
+SUPPRESS_UNUSED
+static void test_ir(void)
+{
+    mcu_init();
+    trace_init();
+    ir_remote_init();
+    while (1) {
+        TRACE("cmd %d", ir_remote_get_cmd());
+        BUSY_WAIT_ms(250);
+
+        TRACE("------");
+        BUSY_WAIT_ms(250);
+    }
+
+}
+
 
 void test_io_blink_led(void)
 {
