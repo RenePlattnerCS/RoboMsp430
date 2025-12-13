@@ -10,7 +10,14 @@ typedef enum {
     PWM_RIGHT
 } pwm_e;
 
+typedef enum {
+PWM_MAX_SPEED,
+PWM_HALF_SPEED,
+PWM_QUARTER_SPEED,
+PWM_STOP_SPEED
+} pwm_speed_e;
+
 void pwm_both_timers_init(void);
-void pwm_both_timers_set_duty_cycle(pwm_e pwm, uint8_t duty_cycle_percent);
+void pwm_both_timers_set_duty_cycle(pwm_e pwm, pwm_speed_e speed);
 
 #endif // PWM_H

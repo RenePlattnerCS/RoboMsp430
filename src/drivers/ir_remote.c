@@ -108,7 +108,7 @@ static void isr_pulse(void)
 
     ir_timer_start();
 }
-
+/*
 INTERRUPT_FUNCTION(TIMER1_A0_VECTOR) isr_timer_a0(void)
 {
     if (timer_ms < TIMER_TIMEOUT_ms) {
@@ -120,6 +120,7 @@ INTERRUPT_FUNCTION(TIMER1_A0_VECTOR) isr_timer_a0(void)
         timer_ms = 0;
     }
 }
+*/
 #endif // DISABLE_IR_REMOTE
 
 ir_cmd_e ir_remote_get_cmd(void)

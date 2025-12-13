@@ -58,8 +58,8 @@ CFLAGS = -mmcu=$(MCU) $(WFLAGS) $(addprefix -I, $(INCLUDE_DIRS)) -Og -g -DPRINTF
 CFLAGS += -fdiagnostics-color=always
 
 
-LDFLAGS = -mmcu=$(MCU) $(addprefix -L,$(LIB_DIRS))
-
+#LDFLAGS = -mmcu=$(MCU) $(addprefix -L,$(LIB_DIRS)) Wl,-Map,output.map
+LDFLAGS = -mmcu=$(MCU) $(addprefix -L,$(LIB_DIRS)) -Wl,-Map,output.map
 # Linking
 $(TARGET): $(OBJECTS)
 	@mkdir -p $(dir $@)

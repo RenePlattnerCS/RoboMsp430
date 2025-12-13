@@ -34,15 +34,32 @@ struct pwm_channel_cfg
     volatile unsigned int *const cctl;
     volatile unsigned int *const ccr;
     volatile unsigned int *const ctl;
-
+    bool uses_continuous_mode; //TA1 need it for IR capture
 	
 };
 
 static struct pwm_channel_cfg pwm_cfgs[] = {
-    [PWM_LEFT] = { .enabled = false, .cctl = &TA0CCTL1, .ccr = &TA0CCR1, .ctl = &TA0CTL },
-    [PWM_RIGHT] = { .enabled = false, .cctl = &TA1CCTL1, .ccr = &TA1CCR1, .ctl = &TA1CTL },
+    [PWM_LEFT] = { .enabled = false, .cctl = &TA0CCTL1, .ccr = &TA0CCR1, .ctl = &TA0CTL, .uses_continuous_mode = false },
+    [PWM_RIGHT] = { .enabled = false, .cctl = &TA1CCTL1, .ccr = &TA1CCR1, .ctl = &TA1CTL, .uses_continuous_mode = true },
 };
 
+static uint16_t ta1_ccr0_base = 0;
+//----------------------------
+//structs to help set the period
+struct pwm_period
+{
+    uint8_t a0_period;
+    uint8_t a1_period;
+};
+
+
+
+static struct pwm_period pwm_periods[] = {
+	[PWM_MAX_SPEED] = { .a0_period = 1u, .a1_period = 50u},
+	[PWM_HALF_SPEED] = { .a0_period = 2u, .a1_period = 25u},
+	[PWM_QUARTER_SPEED] = { .a0_period = 4u, .a1_period = 12u},
+	[PWM_STOP_SPEED] = { .a0_period = 0u, .a1_period = 0u}
+};
 
 //----------------------------
 // Helper function to check if any other channel using the given Control Register is active
@@ -57,54 +74,72 @@ static bool timer_has_active_channels(volatile unsigned int *timer_ctl_addr)
     return false;
 }
 
-
 static void pwm_channel_enable(pwm_e pwm, bool enable)
 {
-    volatile unsigned int *ctl_reg = pwm_cfgs[pwm].ctl; // Get TA0CTL or TA1CTL pointer
+    volatile unsigned int *ctl_reg = pwm_cfgs[pwm].ctl;
     
     if (pwm_cfgs[pwm].enabled != enable) {
         
-        // 1. Set the channel output mode (OUTMOD_7 or OUTMOD_0)
-        *pwm_cfgs[pwm].cctl = enable ? OUTMOD_7 : OUTMOD_0;
-        pwm_cfgs[pwm].enabled = enable;
-
-        // 2. Control the specific parent Timer (TA0 or TA1)
-        if (enable) {
-            // If enabling, ensure the timer starts (MC_1)
-            // *ctl_reg writes to TA0CTL or TA1CTL
-            // The TASSEL and ID bits should have been set in the _init function.
-            *ctl_reg = (*ctl_reg & ~TIMER_MC_MASK) | TACLR | MC_1;
-            
+        if (pwm_cfgs[pwm].uses_continuous_mode) {
+            // TA1 (Right motor) - Uses continuous mode for IR compatibility
+            if (enable) {
+                // Set Reset/Set mode (OUTMOD_7)
+                //*pwm_cfgs[pwm].cctl = OUTMOD_7;
+		TA1CCTL1 = OUTMOD_2;
+                
+                // Enable CCR0 interrupt for period management
+                TA1CCTL0 = CCIE;
+                
+                // Timer should already be in MC_2 (continuous) from IR init
+                // Just ensure it's running
+                *ctl_reg = (*ctl_reg & ~TIMER_MC_MASK) | TACLR | MC_2;
+            } else {
+                // Disable output
+                *pwm_cfgs[pwm].cctl = OUTMOD_0;
+                
+                // Disable CCR0 interrupt
+                TA1CCTL0 &= ~CCIE;
+                
+                // Keep timer running in continuous mode for IR capture
+                // Don't stop the timer!
+            }
         } else {
-            // If disabling, check if all other channels on this timer are also disabled
-            // If they are all disabled, stop the timer (MC_0)
-            if (!timer_has_active_channels(ctl_reg)) {
-                *ctl_reg = (*ctl_reg & ~TIMER_MC_MASK) | MC_0;
+            // TA0 (Left motor) - Standard up mode PWM
+            *pwm_cfgs[pwm].cctl = enable ? OUTMOD_7 : OUTMOD_0;
+            
+            if (enable) {
+                *ctl_reg = (*ctl_reg & ~TIMER_MC_MASK) | TACLR | MC_1;
+            } else {
+                if (ctl_reg == &TA0CTL) {
+                    if (!timer_has_active_channels(ctl_reg)) {
+                        *ctl_reg = (*ctl_reg & ~TIMER_MC_MASK) | MC_0;
+                    }
+                }
             }
         }
+        
+        pwm_cfgs[pwm].enabled = enable;
     }
 }
+
 //-----------------------------
 
-
+/*
 static inline uint8_t pwm_scale_duty_cycle(uint8_t duty_cycle_percent)
 {
-    /* Battery is at ~8 V when fully charged and motors are 6 V max,
+    * Battery is at ~8 V when fully charged and motors are 6 V max,
      * so scale down the duty cycle by 25% to be within specs. This
-     * should never return 0. */
+     * should never return 0. *
     return duty_cycle_percent == 1 ? duty_cycle_percent : duty_cycle_percent * 3 / 4;
 }
+*/
 
 
-
-void pwm_both_timers_set_duty_cycle(pwm_e pwm, uint8_t duty_cycle_percent)
+void pwm_both_timers_set_duty_cycle(pwm_e pwm, pwm_speed_e speed)
 {
-    if(duty_cycle_percent > 100)
-	    return;
-
-    const bool enable = duty_cycle_percent > 0;
+    const bool enable = (speed != PWM_STOP_SPEED);
     if (enable) {
-        *pwm_cfgs[pwm].ccr = pwm_scale_duty_cycle(duty_cycle_percent);
+        *pwm_cfgs[pwm].ccr = pwm_periods[speed].a1_period;
     }
     pwm_channel_enable(pwm, enable);
 }
@@ -124,13 +159,11 @@ static void timer_a0_init(void)
 
 static void timer_a1_init(void)
 {
-    /* TASSEL_2: Clock source SMCLK
-    * ID_3: Input divider /8
-    * MC_0: Stopped */
-    TA1CTL = TASSEL_2 + ID_3 + MC_0;
+     // MC_2:contious mode
+    TA1CTL = TASSEL_2 + ID_3 + TACLR + MC_2; 
     // Set period
     TA1CCR0 = PWM_CCR0;
-
+    ta1_ccr0_base = 0;  // Track the base value
 }
 
 
@@ -139,3 +172,34 @@ void pwm_both_timers_init(void)
     timer_a0_init();
     timer_a1_init();
 }
+
+
+//----------------------------
+// ISR for TA1 CCR0 - Manages PWM period in continuous mode
+//----------------------------
+INTERRUPT_FUNCTION(TIMER1_A0_VECTOR) isr_reset_continous_timer(void)
+{
+    if (pwm_cfgs[PWM_RIGHT].enabled) {
+        // 1. RESET output at start of period
+        TA1CCTL1 |= OUT;
+    }
+
+    // 2. Advance software period base
+    ta1_ccr0_base += PWM_CCR0 + 1;
+    TA1CCR0 = ta1_ccr0_base;
+
+    // 3. Schedule SET event strictly in the future
+    if (pwm_cfgs[PWM_RIGHT].enabled) {
+	uint16_t duty = *pwm_cfgs[PWM_RIGHT].ccr;
+
+        // --- SAFETY CLAMP (THIS IS THE PART YOU ASKED ABOUT) ---
+        if (duty == 0) {
+            duty = 1;
+        }
+        if (duty >= PWM_CCR0) {
+            duty = PWM_CCR0 - 1;
+        }
+        TA1CCR1 = ta1_ccr0_base + duty;
+    }
+}
+
