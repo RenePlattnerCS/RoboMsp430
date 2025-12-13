@@ -6,9 +6,10 @@
 #include "printf.h"
 #include "drivers/ir_remote.h"
 #include "common/defines.h"
-#include "drivers/pwm.h"
+#include "drivers/pwm_both_timers.h"
 #include "drivers/tb6612fng.h"
 
+SUPPRESS_UNUSED
 static void test_motor(void)
 {
     mcu_init();
@@ -28,8 +29,27 @@ static void test_motor(void)
     }
 }
 
+SUPPRESS_UNUSED
+static void test_pwm_timers(void)
+{
+    mcu_init();
+    trace_init();
+   // ir_remote_init();
+    pwm_both_timers_init();
+    const uint8_t duty_c = 50;
+    const uint16_t wait_time = 3000;
+    while (1) {
+        TRACE("Duty Cicle: %d for %d ms", duty_c , wait_time);
+        pwm_both_timers_set_duty_cycle(PWM_LEFT, duty_c);
+        pwm_both_timers_set_duty_cycle(PWM_RIGHT, duty_c);
+	BUSY_WAIT_ms(3000);
+    }
+
+}
+
+
 int main(void)
 {
-    test_motor();
+    test_pwm_timers();
     return 0;
 }
