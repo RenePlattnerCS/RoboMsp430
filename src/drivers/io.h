@@ -22,10 +22,10 @@ typedef enum {
 
 typedef enum {
 #if defined(LAUNCHPAD) // Launchpad (MSP430G2553IN20)
-    IO_TEST_LED = IO_10,
+    IO_MOTORS_RIGHT_CC_1 = IO_10,
     IO_UART_RXD = IO_11,
     IO_UART_TXD = IO_12,
-    IO_UNUSED_11 = IO_13,
+    IO_MOTORS_RIGHT_CC_2 = IO_13,
     IO_MOTORS_LEFT_CC_2 = IO_14,
     IO_UNUSED_2 = IO_15,
     IO_I2C_SCL = IO_16,

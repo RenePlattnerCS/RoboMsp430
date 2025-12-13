@@ -5,8 +5,7 @@
 
 #include <stdint.h>
 
-typedef enum
-{
+typedef enum {
     PWM_LEFT,
     PWM_RIGHT
 } pwm_e;

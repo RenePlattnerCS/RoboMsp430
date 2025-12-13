@@ -1,26 +1,18 @@
 #include <msp430.h>
 #include "drivers/mcu_init.h"
 #include "drivers/io.h"
-#include "led.h"
+
 
 // 16 MHz / 32768 = ~2000 Hz
 #define WDT_MDLY_0_5_16MHZ (WDTPW + WDTTMSEL + WDTCNTCL + WDTIS0)
 
 static void init_clocks()
 {
-    led_init();
-    led_state_e l_state = LED_STATE_OFF;
-    const struct io_config led_config = { .dir = IO_DIR_OUTPUT,
-                                          .select = IO_SELECT_GPIO,
-                                          .resistor = IO_RESISTOR_DISABLED,
-                                          .out = IO_OUT_LOW };
-    io_configure(IO_TEST_LED, &led_config);
+    
+   
 
     if (CALBC1_16MHZ == 0xFF || CALDCO_16MHZ == 0xFF) {
-        l_state = LED_STATE_ON;
-        led_set(LED_TEST, l_state);
-        while (1)
-            ; // halt if calibration erased
+        while (1); // halt if calibration erased
     }
 
     BCSCTL1 = CALBC1_16MHZ;

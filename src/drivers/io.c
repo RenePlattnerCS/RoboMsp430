@@ -85,7 +85,7 @@ static isr_function isr_functions[IO_INTERRUPT_PORT_CNT][IO_PIN_CNT_PER_PORT] = 
 // This array holds the initial configuration for all IO pins.
 static const struct io_config io_initial_configs[IO_PORT_CNT * IO_PIN_CNT_PER_PORT] = {
     // Output
-    [IO_TEST_LED] = { IO_SELECT_GPIO, IO_RESISTOR_DISABLED, IO_DIR_OUTPUT, IO_OUT_LOW },
+    //[IO_TEST_LED] = { IO_SELECT_GPIO, IO_RESISTOR_DISABLED, IO_DIR_OUTPUT, IO_OUT_LOW },
 
     /* UART RX/TX
      * Resistor: Not needed (pulled by transmitter/receiver)
@@ -105,6 +105,11 @@ static const struct io_config io_initial_configs[IO_PORT_CNT * IO_PIN_CNT_PER_PO
     // Output
     [IO_MOTORS_LEFT_CC_1] = { IO_SELECT_GPIO, IO_RESISTOR_DISABLED, IO_DIR_OUTPUT, IO_OUT_LOW },
     [IO_MOTORS_LEFT_CC_2] = { IO_SELECT_GPIO, IO_RESISTOR_DISABLED, IO_DIR_OUTPUT, IO_OUT_LOW },
+
+    [IO_MOTORS_RIGHT_CC_1] = { IO_SELECT_GPIO, IO_RESISTOR_DISABLED, IO_DIR_OUTPUT, IO_OUT_LOW },
+    [IO_MOTORS_RIGHT_CC_2] = { IO_SELECT_GPIO, IO_RESISTOR_DISABLED, IO_DIR_OUTPUT, IO_OUT_LOW },
+
+
 
     [IO_LINE_DETECT_FRONT_LEFT] = ADC_CONFIG,
 
@@ -127,7 +132,7 @@ static const struct io_config io_initial_configs[IO_PORT_CNT * IO_PIN_CNT_PER_PO
     // Unused pins
     [IO_UNUSED_2] = UNUSED_CONFIG,
     //[IO_UNUSED_3] = UNUSED_CONFIG,
-    [IO_UNUSED_11] = UNUSED_CONFIG,
+    //[IO_UNUSED_11] = UNUSED_CONFIG,
     [IO_UNUSED_13] = UNUSED_CONFIG,
 #endif
 };

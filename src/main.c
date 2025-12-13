@@ -1,7 +1,6 @@
 #include <msp430.h>
 #include "io.h"
 #include "drivers/mcu_init.h"
-#include "drivers/led.h"
 #include "trace.h"
 #include "printf.h"
 #include "drivers/ir_remote.h"
@@ -16,15 +15,20 @@ static void test_motor(void)
     trace_init();
     
     tb6612fng_init();
-    const uint8_t duty_c = 100; 
-       
+    const uint8_t duty_c = 80; 
+    const uint8_t duty_c2 = 25;   
 //    tb6612fng_set_mode(TB6612FNG_LEFT, TB6612FNG_MODE_FORWARD);
 //    tb6612fng_set_pwm(TB6612FNG_LEFT , duty_c);
 
     while (1) {
-        TRACE("test motor");
+        TRACE("test motor 2");
 	tb6612fng_set_mode(TB6612FNG_LEFT, TB6612FNG_MODE_FORWARD);
 	tb6612fng_set_pwm(TB6612FNG_LEFT , duty_c);
+	
+
+	tb6612fng_set_mode(TB6612FNG_RIGHT, TB6612FNG_MODE_FORWARD);
+        tb6612fng_set_pwm(TB6612FNG_RIGHT , duty_c2);
+
 	BUSY_WAIT_ms(3000);
     }
 }
@@ -35,7 +39,8 @@ static void test_pwm_timers(void)
     mcu_init();
     trace_init();
    // ir_remote_init();
-    pwm_both_timers_init();
+   pwm_both_timers_init();
+   
     const uint8_t duty_c = 50;
     const uint16_t wait_time = 3000;
     while (1) {
@@ -50,6 +55,7 @@ static void test_pwm_timers(void)
 
 int main(void)
 {
-    test_pwm_timers();
+   // test_pwm_timers();
+   test_motor();
     return 0;
 }

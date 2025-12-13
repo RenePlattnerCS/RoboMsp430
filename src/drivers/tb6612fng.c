@@ -1,5 +1,5 @@
 #include "drivers/tb6612fng.h"
-#include "drivers/pwm.h"
+#include "drivers/pwm_both_timers.h"
 #include "drivers/io.h"
 
 struct cc_pins
@@ -10,12 +10,7 @@ struct cc_pins
 
 static struct cc_pins tb6612fng_cc_pins[] = {
     [TB6612FNG_LEFT] = { IO_MOTORS_LEFT_CC_1, IO_MOTORS_LEFT_CC_2 },
-#if defined(LAUNCHPAD)
-    // Launchpad has no pins for right motor driver, duplicate left to avoid compilation error
-    [TB6612FNG_RIGHT] = { IO_MOTORS_LEFT_CC_1, IO_MOTORS_LEFT_CC_2 },
-#elif defined(NSUMO)
     [TB6612FNG_RIGHT] = { IO_MOTORS_RIGHT_CC_1, IO_MOTORS_RIGHT_CC_2 },
-#endif
 };
 
 void tb6612fng_set_mode(tb6612fng_e tb, tb6612fng_mode_e mode)
@@ -38,11 +33,11 @@ void tb6612fng_set_mode(tb6612fng_e tb, tb6612fng_mode_e mode)
 
 void tb6612fng_set_pwm(tb6612fng_e tb, uint8_t duty_cycle)
 {
-    pwm_set_duty_cycle((pwm_e)tb, duty_cycle);
+    pwm_both_timers_set_duty_cycle((pwm_e)tb, duty_cycle);
 }
 
 
 void tb6612fng_init(void)
 {
-    pwm_init();
+    pwm_both_timers_init();
 }

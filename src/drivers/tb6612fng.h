@@ -5,14 +5,12 @@
 
 #include <stdint.h>
 
-typedef enum
-{
+typedef enum {
     TB6612FNG_LEFT,
     TB6612FNG_RIGHT
 } tb6612fng_e;
 
-typedef enum
-{
+typedef enum {
     TB6612FNG_MODE_STOP,
     TB6612FNG_MODE_FORWARD, // Clockwise (CC)
     TB6612FNG_MODE_REVERSE, // Counterclockwise (CCW)
