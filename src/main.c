@@ -139,19 +139,22 @@ static void test_motor(void)
 {
     mcu_init();
     trace_init();
-    
+    ir_remote_init_ta1(); 
     tb6612fng_init();
-//    tb6612fng_set_mode(TB6612FNG_LEFT, TB6612FNG_MODE_FORWARD);
-//    tb6612fng_set_pwm(TB6612FNG_LEFT , duty_c);
+	tb6612fng_set_mode(TB6612FNG_LEFT, TB6612FNG_MODE_FORWARD);
+        tb6612fng_set_pwm(TB6612FNG_LEFT , PWM_MAX_SPEED);
+
+
+        tb6612fng_set_mode(TB6612FNG_RIGHT, TB6612FNG_MODE_FORWARD);
+        tb6612fng_set_pwm(TB6612FNG_RIGHT , PWM_MAX_SPEED);
 
     while (1) {
         TRACE("test motor 2");
-	tb6612fng_set_mode(TB6612FNG_LEFT, TB6612FNG_MODE_FORWARD);
-	tb6612fng_set_pwm(TB6612FNG_LEFT , PWM_MAX_SPEED);
 	
-
-	tb6612fng_set_mode(TB6612FNG_RIGHT, TB6612FNG_MODE_FORWARD);
-        tb6612fng_set_pwm(TB6612FNG_RIGHT , PWM_MAX_SPEED);
+	ir_cmd_e cmd = ir_remote_get_cmd_ta1();
+        if (cmd != IR_CMD_NONE) {
+            TRACE("Command received: %d (0x%02X)", cmd, cmd);
+        }
 
 	BUSY_WAIT_ms(3000);
     }
@@ -162,7 +165,7 @@ static void test_pwm_timers(void)
 {
     mcu_init();
     trace_init();
-   // ir_remote_init();
+   ir_remote_init_ta1();
    pwm_both_timers_init();
    
     

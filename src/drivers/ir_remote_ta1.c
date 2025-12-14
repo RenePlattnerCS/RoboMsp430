@@ -104,7 +104,6 @@ static void ir_parse(uint16_t dur)
                     break;
                 case 32:
                     ir_message.decoded.cmd_inverted = current_byte;
-                    P1OUT ^= BIT0;
                     
                     // Validate NEC checksum
                     if ((ir_message.decoded.cmd ^ ir_message.decoded.cmd_inverted) == 0xFF) {

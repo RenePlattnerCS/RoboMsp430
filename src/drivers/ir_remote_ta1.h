@@ -28,4 +28,3 @@ void ir_remote_init_ta1(void);
 void ir_debug_print_log(void);
 ir_cmd_e ir_remote_get_cmd_ta1(void);
 #endif // IR_REMOTE_TA1_H
-

@@ -11,10 +11,10 @@ typedef enum {
 } pwm_e;
 
 typedef enum {
-PWM_MAX_SPEED,
-PWM_HALF_SPEED,
-PWM_QUARTER_SPEED,
-PWM_STOP_SPEED
+    PWM_MAX_SPEED,
+    PWM_HALF_SPEED,
+    PWM_QUARTER_SPEED,
+    PWM_STOP_SPEED
 } pwm_speed_e;
 
 void pwm_both_timers_init(void);
