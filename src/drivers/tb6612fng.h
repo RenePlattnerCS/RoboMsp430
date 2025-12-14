@@ -4,6 +4,7 @@
 // Driver for motor driver TB6612FNG
 
 #include <stdint.h>
+#include "drivers/pwm_both_timers.h"
 
 typedef enum {
     TB6612FNG_LEFT,
@@ -18,6 +19,6 @@ typedef enum {
 
 void tb6612fng_init(void);
 void tb6612fng_set_mode(tb6612fng_e tb, tb6612fng_mode_e mode);
-void tb6612fng_set_pwm(tb6612fng_e tb, uint8_t duty_cycle);
+void tb6612fng_set_pwm(tb6612fng_e tb, pwm_speed_e speed);
 
 #endif

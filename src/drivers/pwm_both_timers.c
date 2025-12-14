@@ -28,7 +28,7 @@
 // Timer counts from 0, so should decrement by 1
 #define PWM_CCR0 (PWM_PERIOD_TICKS - 1)
 
-static pwm_speed_e current_speed;
+static pwm_speed_e current_speed_right;
 bool is_chanel_enabled[2] = { false, false}; 
 
 //static struct pwm_channel_cfg pwm_cfgs[] = {
@@ -43,17 +43,17 @@ static uint16_t ta1_ccr0_base = 0;
 //structs to help set the period
 struct pwm_period
 {
-    uint8_t a0_period[2];
-    uint8_t a1_period;
+    uint8_t a1_period[2];
+    uint8_t a0_period;
 };
 
 
 
 static struct pwm_period pwm_periods[] = {
-	[PWM_MAX_SPEED] = { .a0_period = {PWM_PERIOD_TICKS * 1u, PWM_PERIOD_TICKS *2u}, .a1_period = 63u},
-	[PWM_HALF_SPEED] = { .a0_period = {PWM_PERIOD_TICKS * 1u, PWM_PERIOD_TICKS * 1u}, .a1_period = 50u},
-	[PWM_QUARTER_SPEED] = { .a0_period = {PWM_PERIOD_TICKS / 2}, .a1_period = 25u},
-	[PWM_STOP_SPEED] = { .a0_period ={1u, PWM_PERIOD_TICKS}, .a1_period = 0u}
+	[PWM_MAX_SPEED] = { .a1_period = {PWM_PERIOD_TICKS * 2u, PWM_PERIOD_TICKS *1u}, .a0_period = 67u},
+	[PWM_HALF_SPEED] = { .a1_period = {PWM_PERIOD_TICKS * 1u, PWM_PERIOD_TICKS * 1u}, .a0_period = 50u},
+	[PWM_QUARTER_SPEED] = { .a1_period = {PWM_PERIOD_TICKS / 2}, .a0_period = 25u},
+	[PWM_STOP_SPEED] = { .a1_period ={1u, PWM_PERIOD_TICKS}, .a0_period = 0u}
 };
 
 //----------------------------
@@ -99,10 +99,16 @@ void pwm_both_timers_set_duty_cycle(pwm_e pwm, pwm_speed_e speed)
     if (enable) {
 	if(pwm == PWM_LEFT)
 	{
-		TA0CCR1 = pwm_periods[speed].a1_period;
+		TA0CCR1 = pwm_periods[speed].a0_period;
 	}
-    pwm_channel_enable(pwm, enable);
-    current_speed = speed;
+	else
+	{
+		__disable_interrupt();
+   		 current_speed_right = speed;
+	    	__enable_interrupt();
+
+	}
+	pwm_channel_enable(pwm, enable);
 }
 }
 
@@ -126,7 +132,7 @@ static void timer_a1_init(void)
     ta1_ccr0_base = TA1R + PWM_PERIOD_TICKS;  // Track the base value
     TA1CCR0 = ta1_ccr0_base;
 	
-    TA1CCTL0 = CCIE;
+    //TA1CCTL0 = CCIE;
 }
 
 
@@ -135,7 +141,7 @@ void pwm_both_timers_init(void)
     timer_a0_init();
     timer_a1_init();
 
-    current_speed = PWM_STOP_SPEED;
+    current_speed_right = PWM_STOP_SPEED;
 }
 
 
@@ -150,13 +156,13 @@ INTERRUPT_FUNCTION(TIMER1_A0_VECTOR) isr_reset_continous_timer(void)
 	if(!toggle_bit)
 	{
 		io_set_out(IO_PWM_MOTORS_RIGHT, IO_OUT_HIGH);
-		ta1_ccr0_base += PWM_PERIOD_TICKS / 4;
+		ta1_ccr0_base += pwm_periods[current_speed_right].a1_period[0];
 
 	}
 	else
 	{
 		io_set_out(IO_PWM_MOTORS_RIGHT, IO_OUT_LOW);
-		ta1_ccr0_base += PWM_PERIOD_TICKS ;
+		ta1_ccr0_base += pwm_periods[current_speed_right].a1_period[1];
 
 	}
     	toggle_bit = !toggle_bit;

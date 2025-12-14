@@ -141,19 +141,17 @@ static void test_motor(void)
     trace_init();
     
     tb6612fng_init();
-    const uint8_t duty_c = 80; 
-    const uint8_t duty_c2 = 25;   
 //    tb6612fng_set_mode(TB6612FNG_LEFT, TB6612FNG_MODE_FORWARD);
 //    tb6612fng_set_pwm(TB6612FNG_LEFT , duty_c);
 
     while (1) {
         TRACE("test motor 2");
 	tb6612fng_set_mode(TB6612FNG_LEFT, TB6612FNG_MODE_FORWARD);
-	tb6612fng_set_pwm(TB6612FNG_LEFT , duty_c);
+	tb6612fng_set_pwm(TB6612FNG_LEFT , PWM_MAX_SPEED);
 	
 
 	tb6612fng_set_mode(TB6612FNG_RIGHT, TB6612FNG_MODE_FORWARD);
-        tb6612fng_set_pwm(TB6612FNG_RIGHT , duty_c2);
+        tb6612fng_set_pwm(TB6612FNG_RIGHT , PWM_MAX_SPEED);
 
 	BUSY_WAIT_ms(3000);
     }
@@ -168,8 +166,8 @@ static void test_pwm_timers(void)
    pwm_both_timers_init();
    
     
-   pwm_both_timers_set_duty_cycle(PWM_LEFT, PWM_HALF_SPEED);
-    //pwm_both_timers_set_duty_cycle(PWM_RIGHT, duty_c2);
+   pwm_both_timers_set_duty_cycle(PWM_LEFT, PWM_MAX_SPEED);
+   pwm_both_timers_set_duty_cycle(PWM_RIGHT, PWM_MAX_SPEED);
 
     while (1) {
        // TRACE("Duty Cicle: %d", duty_c);
@@ -182,7 +180,7 @@ static void test_pwm_timers(void)
 int main(void)
 {
    //test_ir_ta1();
-   test_pwm_timers();
-   //test_motor();
+   //test_pwm_timers();
+   test_motor();
    return 0;
 }
