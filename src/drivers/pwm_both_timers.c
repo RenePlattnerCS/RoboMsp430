@@ -51,9 +51,14 @@ struct pwm_period
 
 static struct pwm_period pwm_periods[] = {
 	[PWM_MAX_SPEED] = { .a1_period = {PWM_PERIOD_TICKS * 2u, PWM_PERIOD_TICKS *1u}, .a0_period = 67u},
+	[PWM_HALF_PLUS_SPEED] = { .a1_period = {PWM_PERIOD_TICKS + (PWM_PERIOD_TICKS /2), PWM_PERIOD_TICKS *1u}, .a0_period = 60u},
 	[PWM_HALF_SPEED] = { .a1_period = {PWM_PERIOD_TICKS * 1u, PWM_PERIOD_TICKS * 1u}, .a0_period = 50u},
-	[PWM_QUARTER_SPEED] = { .a1_period = {PWM_PERIOD_TICKS / 2}, .a0_period = 25u},
+	[PWM_QUARTER_PLUS_SPEED] = { .a1_period = {(PWM_PERIOD_TICKS / 2) + (PWM_PERIOD_TICKS / 4), PWM_PERIOD_TICKS *1u}, .a0_period = 43u},
+	[PWM_QUARTER_SPEED] = { .a1_period = {PWM_PERIOD_TICKS / 2, PWM_PERIOD_TICKS}, .a0_period = 33u},
+	[PWM_EIGHTH_PLUS_SPEED] = { .a1_period = {(PWM_PERIOD_TICKS / 4) + (PWM_PERIOD_TICKS / 8), PWM_PERIOD_TICKS *1u}, .a0_period = 27u},
+	[PWM_EIGHTH_SPEED] = { .a1_period ={PWM_PERIOD_TICKS / 4, PWM_PERIOD_TICKS}, .a0_period = 20u},
 	[PWM_STOP_SPEED] = { .a1_period ={1u, PWM_PERIOD_TICKS}, .a0_period = 0u}
+
 };
 
 //----------------------------

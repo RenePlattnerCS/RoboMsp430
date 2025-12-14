@@ -7,7 +7,7 @@
 #include "common/defines.h"
 #include "drivers/pwm_both_timers.h"
 #include "drivers/tb6612fng.h"
-
+#include "app/drive.h"
 
 #define IO_TEST_BUTTON IO_MOTORS_RIGHT_CC_2 // Alias P1.3 for clarity
 #define IO_TEST_LED    IO_MOTORS_RIGHT_CC_1
@@ -166,24 +166,110 @@ static void test_pwm_timers(void)
     mcu_init();
     trace_init();
    ir_remote_init_ta1();
-   pwm_both_timers_init();
-   
-    
-   pwm_both_timers_set_duty_cycle(PWM_LEFT, PWM_MAX_SPEED);
-   pwm_both_timers_set_duty_cycle(PWM_RIGHT, PWM_MAX_SPEED);
+   //pwm_both_timers_init();
+  tb6612fng_init();
 
+   pwm_speed_e speeds[7] =  {
+    PWM_MAX_SPEED,
+    PWM_HALF_PLUS_SPEED,
+    PWM_HALF_SPEED,
+    PWM_QUARTER_PLUS_SPEED,
+    PWM_QUARTER_SPEED,
+    PWM_EIGHTH_PLUS_SPEED,
+    PWM_EIGHTH_SPEED
+}; 
+
+static const char *speed_name[] = {
+    "MAX",
+    "HALF+",
+    "HALF",
+    "QUARTER+",
+    "QUARTER",
+    "EIGTH+",
+    "EIGTH"
+};
+    
+   //pwm_both_timers_set_duty_cycle(PWM_LEFT, PWM_MAX_SPEED);
+   //pwm_both_timers_set_duty_cycle(PWM_RIGHT, PWM_MAX_SPEED);
+uint8_t i = 0;
     while (1) {
-       // TRACE("Duty Cicle: %d", duty_c);
-	//BUSY_WAIT_ms(3000);
+	
+        TRACE("speed: %s",speed_name[i] );
+	//pwm_both_timers_set_duty_cycle(PWM_LEFT, speeds[i]);
+       // pwm_both_timers_set_duty_cycle(PWM_RIGHT, speeds[i]);
+        tb6612fng_set_mode(TB6612FNG_LEFT, TB6612FNG_MODE_FORWARD);
+        tb6612fng_set_pwm(TB6612FNG_LEFT , speeds[i]);
+
+
+        tb6612fng_set_mode(TB6612FNG_RIGHT, TB6612FNG_MODE_FORWARD);
+        tb6612fng_set_pwm(TB6612FNG_RIGHT , speeds[i]);
+	BUSY_WAIT_ms(5000);
+	
+	i++;
+	if (i >= 7)
+	{
+		i = 0;
+	}
     }
 
 }
 
+void test_driver(void)
+{
+    mcu_init();
+    trace_init();
+    drive_init();
+    ir_remote_init_ta1();
+
+    drive_set(DRIVE_DIR_REVERSE, DRIVE_SPEED_MEDIUM);
+    while(1)
+    {
+	ir_cmd_e cmd = ir_remote_get_cmd_ta1();
+        if (cmd != IR_CMD_NONE) {
+            TRACE("Command received: %d (0x%02X)", cmd, cmd);
+
+		switch(cmd)
+		{
+			case IR_CMD_1:
+				drive_set(DRIVE_DIR_FORWARD, DRIVE_SPEED_MAX);
+				break;
+				case IR_CMD_8:
+                                drive_set(DRIVE_DIR_ARCTURN_MID_LEFT, DRIVE_SPEED_MEDIUM);
+                                break;
+				case IR_CMD_2:
+                                drive_set(DRIVE_DIR_FORWARD, DRIVE_SPEED_FAST);
+                                break;
+				case IR_CMD_3:
+                                drive_set(DRIVE_DIR_FORWARD, DRIVE_SPEED_MEDIUM);
+                                break;
+				case IR_CMD_4:
+                                drive_set(DRIVE_DIR_FORWARD, DRIVE_SPEED_SLOW);
+                                break;
+				case IR_CMD_5:
+                                drive_set(DRIVE_DIR_REVERSE, DRIVE_SPEED_SLOW);
+                                break;
+				case IR_CMD_6:
+                                drive_set(DRIVE_DIR_ROTATE_LEFT, DRIVE_SPEED_MAX);
+                                break;
+				case IR_CMD_7:
+                                drive_set(DRIVE_DIR_ROTATE_RIGHT, DRIVE_SPEED_MAX);
+                                break;
+			default:
+				break;
+		}
+
+
+        }
+
+    	
+    }
+}
 
 int main(void)
 {
    //test_ir_ta1();
    //test_pwm_timers();
-   test_motor();
+   //test_motor();
+   test_driver();
    return 0;
 }

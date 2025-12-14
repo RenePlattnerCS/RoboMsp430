@@ -33,7 +33,6 @@ void tb6612fng_set_mode(tb6612fng_e tb, tb6612fng_mode_e mode)
 void tb6612fng_set_pwm(tb6612fng_e tb, pwm_speed_e speed)
 {
    pwm_both_timers_set_duty_cycle(tb, speed);
-   pwm_both_timers_set_duty_cycle(tb, speed);
 }
 
 

@@ -12,8 +12,12 @@ typedef enum {
 
 typedef enum {
     PWM_MAX_SPEED,
+    PWM_HALF_PLUS_SPEED,
     PWM_HALF_SPEED,
+    PWM_QUARTER_PLUS_SPEED,
     PWM_QUARTER_SPEED,
+    PWM_EIGHTH_PLUS_SPEED,
+    PWM_EIGHTH_SPEED,
     PWM_STOP_SPEED
 } pwm_speed_e;
 
