@@ -27,17 +27,17 @@ typedef enum {
     IO_UART_TXD = IO_12,
     IO_MOTORS_RIGHT_CC_2 = IO_13,
     IO_MOTORS_LEFT_CC_2 = IO_14,
-    IO_UNUSED_2 = IO_15,
+    IO_UNUSED_2 = IO_15,               //unused
     IO_I2C_SCL = IO_16,
     IO_I2C_SDA = IO_17,
-    IO_LINE_DETECT_FRONT_LEFT = IO_20,
+    IO_LINE_DETECT_FRONT_LEFT = IO_20, //no line detect
     IO_MOTORS_LEFT_CC_1 = IO_21,
     IO_PWM_MOTORS_RIGHT = IO_22,
     IO_RANGE_SENSOR_FRONT_INT = IO_23,
     IO_XSHUT_FRONT = IO_24,
     IO_IR_REMOTE = IO_25,
     IO_PWM_MOTORS_LEFT = IO_26,
-    IO_UNUSED_13 = IO_27,
+    IO_UNUSED_13 = IO_27,              //unused
 #elif defined(NSUMO) // Nsumo rev 2 (MSP430G2553IPW28)
     IO_LINE_DETECT_FRONT_RIGHT = IO_10,
     IO_UART_RXD = IO_11,

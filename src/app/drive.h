@@ -3,8 +3,7 @@
 
 // A coarser drive interface for controlling the motors from the application code
 
-typedef enum
-{
+typedef enum {
     DRIVE_DIR_FORWARD,
     DRIVE_DIR_REVERSE,
     DRIVE_DIR_ROTATE_LEFT,
@@ -17,8 +16,7 @@ typedef enum
     DRIVE_DIR_ARCTURN_WIDE_RIGHT,
 } drive_dir_e;
 
-typedef enum
-{
+typedef enum {
     DRIVE_SPEED_SLOW,
     DRIVE_SPEED_MEDIUM,
     DRIVE_SPEED_FAST,

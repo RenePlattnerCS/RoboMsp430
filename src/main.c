@@ -8,6 +8,8 @@
 #include "drivers/pwm_both_timers.h"
 #include "drivers/tb6612fng.h"
 #include "app/drive.h"
+#include "drivers/i2c.h"
+#include "drivers/vl53l0x.h"
 
 #define IO_TEST_BUTTON IO_MOTORS_RIGHT_CC_2 // Alias P1.3 for clarity
 #define IO_TEST_LED    IO_MOTORS_RIGHT_CC_1
@@ -78,7 +80,7 @@ static void setup_p1_interrupt_test(void)
     
 }
 
-
+SUPPRESS_UNUSED
 void ir_remote_init_ta1_2(void)
 {
 
@@ -214,6 +216,7 @@ uint8_t i = 0;
 
 }
 
+SUPPRESS_UNUSED
 void test_driver(void)
 {
     mcu_init();
@@ -265,11 +268,74 @@ void test_driver(void)
     }
 }
 
+
+SUPPRESS_UNUSED
+void test_vlx(void)
+{
+	mcu_init();
+        trace_init();
+
+	vl53l0x_result_e result = vl53l0x_init();
+	if(result) {
+		TRACE("vl init failed");
+	}
+
+	while(1)
+	{
+		uint16_t range = 0;
+		result = vl53l0x_read_range_single(VL53L0X_IDX_FRONT, &range);
+		if (result)
+		{
+			TRACE("meassurement failed: %u", result);
+		}else{
+			if(range != VL53L0X_OUT_OF_RANGE) {
+				TRACE("Range %u", range);
+			}else{
+				TRACE("Range %u mm", range);
+			}
+		}
+
+		BUSY_WAIT_ms(1000);
+	}
+}
+
+SUPPRESS_UNUSED
+void test_i2c(void)
+{
+	mcu_init();
+	trace_init();
+	i2c_init();
+	io_set_out(IO_XSHUT_FRONT,IO_OUT_HIGH );
+	i2c_set_slave_address(0x29);
+	BUSY_WAIT_ms(100); 
+	while(1)
+	{
+		BUSY_WAIT_ms(100);
+		uint8_t vl53l0x_id = 0;
+		i2c_result_e result = i2c_read_addr8_data8(0xC0, &vl53l0x_id);
+		if(result) {
+			TRACE("I2C Error %d", result);
+		}
+		else
+		{
+			if(vl53l0x_id == 0xEE)
+			{
+				TRACE("READ expected id");
+			}else {
+				TRACE("Reas unexpected id 0x%X", vl53l0x_id); 
+			}
+			
+		}
+	}
+}
+
 int main(void)
 {
    //test_ir_ta1();
    //test_pwm_timers();
    //test_motor();
-   test_driver();
+   //test_driver();
+   test_vlx();
+   //test_i2c();
    return 0;
 }

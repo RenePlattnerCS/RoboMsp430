@@ -5,11 +5,11 @@ Archive member included to satisfy reference by file (symbol)
 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/430/libgcc.a(epilogue.o)
                               external/printf/printf.o (__mspabi_func_epilog_7)
 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/430/libgcc.a(slli.o)
-                              build/obj/drivers/io.o (__mspabi_slli)
+                              build/obj/drivers/vl53l0x.o (__mspabi_slli)
 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/430/libgcc.a(srai.o)
                               build/obj/drivers/pwm.o (__mspabi_srai_15)
 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/430/libgcc.a(srli.o)
-                              build/obj/drivers/io.o (__mspabi_srli_15)
+                              build/obj/drivers/vl53l0x.o (__mspabi_srli_15)
 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/430/libgcc.a(_udivdi3.o)
                               /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/430/libgcc.a(lib2divSI.o) (__mspabi_divull)
 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/430/libgcc.a(_clzdi2.o)
@@ -19,11 +19,11 @@ Archive member included to satisfy reference by file (symbol)
 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/430/libmul_none.a(mpy.o)
                               build/obj/common/ring_buffer.o (__mspabi_mpyi)
 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/../../../../msp430-elf/lib/430/libc.a(lib_a-memcpy.o)
-                              build/obj/common/ring_buffer.o (memcpy)
+                              build/obj/drivers/vl53l0x.o (memcpy)
 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/../../../../msp430-elf/lib/430/libcrt.a(crt_bss.o)
-                              build/obj/drivers/io.o (__crt0_init_bss)
+                              build/obj/drivers/vl53l0x.o (__crt0_init_bss)
 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/../../../../msp430-elf/lib/430/libcrt.a(crt_movedata.o)
-                              build/obj/drivers/ir_remote_ta1.o (__crt0_movedata)
+                              build/obj/drivers/vl53l0x.o (__crt0_movedata)
 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/../../../../msp430-elf/lib/430/libcrt.a(crt_main.o)
                               /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/../../../../msp430-elf/lib/430/crt0.o (__crt0_call_main)
 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/../../../../msp430-elf/lib/430/libc.a(lib_a-memmove.o)
@@ -52,12 +52,8 @@ Discarded input sections
  .comment       0x0000000000000000       0x3a build/obj/test/t_led_test.o
  .data          0x0000000000000000        0x0 build/obj/main.o
  .bss           0x0000000000000000        0x0 build/obj/main.o
- .text          0x0000000000000000        0x0 build/obj/drivers/i2c.o
  .data          0x0000000000000000        0x0 build/obj/drivers/i2c.o
  .bss           0x0000000000000000        0x0 build/obj/drivers/i2c.o
- .debug_line    0x0000000000000000        0x0 build/obj/drivers/i2c.o
- .debug_str     0x0000000000000000       0xc8 build/obj/drivers/i2c.o
- .comment       0x0000000000000000       0x3a build/obj/drivers/i2c.o
  .data          0x0000000000000000        0x0 build/obj/drivers/io.o
  .data          0x0000000000000000        0x0 build/obj/drivers/tb6612fng.o
  .bss           0x0000000000000000        0x0 build/obj/drivers/tb6612fng.o
@@ -141,8 +137,6 @@ Discarded input sections
  .text          0x0000000000000000        0x0 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/430/libgcc.a(srai.o)
  .data          0x0000000000000000        0x0 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/430/libgcc.a(srai.o)
  .bss           0x0000000000000000        0x0 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/430/libgcc.a(srai.o)
- .text.__mspabi_srai
-                0x0000000000000000        0xa /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/430/libgcc.a(srai.o)
  .text.__mspabi_sral_n
                 0x0000000000000000       0x3e /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/430/libgcc.a(srai.o)
  .text.__mspabi_srall
@@ -152,8 +146,6 @@ Discarded input sections
  .bss           0x0000000000000000        0x0 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/430/libgcc.a(srli.o)
  .text.__mspabi_srli
                 0x0000000000000000        0xc /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/430/libgcc.a(srli.o)
- .text.__mspabi_srll_n
-                0x0000000000000000       0x5c /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/430/libgcc.a(srli.o)
  .text.__mspabi_srll
                 0x0000000000000000        0xe /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/430/libgcc.a(srli.o)
  .text.__mspabi_srlll
@@ -238,6 +230,7 @@ LOAD /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/430/crtbegin_no
 LOAD build/obj/test/t_led_test.o
 LOAD build/obj/main.o
 LOAD build/obj/drivers/i2c.o
+LOAD build/obj/drivers/vl53l0x.o
 LOAD build/obj/drivers/io.o
 LOAD build/obj/drivers/tb6612fng.o
 LOAD build/obj/drivers/pwm_both_timers.o
@@ -342,41 +335,42 @@ __reset_vector  0x000000000000fffe        0x2
  *(.resetvec)
  .resetvec      0x000000000000fffe        0x2 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/../../../../msp430-elf/lib/430/crt0.o
 
-.rodata         0x000000000000c000      0x336
+.rodata         0x000000000000c000      0x484
                 0x000000000000c000                . = ALIGN (0x2)
  *(.plt)
  *(.rodata .rodata.* .gnu.linkonce.r.* .const .const:*)
  .rodata.str1.1
-                0x000000000000c000      0x136 build/obj/main.o
- .rodata        0x000000000000c136       0xa0 build/obj/drivers/io.o
- .rodata        0x000000000000c1d6        0x8 build/obj/drivers/tb6612fng.o
- .rodata        0x000000000000c1de       0x18 build/obj/drivers/pwm_both_timers.o
+                0x000000000000c000      0x1e0 build/obj/main.o
+ .rodata        0x000000000000c1e0       0xa4 build/obj/drivers/vl53l0x.o
+ .rodata        0x000000000000c284       0xa0 build/obj/drivers/io.o
+ .rodata        0x000000000000c324        0x8 build/obj/drivers/tb6612fng.o
+ .rodata        0x000000000000c32c       0x18 build/obj/drivers/pwm_both_timers.o
  .rodata.str1.1
-                0x000000000000c1f6       0xb0 build/obj/drivers/ir_remote_ta1.o
- .rodata        0x000000000000c2a6       0x90 build/obj/app/drive.o
+                0x000000000000c344       0xb0 build/obj/drivers/ir_remote_ta1.o
+ .rodata        0x000000000000c3f4       0x90 build/obj/app/drive.o
  *(.rodata1)
  *(.gcc_except_table)
  *(.gcc_except_table.*)
 
-.rodata2        0x000000000000c336       0x6e
-                0x000000000000c336                . = ALIGN (0x2)
+.rodata2        0x000000000000c484       0x6e
+                0x000000000000c484                . = ALIGN (0x2)
                 [!provide]                        PROVIDE (__preinit_array_start = .)
  *(.preinit_array)
                 [!provide]                        PROVIDE (__preinit_array_end = .)
-                0x000000000000c336                . = ALIGN (0x2)
+                0x000000000000c484                . = ALIGN (0x2)
                 [!provide]                        PROVIDE (__init_array_start = .)
  *(SORT_BY_NAME(.init_array.*))
  *(.init_array)
                 [!provide]                        PROVIDE (__init_array_end = .)
-                0x000000000000c336                . = ALIGN (0x2)
+                0x000000000000c484                . = ALIGN (0x2)
                 [!provide]                        PROVIDE (__fini_array_start = .)
  *(.fini_array)
  *(SORT_BY_NAME(.fini_array.*))
                 [!provide]                        PROVIDE (__fini_array_end = .)
-                0x000000000000c336                . = ALIGN (0x2)
+                0x000000000000c484                . = ALIGN (0x2)
  *(.eh_frame_hdr)
  *(.eh_frame)
- .eh_frame      0x000000000000c336       0x6e /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/430/libgcc.a(_udivdi3.o)
+ .eh_frame      0x000000000000c484       0x6e /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/430/libgcc.a(_udivdi3.o)
  *crtbegin*.o(.ctors)
  *(EXCLUDE_FILE(*crtend*.o) .ctors)
  *(SORT_BY_NAME(.ctors.*))
@@ -386,168 +380,205 @@ __reset_vector  0x000000000000fffe        0x2
  *(SORT_BY_NAME(.dtors.*))
  *(.dtors)
 
-.text           0x000000000000c3a4     0x1be2
-                0x000000000000c3a4                . = ALIGN (0x2)
-                0x000000000000c3a4                PROVIDE (_start = .)
+.text           0x000000000000c4f4     0x28e8
+                0x000000000000c4f4                . = ALIGN (0x2)
+                0x000000000000c4f4                PROVIDE (_start = .)
  *(SORT_BY_NAME(.crt_*))
  .crt_0000start
-                0x000000000000c3a4        0x4 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/../../../../msp430-elf/lib/430/crt0.o
-                0x000000000000c3a4                __crt0_start
+                0x000000000000c4f4        0x4 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/../../../../msp430-elf/lib/430/crt0.o
+                0x000000000000c4f4                __crt0_start
  .crt_0100init_bss
-                0x000000000000c3a8        0xe /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/../../../../msp430-elf/lib/430/libcrt.a(crt_bss.o)
-                0x000000000000c3a8                __crt0_init_bss
+                0x000000000000c4f8        0xe /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/../../../../msp430-elf/lib/430/libcrt.a(crt_bss.o)
+                0x000000000000c4f8                __crt0_init_bss
  .crt_0300movedata
-                0x000000000000c3b6       0x14 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/../../../../msp430-elf/lib/430/libcrt.a(crt_movedata.o)
-                0x000000000000c3b6                __crt0_movedata
+                0x000000000000c506       0x14 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/../../../../msp430-elf/lib/430/libcrt.a(crt_movedata.o)
+                0x000000000000c506                __crt0_movedata
  .crt_0800call_main
-                0x000000000000c3ca        0x6 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/../../../../msp430-elf/lib/430/libcrt.a(crt_main.o)
-                0x000000000000c3ca                __crt0_call_main
+                0x000000000000c51a        0x6 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/../../../../msp430-elf/lib/430/libcrt.a(crt_main.o)
+                0x000000000000c51a                __crt0_call_main
  *(.lowtext .text .stub .text.* .gnu.linkonce.t.* .text:*)
- .text          0x000000000000c3d0      0x230 build/obj/main.o
-                0x000000000000c3d0                isr_test_toggle_led
-                0x000000000000c3da                verify_p2_muxing
-                0x000000000000c488                ir_remote_init_ta1_2
-                0x000000000000c4c2                test_driver
-                0x000000000000c5fa                main
- .text          0x000000000000c600      0x438 build/obj/drivers/io.o
-                0x000000000000c6ae                io_set_select
-                0x000000000000c72e                io_set_direction
-                0x000000000000c768                io_set_resistor
-                0x000000000000c7a2                io_set_out
-                0x000000000000c7dc                io_configure
-                0x000000000000c80c                io_init
-                0x000000000000c832                io_get_input
-                0x000000000000c836                io_get_current_config
-                0x000000000000c8d8                io_config_compare
-                0x000000000000c90a                io_enable_interrupt
-                0x000000000000c92c                io_disable_interrupt
-                0x000000000000c99c                io_configure_interrupt
-                0x000000000000c9b4                io_deconfigure_interrupt
-                0x000000000000c9dc                isr_port_1
-                0x000000000000ca0a                isr_port_2
- .text          0x000000000000ca38       0x7e build/obj/drivers/tb6612fng.o
-                0x000000000000ca38                tb6612fng_set_mode
-                0x000000000000caaa                tb6612fng_set_pwm
-                0x000000000000cab0                tb6612fng_init
- .text          0x000000000000cab6      0x136 build/obj/drivers/pwm_both_timers.o
-                0x000000000000cb2e                pwm_both_timers_set_duty_cycle
-                0x000000000000cb76                pwm_both_timers_init
-                0x000000000000cb86                isr_reset_continous_timer
- .text          0x000000000000cbec      0x278 build/obj/drivers/ir_remote_ta1.o
-                0x000000000000ccc2                ir_remote_init_ta1
-                0x000000000000ccfc                ir_debug_print_log
-                0x000000000000cde2                ir_remote_get_cmd_ta1
-                0x000000000000ce0e                isr_timer1_a1
- .text          0x000000000000ce64      0x13c build/obj/drivers/uart.o
-                0x000000000000ced4                isr_uart_tx
-                0x000000000000cf0a                uart_init
-                0x000000000000cf24                _putchar
-                0x000000000000cf76                uart_init_assert
-                0x000000000000cf80                uart_trace_assert
- .text          0x000000000000cfa0       0x3c build/obj/drivers/mcu_init.o
-                0x000000000000cfca                mcu_init
- .text          0x000000000000cfdc      0x166 build/obj/common/ring_buffer.o
-                0x000000000000cfdc                ring_buffer_get
-                0x000000000000d02c                ring_buffer_put
-                0x000000000000d088                ring_buffer_peek_tail
-                0x000000000000d0b0                ring_buffer_peek_head
-                0x000000000000d0ee                ring_buffer_count
-                0x000000000000d122                ring_buffer_empty
-                0x000000000000d13c                ring_buffer_full
- .text          0x000000000000d142       0x12 build/obj/common/trace.o
-                0x000000000000d142                trace_init
-                0x000000000000d148                trace
- .text          0x000000000000d154       0xb0 build/obj/app/drive.o
-                0x000000000000d154                drive_set
-                0x000000000000d1d4                drive_stop
-                0x000000000000d1fe                drive_init
- *fill*         0x000000000000d204        0x0 
- .text          0x000000000000d204      0xbba external/printf/printf.o
-                0x000000000000dd04                printf_
-                0x000000000000dd26                sprintf_
-                0x000000000000dd42                snprintf_
-                0x000000000000dd5e                vprintf_
-                0x000000000000dd7a                vsnprintf_
-                0x000000000000dd92                fctprintf
+ .text          0x000000000000c520      0x3b0 build/obj/main.o
+                0x000000000000c520                isr_test_toggle_led
+                0x000000000000c52a                verify_p2_muxing
+                0x000000000000c5d8                ir_remote_init_ta1_2
+                0x000000000000c612                test_driver
+                0x000000000000c74a                test_vlx
+                0x000000000000c800                test_i2c
+                0x000000000000c8ca                main
+ .text          0x000000000000c8d0      0x238 build/obj/drivers/i2c.o
+                0x000000000000c9c4                i2c_stop_transfer
+                0x000000000000c9ee                i2c_write
+                0x000000000000ca2a                i2c_read
+                0x000000000000ca72                i2c_read_addr8_data8
+                0x000000000000ca8a                i2c_read_addr8_data16
+                0x000000000000caa2                i2c_read_addr8_data32
+                0x000000000000caba                i2c_write_addr8_data8
+                0x000000000000cad6                i2c_set_slave_address
+                0x000000000000cae0                i2c_init
+ .text          0x000000000000cb08      0x8e6 build/obj/drivers/vl53l0x.o
+                0x000000000000d2f2                vl53l0x_read_range_single
+                0x000000000000d310                vl53l0x_start_measuring_multiple
+                0x000000000000d328                vl53l0x_read_range_multiple
+                0x000000000000d3cc                vl53l0x_init
+ .text          0x000000000000d3ee      0x438 build/obj/drivers/io.o
+                0x000000000000d49c                io_set_select
+                0x000000000000d51c                io_set_direction
+                0x000000000000d556                io_set_resistor
+                0x000000000000d590                io_set_out
+                0x000000000000d5ca                io_configure
+                0x000000000000d5fa                io_init
+                0x000000000000d620                io_get_input
+                0x000000000000d624                io_get_current_config
+                0x000000000000d6c6                io_config_compare
+                0x000000000000d6f8                io_enable_interrupt
+                0x000000000000d71a                io_disable_interrupt
+                0x000000000000d78a                io_configure_interrupt
+                0x000000000000d7a2                io_deconfigure_interrupt
+                0x000000000000d7ca                isr_port_1
+                0x000000000000d7f8                isr_port_2
+ .text          0x000000000000d826       0x7e build/obj/drivers/tb6612fng.o
+                0x000000000000d826                tb6612fng_set_mode
+                0x000000000000d898                tb6612fng_set_pwm
+                0x000000000000d89e                tb6612fng_init
+ .text          0x000000000000d8a4      0x136 build/obj/drivers/pwm_both_timers.o
+                0x000000000000d91c                pwm_both_timers_set_duty_cycle
+                0x000000000000d964                pwm_both_timers_init
+                0x000000000000d974                isr_reset_continous_timer
+ .text          0x000000000000d9da      0x278 build/obj/drivers/ir_remote_ta1.o
+                0x000000000000dab0                ir_remote_init_ta1
+                0x000000000000daea                ir_debug_print_log
+                0x000000000000dbd0                ir_remote_get_cmd_ta1
+                0x000000000000dbfc                isr_timer1_a1
+ .text          0x000000000000dc52      0x13c build/obj/drivers/uart.o
+                0x000000000000dcc2                isr_uart_tx
+                0x000000000000dcf8                uart_init
+                0x000000000000dd12                _putchar
+                0x000000000000dd64                uart_init_assert
+                0x000000000000dd6e                uart_trace_assert
+ .text          0x000000000000dd8e       0x3c build/obj/drivers/mcu_init.o
+                0x000000000000ddb8                mcu_init
+ .text          0x000000000000ddca      0x166 build/obj/common/ring_buffer.o
+                0x000000000000ddca                ring_buffer_get
+                0x000000000000de1a                ring_buffer_put
+                0x000000000000de76                ring_buffer_peek_tail
+                0x000000000000de9e                ring_buffer_peek_head
+                0x000000000000dedc                ring_buffer_count
+                0x000000000000df10                ring_buffer_empty
+                0x000000000000df2a                ring_buffer_full
+ .text          0x000000000000df30       0x12 build/obj/common/trace.o
+                0x000000000000df30                trace_init
+                0x000000000000df36                trace
+ .text          0x000000000000df42       0xb0 build/obj/app/drive.o
+                0x000000000000df42                drive_set
+                0x000000000000dfc2                drive_stop
+                0x000000000000dfec                drive_init
+ *fill*         0x000000000000dff2        0x2 
+ .text          0x000000000000dff4      0xbba external/printf/printf.o
+                0x000000000000eaf4                printf_
+                0x000000000000eb16                sprintf_
+                0x000000000000eb32                snprintf_
+                0x000000000000eb4e                vprintf_
+                0x000000000000eb6a                vsnprintf_
+                0x000000000000eb82                fctprintf
  .text.udivmodsi4
-                0x000000000000ddbe       0x86 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/430/libgcc.a(lib2divSI.o)
-                0x000000000000ddbe                udivmodsi4
+                0x000000000000ebae       0x86 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/430/libgcc.a(lib2divSI.o)
+                0x000000000000ebae                udivmodsi4
  .text.__udivsi3
-                0x000000000000de44        0xe /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/430/libgcc.a(lib2divSI.o)
-                0x000000000000de44                __mspabi_divul
-                0x000000000000de44                __mspabi_divlu
+                0x000000000000ec34        0xe /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/430/libgcc.a(lib2divSI.o)
+                0x000000000000ec34                __mspabi_divul
+                0x000000000000ec34                __mspabi_divlu
  .text.__umodsi3
-                0x000000000000de52        0xe /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/430/libgcc.a(lib2divSI.o)
-                0x000000000000de52                __mspabi_remul
- .text          0x000000000000de60       0x10 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/430/libgcc.a(epilogue.o)
-                0x000000000000de60                __mspabi_func_epilog_7
-                0x000000000000de62                __mspabi_func_epilog_6
-                0x000000000000de64                __mspabi_func_epilog_5
-                0x000000000000de66                __mspabi_func_epilog_4
-                0x000000000000de68                __mspabi_func_epilog_3
-                0x000000000000de6a                __mspabi_func_epilog_2
-                0x000000000000de6c                __mspabi_func_epilog_1
+                0x000000000000ec42        0xe /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/430/libgcc.a(lib2divSI.o)
+                0x000000000000ec42                __mspabi_remul
+ .text          0x000000000000ec50       0x10 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/430/libgcc.a(epilogue.o)
+                0x000000000000ec50                __mspabi_func_epilog_7
+                0x000000000000ec52                __mspabi_func_epilog_6
+                0x000000000000ec54                __mspabi_func_epilog_5
+                0x000000000000ec56                __mspabi_func_epilog_4
+                0x000000000000ec58                __mspabi_func_epilog_3
+                0x000000000000ec5a                __mspabi_func_epilog_2
+                0x000000000000ec5c                __mspabi_func_epilog_1
  .text.__mspabi_slli
-                0x000000000000de70        0xa /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/430/libgcc.a(slli.o)
-                0x000000000000de74                __mspabi_slli
+                0x000000000000ec60        0xa /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/430/libgcc.a(slli.o)
+                0x000000000000ec64                __mspabi_slli
  .text.__mspabi_srai_n
-                0x000000000000de7a       0x20 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/430/libgcc.a(srai.o)
-                0x000000000000de7a                __mspabi_srai_15
-                0x000000000000de7c                __mspabi_srai_14
-                0x000000000000de7e                __mspabi_srai_13
-                0x000000000000de80                __mspabi_srai_12
-                0x000000000000de82                __mspabi_srai_11
-                0x000000000000de84                __mspabi_srai_10
-                0x000000000000de86                __mspabi_srai_9
-                0x000000000000de88                __mspabi_srai_8
-                0x000000000000de8a                __mspabi_srai_7
-                0x000000000000de8c                __mspabi_srai_6
-                0x000000000000de8e                __mspabi_srai_5
-                0x000000000000de90                __mspabi_srai_4
-                0x000000000000de92                __mspabi_srai_3
-                0x000000000000de94                __mspabi_srai_2
-                0x000000000000de96                __mspabi_srai_1
+                0x000000000000ec6a       0x20 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/430/libgcc.a(srai.o)
+                0x000000000000ec6a                __mspabi_srai_15
+                0x000000000000ec6c                __mspabi_srai_14
+                0x000000000000ec6e                __mspabi_srai_13
+                0x000000000000ec70                __mspabi_srai_12
+                0x000000000000ec72                __mspabi_srai_11
+                0x000000000000ec74                __mspabi_srai_10
+                0x000000000000ec76                __mspabi_srai_9
+                0x000000000000ec78                __mspabi_srai_8
+                0x000000000000ec7a                __mspabi_srai_7
+                0x000000000000ec7c                __mspabi_srai_6
+                0x000000000000ec7e                __mspabi_srai_5
+                0x000000000000ec80                __mspabi_srai_4
+                0x000000000000ec82                __mspabi_srai_3
+                0x000000000000ec84                __mspabi_srai_2
+                0x000000000000ec86                __mspabi_srai_1
+ .text.__mspabi_srai
+                0x000000000000ec8a        0xa /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/430/libgcc.a(srai.o)
+                0x000000000000ec8e                __mspabi_srai
  .text.__mspabi_sral
-                0x000000000000de9a        0xc /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/430/libgcc.a(srai.o)
-                0x000000000000dea0                __mspabi_sral
+                0x000000000000ec94        0xc /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/430/libgcc.a(srai.o)
+                0x000000000000ec9a                __mspabi_sral
  .text.__mspabi_srli_n
-                0x000000000000dea6       0x3e /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/430/libgcc.a(srli.o)
-                0x000000000000dea6                __mspabi_srli_15
-                0x000000000000deaa                __mspabi_srli_14
-                0x000000000000deae                __mspabi_srli_13
-                0x000000000000deb2                __mspabi_srli_12
-                0x000000000000deb6                __mspabi_srli_11
-                0x000000000000deba                __mspabi_srli_10
-                0x000000000000debe                __mspabi_srli_9
-                0x000000000000dec2                __mspabi_srli_8
-                0x000000000000dec6                __mspabi_srli_7
-                0x000000000000deca                __mspabi_srli_6
-                0x000000000000dece                __mspabi_srli_5
-                0x000000000000ded2                __mspabi_srli_4
-                0x000000000000ded6                __mspabi_srli_3
-                0x000000000000deda                __mspabi_srli_2
-                0x000000000000dede                __mspabi_srli_1
+                0x000000000000eca0       0x3e /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/430/libgcc.a(srli.o)
+                0x000000000000eca0                __mspabi_srli_15
+                0x000000000000eca4                __mspabi_srli_14
+                0x000000000000eca8                __mspabi_srli_13
+                0x000000000000ecac                __mspabi_srli_12
+                0x000000000000ecb0                __mspabi_srli_11
+                0x000000000000ecb4                __mspabi_srli_10
+                0x000000000000ecb8                __mspabi_srli_9
+                0x000000000000ecbc                __mspabi_srli_8
+                0x000000000000ecc0                __mspabi_srli_7
+                0x000000000000ecc4                __mspabi_srli_6
+                0x000000000000ecc8                __mspabi_srli_5
+                0x000000000000eccc                __mspabi_srli_4
+                0x000000000000ecd0                __mspabi_srli_3
+                0x000000000000ecd4                __mspabi_srli_2
+                0x000000000000ecd8                __mspabi_srli_1
+ .text.__mspabi_srll_n
+                0x000000000000ecde       0x5c /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/430/libgcc.a(srli.o)
+                0x000000000000ecde                __mspabi_srll_15
+                0x000000000000ece4                __mspabi_srll_14
+                0x000000000000ecea                __mspabi_srll_13
+                0x000000000000ecf0                __mspabi_srll_12
+                0x000000000000ecf6                __mspabi_srll_11
+                0x000000000000ecfc                __mspabi_srll_10
+                0x000000000000ed02                __mspabi_srll_9
+                0x000000000000ed08                __mspabi_srll_8
+                0x000000000000ed0e                __mspabi_srll_7
+                0x000000000000ed14                __mspabi_srll_6
+                0x000000000000ed1a                __mspabi_srll_5
+                0x000000000000ed20                __mspabi_srll_4
+                0x000000000000ed26                __mspabi_srll_3
+                0x000000000000ed2c                __mspabi_srll_2
+                0x000000000000ed32                __mspabi_srll_1
  .text.__mulhi3
-                0x000000000000dee4       0x42 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/430/libmul_none.a(mpy.o)
-                0x000000000000dee4                __mspabi_mpyi
- .text.memcpy   0x000000000000df26       0x12 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/../../../../msp430-elf/lib/430/libc.a(lib_a-memcpy.o)
-                0x000000000000df26                memcpy
- .text.memmove  0x000000000000df38       0x3c /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/../../../../msp430-elf/lib/430/libc.a(lib_a-memmove.o)
-                0x000000000000df38                memmove
- .text.memset   0x000000000000df74       0x12 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/../../../../msp430-elf/lib/430/libc.a(lib_a-memset.o)
-                0x000000000000df74                memset
+                0x000000000000ed3a       0x42 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/430/libmul_none.a(mpy.o)
+                0x000000000000ed3a                __mspabi_mpyi
+ .text.memcpy   0x000000000000ed7c       0x12 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/../../../../msp430-elf/lib/430/libc.a(lib_a-memcpy.o)
+                0x000000000000ed7c                memcpy
+ .text.memmove  0x000000000000ed8e       0x3c /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/../../../../msp430-elf/lib/430/libc.a(lib_a-memmove.o)
+                0x000000000000ed8e                memmove
+ .text.memset   0x000000000000edca       0x12 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/../../../../msp430-elf/lib/430/libc.a(lib_a-memset.o)
+                0x000000000000edca                memset
  *(.text.*personality*)
  *(.gnu.warning)
  *(.interp .hash .dynsym .dynstr .gnu.version*)
                 [!provide]                        PROVIDE (__etext = .)
                 [!provide]                        PROVIDE (_etext = .)
                 [!provide]                        PROVIDE (etext = .)
-                0x000000000000df86                . = ALIGN (0x2)
+                0x000000000000eddc                . = ALIGN (0x2)
  *(.init)
  *(.fini)
  *(.tm_clone_table)
 
-.data           0x0000000000000200       0x10 load address 0x000000000000df86
+.data           0x0000000000000200       0x1a load address 0x000000000000eddc
                 0x0000000000000200                . = ALIGN (0x2)
                 0x0000000000000200                PROVIDE (__datastart = .)
  *(.jcr)
@@ -555,56 +586,58 @@ __reset_vector  0x000000000000fffe        0x2
  *(.data.rel.ro*)
  *(.dynamic)
  *(.data .data.* .gnu.linkonce.d.*)
- .data          0x0000000000000200        0x8 build/obj/drivers/ir_remote_ta1.o
- .data          0x0000000000000208        0x8 build/obj/drivers/uart.o
+ .data          0x0000000000000200        0xa build/obj/drivers/vl53l0x.o
+ .data          0x000000000000020a        0x8 build/obj/drivers/ir_remote_ta1.o
+ .data          0x0000000000000212        0x8 build/obj/drivers/uart.o
  *(.gnu.linkonce.d.*personality*)
  *(.data1)
  *(.got.plt)
  *(.got)
-                0x0000000000000210                . = ALIGN (0x2)
+                0x000000000000021a                . = ALIGN (0x2)
  *(.sdata .sdata.* .gnu.linkonce.s.* D_2 D_1)
-                0x0000000000000210                . = ALIGN (0x2)
-                0x0000000000000210                _edata = .
+                0x000000000000021a                . = ALIGN (0x2)
+                0x000000000000021a                _edata = .
                 [!provide]                        PROVIDE (edata = .)
                 [!provide]                        PROVIDE (__dataend = .)
-                0x000000000000df86                PROVIDE (__romdatastart = LOADADDR (.data))
-                0x0000000000000010                PROVIDE (__romdatacopysize = SIZEOF (.data))
+                0x000000000000eddc                PROVIDE (__romdatastart = LOADADDR (.data))
+                0x000000000000001a                PROVIDE (__romdatacopysize = SIZEOF (.data))
 
-.bss            0x0000000000000210       0x9e load address 0x000000000000df96
-                0x0000000000000210                . = ALIGN (0x2)
-                0x0000000000000210                PROVIDE (__bssstart = .)
+.bss            0x000000000000021a       0xa2 load address 0x000000000000edf6
+                0x000000000000021a                . = ALIGN (0x2)
+                0x000000000000021a                PROVIDE (__bssstart = .)
  *(.dynbss)
  *(.sbss .sbss.*)
  *(.bss .bss.* .gnu.linkonce.b.*)
- .bss           0x0000000000000210       0x20 build/obj/drivers/io.o
- .bss           0x0000000000000230        0x8 build/obj/drivers/pwm_both_timers.o
-                0x0000000000000230                is_chanel_enabled
- .bss           0x0000000000000238       0x66 build/obj/drivers/ir_remote_ta1.o
- .bss           0x000000000000029e       0x10 build/obj/drivers/uart.o
-                0x00000000000002ae                . = ALIGN (0x2)
+ .bss           0x000000000000021a        0x4 build/obj/drivers/vl53l0x.o
+ .bss           0x000000000000021e       0x20 build/obj/drivers/io.o
+ .bss           0x000000000000023e        0x8 build/obj/drivers/pwm_both_timers.o
+                0x000000000000023e                is_chanel_enabled
+ .bss           0x0000000000000246       0x66 build/obj/drivers/ir_remote_ta1.o
+ .bss           0x00000000000002ac       0x10 build/obj/drivers/uart.o
+                0x00000000000002bc                . = ALIGN (0x2)
  *(COMMON)
                 [!provide]                        PROVIDE (__bssend = .)
-                0x000000000000009e                PROVIDE (__bsssize = SIZEOF (.bss))
+                0x00000000000000a2                PROVIDE (__bsssize = SIZEOF (.bss))
 
-.noinit         0x00000000000002ae        0x0 load address 0x000000000000df96
-                0x00000000000002ae                . = ALIGN (0x2)
+.noinit         0x00000000000002bc        0x0 load address 0x000000000000edf6
+                0x00000000000002bc                . = ALIGN (0x2)
                 [!provide]                        PROVIDE (__noinit_start = .)
  *(.noinit)
-                0x00000000000002ae                . = ALIGN (0x2)
+                0x00000000000002bc                . = ALIGN (0x2)
                 [!provide]                        PROVIDE (__noinit_end = .)
-                0x00000000000002ae                end = .
+                0x00000000000002bc                end = .
 
-.heap           0x00000000000002ae        0x4 load address 0x000000000000df96
-                0x00000000000002ae                . = ALIGN (0x2)
-                0x00000000000002ae                __heap_start__ = .
-                0x00000000000002ae                _end = __heap_start__
+.heap           0x00000000000002bc        0x4 load address 0x000000000000edf6
+                0x00000000000002bc                . = ALIGN (0x2)
+                0x00000000000002bc                __heap_start__ = .
+                0x00000000000002bc                _end = __heap_start__
                 [!provide]                        PROVIDE (end = .)
  *(.heap)
-                0x00000000000002ae                _end = .
+                0x00000000000002bc                _end = .
                 [!provide]                        PROVIDE (end = .)
-                0x00000000000002ae        0x4 LONG 0x0
-                0x00000000000002b2                __heap_end__ = .
-                0x00000000000002b2                __HeapLimit = __heap_end__
+                0x00000000000002bc        0x4 LONG 0x0
+                0x00000000000002c0                __heap_end__ = .
+                0x00000000000002c0                __HeapLimit = __heap_end__
 
 .stack          0x0000000000000400        0x0
                 0x0000000000000400                PROVIDE (__stack = .)
@@ -632,65 +665,67 @@ __reset_vector  0x000000000000fffe        0x2
  .MSP430.attributes
                 0x000000000000005c       0x17 build/obj/drivers/i2c.o
  .MSP430.attributes
-                0x0000000000000073       0x17 build/obj/drivers/io.o
+                0x0000000000000073       0x17 build/obj/drivers/vl53l0x.o
  .MSP430.attributes
-                0x000000000000008a       0x17 build/obj/drivers/tb6612fng.o
+                0x000000000000008a       0x17 build/obj/drivers/io.o
  .MSP430.attributes
-                0x00000000000000a1       0x17 build/obj/drivers/pwm_both_timers.o
+                0x00000000000000a1       0x17 build/obj/drivers/tb6612fng.o
  .MSP430.attributes
-                0x00000000000000b8       0x17 build/obj/drivers/ir_remote_ta1.o
+                0x00000000000000b8       0x17 build/obj/drivers/pwm_both_timers.o
  .MSP430.attributes
-                0x00000000000000cf       0x17 build/obj/drivers/ir_remote.o
+                0x00000000000000cf       0x17 build/obj/drivers/ir_remote_ta1.o
  .MSP430.attributes
-                0x00000000000000e6       0x17 build/obj/drivers/uart.o
+                0x00000000000000e6       0x17 build/obj/drivers/ir_remote.o
  .MSP430.attributes
-                0x00000000000000fd       0x17 build/obj/drivers/pwm.o
+                0x00000000000000fd       0x17 build/obj/drivers/uart.o
  .MSP430.attributes
-                0x0000000000000114       0x17 build/obj/drivers/mcu_init.o
+                0x0000000000000114       0x17 build/obj/drivers/pwm.o
  .MSP430.attributes
-                0x000000000000012b       0x17 build/obj/common/ring_buffer.o
+                0x000000000000012b       0x17 build/obj/drivers/mcu_init.o
  .MSP430.attributes
-                0x0000000000000142       0x17 build/obj/common/trace.o
+                0x0000000000000142       0x17 build/obj/common/ring_buffer.o
  .MSP430.attributes
-                0x0000000000000159       0x17 build/obj/common/assert_handler.o
+                0x0000000000000159       0x17 build/obj/common/trace.o
  .MSP430.attributes
-                0x0000000000000170       0x17 build/obj/app/enemy.o
+                0x0000000000000170       0x17 build/obj/common/assert_handler.o
  .MSP430.attributes
-                0x0000000000000187       0x17 build/obj/app/drive.o
+                0x0000000000000187       0x17 build/obj/app/enemy.o
  .MSP430.attributes
-                0x000000000000019e       0x17 external/printf/printf.o
+                0x000000000000019e       0x17 build/obj/app/drive.o
  .MSP430.attributes
-                0x00000000000001b5       0x17 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/430/libgcc.a(lib2divSI.o)
+                0x00000000000001b5       0x17 external/printf/printf.o
  .MSP430.attributes
-                0x00000000000001cc       0x17 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/430/libgcc.a(epilogue.o)
+                0x00000000000001cc       0x17 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/430/libgcc.a(lib2divSI.o)
  .MSP430.attributes
-                0x00000000000001e3       0x17 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/430/libgcc.a(slli.o)
+                0x00000000000001e3       0x17 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/430/libgcc.a(epilogue.o)
  .MSP430.attributes
-                0x00000000000001fa       0x17 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/430/libgcc.a(srai.o)
+                0x00000000000001fa       0x17 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/430/libgcc.a(slli.o)
  .MSP430.attributes
-                0x0000000000000211       0x17 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/430/libgcc.a(srli.o)
+                0x0000000000000211       0x17 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/430/libgcc.a(srai.o)
  .MSP430.attributes
-                0x0000000000000228       0x17 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/430/libgcc.a(_udivdi3.o)
+                0x0000000000000228       0x17 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/430/libgcc.a(srli.o)
  .MSP430.attributes
-                0x000000000000023f       0x17 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/430/libgcc.a(_clzdi2.o)
+                0x000000000000023f       0x17 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/430/libgcc.a(_udivdi3.o)
  .MSP430.attributes
-                0x0000000000000256       0x17 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/430/libgcc.a(_clz.o)
+                0x0000000000000256       0x17 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/430/libgcc.a(_clzdi2.o)
  .MSP430.attributes
-                0x000000000000026d       0x17 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/430/libmul_none.a(mpy.o)
+                0x000000000000026d       0x17 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/430/libgcc.a(_clz.o)
  .MSP430.attributes
-                0x0000000000000284       0x17 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/../../../../msp430-elf/lib/430/libc.a(lib_a-memcpy.o)
+                0x0000000000000284       0x17 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/430/libmul_none.a(mpy.o)
  .MSP430.attributes
-                0x000000000000029b       0x17 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/../../../../msp430-elf/lib/430/libcrt.a(crt_bss.o)
+                0x000000000000029b       0x17 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/../../../../msp430-elf/lib/430/libc.a(lib_a-memcpy.o)
  .MSP430.attributes
-                0x00000000000002b2       0x17 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/../../../../msp430-elf/lib/430/libcrt.a(crt_movedata.o)
+                0x00000000000002b2       0x17 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/../../../../msp430-elf/lib/430/libcrt.a(crt_bss.o)
  .MSP430.attributes
-                0x00000000000002c9       0x17 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/../../../../msp430-elf/lib/430/libcrt.a(crt_main.o)
+                0x00000000000002c9       0x17 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/../../../../msp430-elf/lib/430/libcrt.a(crt_movedata.o)
  .MSP430.attributes
-                0x00000000000002e0       0x17 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/../../../../msp430-elf/lib/430/libc.a(lib_a-memmove.o)
+                0x00000000000002e0       0x17 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/../../../../msp430-elf/lib/430/libcrt.a(crt_main.o)
  .MSP430.attributes
-                0x00000000000002f7       0x17 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/../../../../msp430-elf/lib/430/libc.a(lib_a-memset.o)
+                0x00000000000002f7       0x17 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/../../../../msp430-elf/lib/430/libc.a(lib_a-memmove.o)
  .MSP430.attributes
-                0x000000000000030e       0x17 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/430/crtend_no_eh.o
+                0x000000000000030e       0x17 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/../../../../msp430-elf/lib/430/libc.a(lib_a-memset.o)
+ .MSP430.attributes
+                0x0000000000000325       0x17 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/430/crtend_no_eh.o
  *(.gnu.attributes)
  *(__TI_build_attributes)
 
@@ -716,6 +751,8 @@ __reset_vector  0x000000000000fffe        0x2
  *(.comment)
  .comment       0x0000000000000000       0x39 build/obj/main.o
                                          0x3a (size before relaxing)
+ .comment       0x0000000000000039       0x3a build/obj/drivers/i2c.o
+ .comment       0x0000000000000039       0x3a build/obj/drivers/vl53l0x.o
  .comment       0x0000000000000039       0x3a build/obj/drivers/io.o
  .comment       0x0000000000000039       0x3a build/obj/drivers/tb6612fng.o
  .comment       0x0000000000000039       0x3a build/obj/drivers/pwm_both_timers.o
@@ -745,127 +782,145 @@ __reset_vector  0x000000000000fffe        0x2
 .debug_sfnames
  *(.debug_sfnames)
 
-.debug_aranges  0x0000000000000000      0x160
+.debug_aranges  0x0000000000000000      0x1a0
  *(.debug_aranges)
  .debug_aranges
                 0x0000000000000000       0x20 build/obj/main.o
  .debug_aranges
-                0x0000000000000020       0x20 build/obj/drivers/io.o
+                0x0000000000000020       0x20 build/obj/drivers/i2c.o
  .debug_aranges
-                0x0000000000000040       0x20 build/obj/drivers/tb6612fng.o
+                0x0000000000000040       0x20 build/obj/drivers/vl53l0x.o
  .debug_aranges
-                0x0000000000000060       0x20 build/obj/drivers/pwm_both_timers.o
+                0x0000000000000060       0x20 build/obj/drivers/io.o
  .debug_aranges
-                0x0000000000000080       0x20 build/obj/drivers/ir_remote_ta1.o
+                0x0000000000000080       0x20 build/obj/drivers/tb6612fng.o
  .debug_aranges
-                0x00000000000000a0       0x20 build/obj/drivers/uart.o
+                0x00000000000000a0       0x20 build/obj/drivers/pwm_both_timers.o
  .debug_aranges
-                0x00000000000000c0       0x20 build/obj/drivers/mcu_init.o
+                0x00000000000000c0       0x20 build/obj/drivers/ir_remote_ta1.o
  .debug_aranges
-                0x00000000000000e0       0x20 build/obj/common/ring_buffer.o
+                0x00000000000000e0       0x20 build/obj/drivers/uart.o
  .debug_aranges
-                0x0000000000000100       0x20 build/obj/common/trace.o
+                0x0000000000000100       0x20 build/obj/drivers/mcu_init.o
  .debug_aranges
-                0x0000000000000120       0x20 build/obj/app/drive.o
+                0x0000000000000120       0x20 build/obj/common/ring_buffer.o
  .debug_aranges
-                0x0000000000000140       0x20 external/printf/printf.o
+                0x0000000000000140       0x20 build/obj/common/trace.o
+ .debug_aranges
+                0x0000000000000160       0x20 build/obj/app/drive.o
+ .debug_aranges
+                0x0000000000000180       0x20 external/printf/printf.o
 
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x0000000000000000     0x61e9
+.debug_info     0x0000000000000000     0x84be
  *(.debug_info .gnu.linkonce.wi.*)
- .debug_info    0x0000000000000000      0xa4d build/obj/main.o
- .debug_info    0x0000000000000a4d     0x11c5 build/obj/drivers/io.o
- .debug_info    0x0000000000001c12      0x3cd build/obj/drivers/tb6612fng.o
- .debug_info    0x0000000000001fdf      0x8e6 build/obj/drivers/pwm_both_timers.o
- .debug_info    0x00000000000028c5      0xa8f build/obj/drivers/ir_remote_ta1.o
- .debug_info    0x0000000000003354      0x924 build/obj/drivers/uart.o
- .debug_info    0x0000000000003c78      0x5c5 build/obj/drivers/mcu_init.o
- .debug_info    0x000000000000423d      0xba8 build/obj/common/ring_buffer.o
- .debug_info    0x0000000000004de5      0x100 build/obj/common/trace.o
- .debug_info    0x0000000000004ee5      0x3ac build/obj/app/drive.o
- .debug_info    0x0000000000005291      0xf58 external/printf/printf.o
+ .debug_info    0x0000000000000000      0xd7d build/obj/main.o
+ .debug_info    0x0000000000000d7d      0xbea build/obj/drivers/i2c.o
+ .debug_info    0x0000000000001967     0x13bb build/obj/drivers/vl53l0x.o
+ .debug_info    0x0000000000002d22     0x11c5 build/obj/drivers/io.o
+ .debug_info    0x0000000000003ee7      0x3cd build/obj/drivers/tb6612fng.o
+ .debug_info    0x00000000000042b4      0x8e6 build/obj/drivers/pwm_both_timers.o
+ .debug_info    0x0000000000004b9a      0xa8f build/obj/drivers/ir_remote_ta1.o
+ .debug_info    0x0000000000005629      0x924 build/obj/drivers/uart.o
+ .debug_info    0x0000000000005f4d      0x5c5 build/obj/drivers/mcu_init.o
+ .debug_info    0x0000000000006512      0xba8 build/obj/common/ring_buffer.o
+ .debug_info    0x00000000000070ba      0x100 build/obj/common/trace.o
+ .debug_info    0x00000000000071ba      0x3ac build/obj/app/drive.o
+ .debug_info    0x0000000000007566      0xf58 external/printf/printf.o
 
-.debug_abbrev   0x0000000000000000     0x1422
+.debug_abbrev   0x0000000000000000     0x18f6
  *(.debug_abbrev)
- .debug_abbrev  0x0000000000000000      0x167 build/obj/main.o
- .debug_abbrev  0x0000000000000167      0x383 build/obj/drivers/io.o
- .debug_abbrev  0x00000000000004ea      0x11a build/obj/drivers/tb6612fng.o
- .debug_abbrev  0x0000000000000604      0x1e4 build/obj/drivers/pwm_both_timers.o
- .debug_abbrev  0x00000000000007e8      0x23d build/obj/drivers/ir_remote_ta1.o
- .debug_abbrev  0x0000000000000a25      0x209 build/obj/drivers/uart.o
- .debug_abbrev  0x0000000000000c2e       0xdc build/obj/drivers/mcu_init.o
- .debug_abbrev  0x0000000000000d0a      0x1e0 build/obj/common/ring_buffer.o
- .debug_abbrev  0x0000000000000eea       0xca build/obj/common/trace.o
- .debug_abbrev  0x0000000000000fb4      0x161 build/obj/app/drive.o
- .debug_abbrev  0x0000000000001115      0x30d external/printf/printf.o
+ .debug_abbrev  0x0000000000000000      0x1a5 build/obj/main.o
+ .debug_abbrev  0x00000000000001a5      0x1f3 build/obj/drivers/i2c.o
+ .debug_abbrev  0x0000000000000398      0x2a3 build/obj/drivers/vl53l0x.o
+ .debug_abbrev  0x000000000000063b      0x383 build/obj/drivers/io.o
+ .debug_abbrev  0x00000000000009be      0x11a build/obj/drivers/tb6612fng.o
+ .debug_abbrev  0x0000000000000ad8      0x1e4 build/obj/drivers/pwm_both_timers.o
+ .debug_abbrev  0x0000000000000cbc      0x23d build/obj/drivers/ir_remote_ta1.o
+ .debug_abbrev  0x0000000000000ef9      0x209 build/obj/drivers/uart.o
+ .debug_abbrev  0x0000000000001102       0xdc build/obj/drivers/mcu_init.o
+ .debug_abbrev  0x00000000000011de      0x1e0 build/obj/common/ring_buffer.o
+ .debug_abbrev  0x00000000000013be       0xca build/obj/common/trace.o
+ .debug_abbrev  0x0000000000001488      0x161 build/obj/app/drive.o
+ .debug_abbrev  0x00000000000015e9      0x30d external/printf/printf.o
 
-.debug_line     0x0000000000000000     0x3a46
+.debug_line     0x0000000000000000     0x5878
  *(.debug_line .debug_line.* .debug_line_end)
- .debug_line    0x0000000000000000      0x3b7 build/obj/main.o
- .debug_line    0x00000000000003b7      0x9ad build/obj/drivers/io.o
- .debug_line    0x0000000000000d64      0x123 build/obj/drivers/tb6612fng.o
- .debug_line    0x0000000000000e87      0x3f4 build/obj/drivers/pwm_both_timers.o
- .debug_line    0x000000000000127b      0x6c3 build/obj/drivers/ir_remote_ta1.o
- .debug_line    0x000000000000193e      0x491 build/obj/drivers/uart.o
- .debug_line    0x0000000000001dcf      0x16e build/obj/drivers/mcu_init.o
- .debug_line    0x0000000000001f3d      0x43e build/obj/common/ring_buffer.o
- .debug_line    0x000000000000237b       0xf9 build/obj/common/trace.o
- .debug_line    0x0000000000002474      0x19f build/obj/app/drive.o
- .debug_line    0x0000000000002613     0x1433 external/printf/printf.o
+ .debug_line    0x0000000000000000      0x53b build/obj/main.o
+ .debug_line    0x000000000000053b      0x88c build/obj/drivers/i2c.o
+ .debug_line    0x0000000000000dc7     0x1422 build/obj/drivers/vl53l0x.o
+ .debug_line    0x00000000000021e9      0x9ad build/obj/drivers/io.o
+ .debug_line    0x0000000000002b96      0x123 build/obj/drivers/tb6612fng.o
+ .debug_line    0x0000000000002cb9      0x3f4 build/obj/drivers/pwm_both_timers.o
+ .debug_line    0x00000000000030ad      0x6c3 build/obj/drivers/ir_remote_ta1.o
+ .debug_line    0x0000000000003770      0x491 build/obj/drivers/uart.o
+ .debug_line    0x0000000000003c01      0x16e build/obj/drivers/mcu_init.o
+ .debug_line    0x0000000000003d6f      0x43e build/obj/common/ring_buffer.o
+ .debug_line    0x00000000000041ad       0xf9 build/obj/common/trace.o
+ .debug_line    0x00000000000042a6      0x19f build/obj/app/drive.o
+ .debug_line    0x0000000000004445     0x1433 external/printf/printf.o
 
-.debug_frame    0x0000000000000000      0xe50
+.debug_frame    0x0000000000000000     0x1428
  *(.debug_frame)
- .debug_frame   0x0000000000000000       0xb0 build/obj/main.o
- .debug_frame   0x00000000000000b0      0x464 build/obj/drivers/io.o
- .debug_frame   0x0000000000000514       0x64 build/obj/drivers/tb6612fng.o
- .debug_frame   0x0000000000000578       0xf8 build/obj/drivers/pwm_both_timers.o
- .debug_frame   0x0000000000000670      0x11c build/obj/drivers/ir_remote_ta1.o
- .debug_frame   0x000000000000078c      0x174 build/obj/drivers/uart.o
- .debug_frame   0x0000000000000900       0x34 build/obj/drivers/mcu_init.o
- .debug_frame   0x0000000000000934      0x14c build/obj/common/ring_buffer.o
- .debug_frame   0x0000000000000a80       0x34 build/obj/common/trace.o
- .debug_frame   0x0000000000000ab4       0x84 build/obj/app/drive.o
- .debug_frame   0x0000000000000b38      0x318 external/printf/printf.o
+ .debug_frame   0x0000000000000000       0xe0 build/obj/main.o
+ .debug_frame   0x00000000000000e0      0x1bc build/obj/drivers/i2c.o
+ .debug_frame   0x000000000000029c      0x3ec build/obj/drivers/vl53l0x.o
+ .debug_frame   0x0000000000000688      0x464 build/obj/drivers/io.o
+ .debug_frame   0x0000000000000aec       0x64 build/obj/drivers/tb6612fng.o
+ .debug_frame   0x0000000000000b50       0xf8 build/obj/drivers/pwm_both_timers.o
+ .debug_frame   0x0000000000000c48      0x11c build/obj/drivers/ir_remote_ta1.o
+ .debug_frame   0x0000000000000d64      0x174 build/obj/drivers/uart.o
+ .debug_frame   0x0000000000000ed8       0x34 build/obj/drivers/mcu_init.o
+ .debug_frame   0x0000000000000f0c      0x14c build/obj/common/ring_buffer.o
+ .debug_frame   0x0000000000001058       0x34 build/obj/common/trace.o
+ .debug_frame   0x000000000000108c       0x84 build/obj/app/drive.o
+ .debug_frame   0x0000000000001110      0x318 external/printf/printf.o
 
-.debug_str      0x0000000000000000     0x17a8
+.debug_str      0x0000000000000000     0x2066
  *(.debug_str)
- .debug_str     0x0000000000000000      0x825 build/obj/main.o
-                                        0x861 (size before relaxing)
- .debug_str     0x0000000000000825      0x3d4 build/obj/drivers/io.o
+ .debug_str     0x0000000000000000      0xa3c build/obj/main.o
+                                        0xa8e (size before relaxing)
+ .debug_str     0x0000000000000a3c      0x14e build/obj/drivers/i2c.o
+                                        0x6ad (size before relaxing)
+ .debug_str     0x0000000000000b8a      0x667 build/obj/drivers/vl53l0x.o
+                                        0xb99 (size before relaxing)
+ .debug_str     0x00000000000011f1      0x319 build/obj/drivers/io.o
                                         0x9cb (size before relaxing)
- .debug_str     0x0000000000000bf9      0x1b2 build/obj/drivers/tb6612fng.o
+ .debug_str     0x000000000000150a      0x1b2 build/obj/drivers/tb6612fng.o
                                         0x490 (size before relaxing)
- .debug_str     0x0000000000000dab       0xf5 build/obj/drivers/pwm_both_timers.o
+ .debug_str     0x00000000000016bc       0xea build/obj/drivers/pwm_both_timers.o
                                         0x7e2 (size before relaxing)
- .debug_str     0x0000000000000ea0      0x179 build/obj/drivers/ir_remote_ta1.o
+ .debug_str     0x00000000000017a6      0x163 build/obj/drivers/ir_remote_ta1.o
                                         0x780 (size before relaxing)
- .debug_str     0x0000000000001019      0x132 build/obj/drivers/uart.o
+ .debug_str     0x0000000000001909      0x126 build/obj/drivers/uart.o
                                         0x63e (size before relaxing)
- .debug_str     0x000000000000114b       0x32 build/obj/drivers/mcu_init.o
+ .debug_str     0x0000000000001a2f       0x32 build/obj/drivers/mcu_init.o
                                         0x4a0 (size before relaxing)
- .debug_str     0x000000000000117d      0x437 build/obj/common/ring_buffer.o
+ .debug_str     0x0000000000001a61      0x411 build/obj/common/ring_buffer.o
                                         0x68a (size before relaxing)
- .debug_str     0x00000000000015b4       0x3d build/obj/common/trace.o
+ .debug_str     0x0000000000001e72       0x3d build/obj/common/trace.o
                                         0x157 (size before relaxing)
- .debug_str     0x00000000000015f1       0x95 build/obj/app/drive.o
+ .debug_str     0x0000000000001eaf       0x95 build/obj/app/drive.o
                                         0x495 (size before relaxing)
- .debug_str     0x0000000000001686      0x122 external/printf/printf.o
+ .debug_str     0x0000000000001f44      0x122 external/printf/printf.o
                                         0x2fa (size before relaxing)
 
-.debug_loc      0x0000000000000000     0x1d82
+.debug_loc      0x0000000000000000     0x2a42
  *(.debug_loc)
- .debug_loc     0x0000000000000000       0x2b build/obj/main.o
- .debug_loc     0x000000000000002b      0x69e build/obj/drivers/io.o
- .debug_loc     0x00000000000006c9      0x11a build/obj/drivers/tb6612fng.o
- .debug_loc     0x00000000000007e3       0xb2 build/obj/drivers/pwm_both_timers.o
- .debug_loc     0x0000000000000895      0x113 build/obj/drivers/ir_remote_ta1.o
- .debug_loc     0x00000000000009a8       0xdb build/obj/drivers/uart.o
- .debug_loc     0x0000000000000a83      0x207 build/obj/common/ring_buffer.o
- .debug_loc     0x0000000000000c8a       0x20 build/obj/common/trace.o
- .debug_loc     0x0000000000000caa      0x15b build/obj/app/drive.o
- .debug_loc     0x0000000000000e05      0xf7d external/printf/printf.o
+ .debug_loc     0x0000000000000000       0x72 build/obj/main.o
+ .debug_loc     0x0000000000000072      0x548 build/obj/drivers/i2c.o
+ .debug_loc     0x00000000000005ba      0x731 build/obj/drivers/vl53l0x.o
+ .debug_loc     0x0000000000000ceb      0x69e build/obj/drivers/io.o
+ .debug_loc     0x0000000000001389      0x11a build/obj/drivers/tb6612fng.o
+ .debug_loc     0x00000000000014a3       0xb2 build/obj/drivers/pwm_both_timers.o
+ .debug_loc     0x0000000000001555      0x113 build/obj/drivers/ir_remote_ta1.o
+ .debug_loc     0x0000000000001668       0xdb build/obj/drivers/uart.o
+ .debug_loc     0x0000000000001743      0x207 build/obj/common/ring_buffer.o
+ .debug_loc     0x000000000000194a       0x20 build/obj/common/trace.o
+ .debug_loc     0x000000000000196a      0x15b build/obj/app/drive.o
+ .debug_loc     0x0000000000001ac5      0xf7d external/printf/printf.o
 
 .debug_macinfo
  *(.debug_macinfo)
@@ -885,12 +940,14 @@ __reset_vector  0x000000000000fffe        0x2
 .debug_pubtypes
  *(.debug_pubtypes)
 
-.debug_ranges   0x0000000000000000       0xc8
+.debug_ranges   0x0000000000000000      0x188
  *(.debug_ranges)
- .debug_ranges  0x0000000000000000       0x18 build/obj/main.o
- .debug_ranges  0x0000000000000018       0x30 build/obj/drivers/ir_remote_ta1.o
- .debug_ranges  0x0000000000000048       0x18 build/obj/app/drive.o
- .debug_ranges  0x0000000000000060       0x68 external/printf/printf.o
+ .debug_ranges  0x0000000000000000       0x48 build/obj/main.o
+ .debug_ranges  0x0000000000000048       0x18 build/obj/drivers/i2c.o
+ .debug_ranges  0x0000000000000060       0x78 build/obj/drivers/vl53l0x.o
+ .debug_ranges  0x00000000000000d8       0x30 build/obj/drivers/ir_remote_ta1.o
+ .debug_ranges  0x0000000000000108       0x18 build/obj/app/drive.o
+ .debug_ranges  0x0000000000000120       0x68 external/printf/printf.o
 
 .debug_macro
  *(.debug_macro)
@@ -971,16 +1028,16 @@ __reset_vector  0x000000000000fffe        0x2
                 [!provide]                        PROVIDE (UCA0ABCTL = 0x5d)
                 [!provide]                        PROVIDE (UCA0IRTCTL = 0x5e)
                 [!provide]                        PROVIDE (UCA0IRRCTL = 0x5f)
-                [!provide]                        PROVIDE (UCB0CTL0 = 0x68)
-                [!provide]                        PROVIDE (UCB0CTL1 = 0x69)
-                [!provide]                        PROVIDE (UCB0BR0 = 0x6a)
-                [!provide]                        PROVIDE (UCB0BR1 = 0x6b)
+                0x0000000000000068                PROVIDE (UCB0CTL0 = 0x68)
+                0x0000000000000069                PROVIDE (UCB0CTL1 = 0x69)
+                0x000000000000006a                PROVIDE (UCB0BR0 = 0x6a)
+                0x000000000000006b                PROVIDE (UCB0BR1 = 0x6b)
                 [!provide]                        PROVIDE (UCB0I2CIE = 0x6c)
-                [!provide]                        PROVIDE (UCB0STAT = 0x6d)
-                [!provide]                        PROVIDE (UCB0RXBUF = 0x6e)
-                [!provide]                        PROVIDE (UCB0TXBUF = 0x6f)
+                0x000000000000006d                PROVIDE (UCB0STAT = 0x6d)
+                0x000000000000006e                PROVIDE (UCB0RXBUF = 0x6e)
+                0x000000000000006f                PROVIDE (UCB0TXBUF = 0x6f)
                 [!provide]                        PROVIDE (UCB0I2COA = 0x118)
-                [!provide]                        PROVIDE (UCB0I2CSA = 0x11a)
+                0x000000000000011a                PROVIDE (UCB0I2CSA = 0x11a)
                 0x0000000000000120                PROVIDE (WDTCTL = 0x120)
                 0x00000000000010f8                PROVIDE (CALDCO_16MHZ = 0x10f8)
                 0x00000000000010f9                PROVIDE (CALBC1_16MHZ = 0x10f9)
