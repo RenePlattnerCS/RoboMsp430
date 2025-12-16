@@ -2,6 +2,7 @@
 #include "drivers/i2c.h"
 #include "drivers/io.h"
 #include "common/defines.h"
+#include "common/trace.h"
 
 #define REG_IDENTIFICATION_MODEL_ID (0xC0)
 #define REG_VHV_CONFIG_PAD_SCL_SDA_EXTSUP_HV (0x89)
@@ -76,12 +77,10 @@ struct i2c_8reg
 
 static const struct vl53l0x_cfg vl53l0x_cfgs[] = {
     [VL53L0X_IDX_FRONT] = { .addr = 0x30, .xshut_io = IO_XSHUT_FRONT },
-#if defined(NSUMO)
     [VL53L0X_IDX_LEFT] = { .addr = 0x31, .xshut_io = IO_XSHUT_LEFT },
     [VL53L0X_IDX_RIGHT] = { .addr = 0x32, .xshut_io = IO_XSHUT_RIGHT },
     [VL53L0X_IDX_FRONT_RIGHT] = { .addr = 0x33, .xshut_io = IO_XSHUT_FRONT_RIGHT },
     [VL53L0X_IDX_FRONT_LEFT] = { .addr = 0x34, .xshut_io = IO_XSHUT_FRONT_LEFT },
-#endif
 };
 
 static uint8_t stop_variable = 0;
@@ -117,6 +116,7 @@ static vl53l0x_result_e vl53l0x_data_init(void)
     // Set 2v8 mode
     uint8_t vhv_config_scl_sda = 0;
     if (i2c_read_addr8_data8(REG_VHV_CONFIG_PAD_SCL_SDA_EXTSUP_HV, &vhv_config_scl_sda)) {
+	    TRACE("2.8V failed");
         return VL53L0X_RESULT_ERROR_I2C;
     }
     vhv_config_scl_sda |= 0x01;
@@ -407,14 +407,6 @@ static void front_measurement_done_isr()
 
 static void vl53l0x_configure_front_sensor_interrupt(void)
 {
-    //static const struct io_config front_interrupt_config = {
-    //    .select = IO_SELECT_GPIO,
-    //    .resistor = IO_RESISTOR_DISABLED,
-    //    .dir = IO_DIR_INPUT,
-    //    .out = IO_OUT_LOW,
-    //};
-    //struct io_config current_config;
-    //io_get_current_config(IO_RANGE_SENSOR_FRONT_INT, &current_config);
 
     io_configure_interrupt(IO_RANGE_SENSOR_FRONT_INT, IO_TRIGGER_FALLING,
                            front_measurement_done_isr);
@@ -529,23 +521,31 @@ static void vl53l0x_set_hardware_standby(vl53l0x_idx_e idx, bool enable)
 /* Configures the GPIOs used for the XSHUT pin.
  * Output low by default means the sensors will be in
  * hardware standby after this function is called. */
+/*
 static void vl53l0x_assert_xshut_pins(void)
 {
-    //static const struct io_config xshut_config = {
-    //    .select = IO_SELECT_GPIO,
-    //    .resistor = IO_RESISTOR_DISABLED,
-    //    .dir = IO_DIR_OUTPUT,
-    //    .out = IO_OUT_LOW,
-    //};
-    //struct io_config current_config;
-    //io_get_current_config(IO_XSHUT_FRONT, &current_config);
+    static const struct io_config xshut_config = {
+        .select = IO_SELECT_GPIO,
+        .resistor = IO_RESISTOR_DISABLED,
+        .dir = IO_DIR_OUTPUT,
+        .out = IO_OUT_LOW,
+    };
+    struct io_config current_config;
+    io_get_current_config(IO_XSHUT_FRONT, &current_config);
+    ASSERT(io_config_compare(&xshut_config, &current_config));
 #if defined(NSUMO)
     io_get_current_config(IO_XSHUT_FRONT_LEFT, &current_config);
+    ASSERT(io_config_compare(&xshut_config, &current_config));
     io_get_current_config(IO_XSHUT_FRONT_RIGHT, &current_config);
+    ASSERT(io_config_compare(&xshut_config, &current_config));
     io_get_current_config(IO_XSHUT_LEFT, &current_config);
+    ASSERT(io_config_compare(&xshut_config, &current_config));
     io_get_current_config(IO_XSHUT_RIGHT, &current_config);
+    ASSERT(io_config_compare(&xshut_config, &current_config));
 #endif
 }
+*/
+
 
 /* Sets the address of a single VL53L0X sensor.
  * This functions assumes that all non-configured VL53L0X are still
@@ -562,6 +562,7 @@ static vl53l0x_result_e vl53l0x_init_address(vl53l0x_idx_e idx)
 
     vl53l0x_result_e result = device_is_booted();
     if (result) {
+	    TRACE("device not booted error");
         return result;
     }
     result = vl53l0x_configure_address(vl53l0x_cfgs[idx].addr);
@@ -573,31 +574,36 @@ static vl53l0x_result_e vl53l0x_init_address(vl53l0x_idx_e idx)
 static vl53l0x_result_e vl53l0x_init_addresses(void)
 {
     // Default IO config should put all sensors in hardware standby
-    vl53l0x_assert_xshut_pins();
 
     // Wake each sensor up one by one and set a unique address for each one
     vl53l0x_result_e result = vl53l0x_init_address(VL53L0X_IDX_FRONT);
     if (result) {
+	    TRACE("error setting dront address");
         return result;
     }
-#if defined(NSUMO)
+    
+    /*
     result = vl53l0x_init_address(VL53L0X_IDX_LEFT);
     if (result) {
+	    TRACE("error setting left address");
         return result;
     }
     result = vl53l0x_init_address(VL53L0X_IDX_RIGHT);
     if (result) {
+	    TRACE("error setting right  address");
         return result;
     }
+    */
     result = vl53l0x_init_address(VL53L0X_IDX_FRONT_LEFT);
     if (result) {
+	    TRACE("error setting front left  address");
         return result;
     }
     result = vl53l0x_init_address(VL53L0X_IDX_FRONT_RIGHT);
     if (result) {
+	    TRACE("error setting front right  address");
         return result;
     }
-#endif
     return VL53L0X_RESULT_OK;
 }
 
@@ -606,6 +612,7 @@ static vl53l0x_result_e vl53l0x_init_config(vl53l0x_idx_e idx)
     i2c_set_slave_address(vl53l0x_cfgs[idx].addr);
     vl53l0x_result_e result = vl53l0x_data_init();
     if (result) {
+	    TRACE("%u failed data init", idx);
         return result;
     }
     result = vl53l0x_static_init();
@@ -674,16 +681,13 @@ static vl53l0x_result_e vl53l0x_pollwait_sysrange(void)
 
 static bool vl53l0x_is_sysrange_done(vl53l0x_idx_e idx)
 {
-#if defined(LAUNCHPAD)
     if (idx != VL53L0X_IDX_FRONT) {
         return true;
     }
-#elif defined(NSUMO)
     if (idx != VL53L0X_IDX_FRONT_LEFT && idx != VL53L0X_IDX_FRONT
         && idx != VL53L0X_IDX_FRONT_RIGHT) {
         return true;
     }
-#endif
     i2c_set_slave_address(vl53l0x_cfgs[idx].addr);
     uint8_t interrupt_status = 0;
     const i2c_result_e i2c_result =
@@ -738,7 +742,6 @@ vl53l0x_result_e vl53l0x_start_measuring_multiple(void)
     if (result) {
         return result;
     }
-#if defined(NSUMO)
     result = vl53l0x_start_sysrange(VL53L0X_IDX_FRONT_LEFT);
     if (result) {
         return result;
@@ -747,7 +750,6 @@ vl53l0x_result_e vl53l0x_start_measuring_multiple(void)
     if (result) {
         return result;
     }
-#endif
 #if 0 // Skip left and right, since they are are mounted badly
     result = vl53l0x_start_sysrange(VL53L0X_IDX_LEFT);
     if (result) {
@@ -797,14 +799,12 @@ vl53l0x_result_e vl53l0x_read_range_multiple(vl53l0x_ranges_t ranges, bool *fres
 
         if (!vl53l0x_is_sysrange_done(VL53L0X_IDX_FRONT)) {
             // Sanity check!
-	    
         }
 
         result = vl53l0x_read_range(VL53L0X_IDX_FRONT, &latest_ranges[VL53L0X_IDX_FRONT]);
         if (result) {
             return result;
         }
-#if defined(NSUMO)
         result = vl53l0x_read_range(VL53L0X_IDX_FRONT_LEFT, &latest_ranges[VL53L0X_IDX_FRONT_LEFT]);
         if (result) {
             return result;
@@ -814,7 +814,6 @@ vl53l0x_result_e vl53l0x_read_range_multiple(vl53l0x_ranges_t ranges, bool *fres
         if (result) {
             return result;
         }
-#endif
 #if 0 // Skip left and right, since they are are mounted badly
         result = vl53l0x_read_range(VL53L0X_IDX_LEFT, &latest_ranges[VL53L0X_IDX_LEFT]);
         if (result) {
@@ -849,13 +848,15 @@ vl53l0x_result_e vl53l0x_init(void)
 
     vl53l0x_result_e result = vl53l0x_init_addresses();
     if (result) {
+	    TRACE("init adddresses error");
         return result;
     }
     result = vl53l0x_init_config(VL53L0X_IDX_FRONT);
     if (result) {
+	    TRACE("init front error");
         return result;
     }
-#if defined(NSUMO)
+    /*
     result = vl53l0x_init_config(VL53L0X_IDX_LEFT);
     if (result) {
         return result;
@@ -864,15 +865,17 @@ vl53l0x_result_e vl53l0x_init(void)
     if (result) {
         return result;
     }
+    */
     result = vl53l0x_init_config(VL53L0X_IDX_FRONT_LEFT);
     if (result) {
+	    TRACE("init front left error");
         return result;
     }
     result = vl53l0x_init_config(VL53L0X_IDX_FRONT_RIGHT);
     if (result) {
+	    TRACE("init front right error");
         return result;
     }
-#endif
     initialized = true;
     return VL53L0X_RESULT_OK;
 }

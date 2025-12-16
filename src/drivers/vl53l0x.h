@@ -6,8 +6,7 @@
 
 #define VL53L0X_OUT_OF_RANGE (8190)
 
-typedef enum
-{
+typedef enum {
     VL53L0X_IDX_FRONT,
     VL53L0X_IDX_LEFT,
     VL53L0X_IDX_RIGHT,
@@ -16,8 +15,7 @@ typedef enum
     VL53L0X_IDX_COUNT
 } vl53l0x_idx_e;
 
-typedef enum
-{
+typedef enum {
     VL53L0X_RESULT_OK,
     VL53L0X_RESULT_ERROR_I2C,
     VL53L0X_RESULT_ERROR_BOOT,

@@ -5,8 +5,7 @@
 
 // Polling-based I2C master driver
 
-typedef enum
-{
+typedef enum {
     I2C_RESULT_OK,
     I2C_RESULT_ERROR_START,
     I2C_RESULT_ERROR_TX,

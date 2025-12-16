@@ -9,7 +9,7 @@ struct cc_pins
 
 static struct cc_pins tb6612fng_cc_pins[] = {
     [TB6612FNG_LEFT] = { IO_MOTORS_LEFT_CC_1, IO_MOTORS_LEFT_CC_2 },
-    [TB6612FNG_RIGHT] = { IO_MOTORS_RIGHT_CC_1, IO_MOTORS_RIGHT_CC_2 },
+    [TB6612FNG_RIGHT] = { IO_MOTORS_RIGHT_CC_2 , IO_MOTORS_RIGHT_CC_2 }, //IO motor right CC!!!!! ^^
 };
 
 void tb6612fng_set_mode(tb6612fng_e tb, tb6612fng_mode_e mode)

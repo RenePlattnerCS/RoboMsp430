@@ -12,7 +12,7 @@
 #include "drivers/vl53l0x.h"
 
 #define IO_TEST_BUTTON IO_MOTORS_RIGHT_CC_2 // Alias P1.3 for clarity
-#define IO_TEST_LED    IO_MOTORS_RIGHT_CC_1
+#define IO_TEST_LED    IO_MOTORS_RIGHT_CC_2
 
 
 #define PWM_TIMER_FREQ_HZ2 (SMCLK / TIMER_INPUT_DIVIDER_3)
@@ -26,7 +26,7 @@
 SUPPRESS_UNUSED
 void isr_test_toggle_led(void)
 {
-	io_set_out(IO_MOTORS_RIGHT_CC_1, IO_OUT_HIGH);
+	io_set_out(IO_MOTORS_RIGHT_CC_2, IO_OUT_HIGH);
 	
 }
 
@@ -329,13 +329,40 @@ void test_i2c(void)
 	}
 }
 
+void test_multiple_vlx(void)
+{
+	mcu_init();
+        trace_init();
+       // i2c_init();
+
+	vl53l0x_result_e result = vl53l0x_init();
+	if(result)
+	{
+		TRACE("vlx init failed: %u" , result);
+	}
+
+	while(1) {
+		vl53l0x_ranges_t ranges = {0,0,0,0,0};
+		bool fresh_values = false;
+		result = vl53l0x_read_range_multiple(ranges, &fresh_values);
+		if (result) {
+			TRACE("Range meassure failed, result: %u", result);
+		}
+		TRACE("meassurement f %u fl %u fr %u", ranges[VL53L0X_IDX_FRONT], ranges[VL53L0X_IDX_FRONT_LEFT], ranges[VL53L0X_IDX_FRONT_RIGHT]);
+
+		BUSY_WAIT_ms(1000);
+	}
+
+}
+
 int main(void)
 {
    //test_ir_ta1();
    //test_pwm_timers();
    //test_motor();
    //test_driver();
-   test_vlx();
+  // test_vlx();
+test_multiple_vlx();
    //test_i2c();
    return 0;
 }
