@@ -22,7 +22,7 @@ typedef enum {
 
 typedef enum {
 #if defined(LAUNCHPAD) // Launchpad (MSP430G2553IN20)
-    IO_XSHUT_LEFT = IO_10,                 //M
+    IO_MOTORS_RIGHT_CC_1 = IO_10,                 //M
     IO_UART_RXD = IO_11,                          //UART
     IO_UART_TXD = IO_12,                          //UART
     IO_MOTORS_RIGHT_CC_2 = IO_13,                 //M
@@ -37,7 +37,7 @@ typedef enum {
     IO_XSHUT_FRONT = IO_24,                       //X
     IO_IR_REMOTE = IO_25,                         //IR
     IO_PWM_MOTORS_LEFT = IO_26,                   //PWM
-    IO_XSHUT_RIGHT = IO_27,                         // unused
+    IO_UNUSED = IO_27,                         // unused
 #elif defined(NSUMO) // Nsumo rev 2 (MSP430G2553IPW28)
     IO_LINE_DETECT_FRONT_RIGHT = IO_10,
     IO_UART_RXD = IO_11,

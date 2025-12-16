@@ -4,6 +4,10 @@
 #include "common/defines.h"
 #include "common/trace.h"
 
+
+#define IO_XSHUT_LEFT		(16) //are not used, dont have
+#define IO_XSHUT_RIGHT		(17) //space on the launchpad
+
 #define REG_IDENTIFICATION_MODEL_ID (0xC0)
 #define REG_VHV_CONFIG_PAD_SCL_SDA_EXTSUP_HV (0x89)
 #define REG_MSRC_CONFIG_CONTROL (0x60)

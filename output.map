@@ -69,7 +69,7 @@ Discarded input sections
                 0x0000000000000000       0x20 build/obj/drivers/ir_remote.o
  .debug_ranges  0x0000000000000000       0x38 build/obj/drivers/ir_remote.o
  .debug_line    0x0000000000000000      0x49d build/obj/drivers/ir_remote.o
- .debug_str     0x0000000000000000      0x8ae build/obj/drivers/ir_remote.o
+ .debug_str     0x0000000000000000      0x8b0 build/obj/drivers/ir_remote.o
  .comment       0x0000000000000000       0x3a build/obj/drivers/ir_remote.o
  .text          0x0000000000000000      0x122 build/obj/drivers/pwm.o
  .data          0x0000000000000000        0xc build/obj/drivers/pwm.o
@@ -882,33 +882,33 @@ __reset_vector  0x000000000000fffe        0x2
  .debug_frame   0x0000000000001118       0x84 build/obj/app/drive.o
  .debug_frame   0x000000000000119c      0x318 external/printf/printf.o
 
-.debug_str      0x0000000000000000     0x205c
+.debug_str      0x0000000000000000     0x205e
  *(.debug_str)
- .debug_str     0x0000000000000000      0xa8c build/obj/main.o
-                                        0xae5 (size before relaxing)
- .debug_str     0x0000000000000a8c      0x14e build/obj/drivers/i2c.o
+ .debug_str     0x0000000000000000      0xa8e build/obj/main.o
+                                        0xae7 (size before relaxing)
+ .debug_str     0x0000000000000a8e      0x14e build/obj/drivers/i2c.o
                                         0x6ad (size before relaxing)
- .debug_str     0x0000000000000bda      0x60d build/obj/drivers/vl53l0x.o
-                                        0xb83 (size before relaxing)
- .debug_str     0x00000000000011e7      0x319 build/obj/drivers/io.o
-                                        0x9c9 (size before relaxing)
- .debug_str     0x0000000000001500      0x1b2 build/obj/drivers/tb6612fng.o
-                                        0x48e (size before relaxing)
- .debug_str     0x00000000000016b2       0xea build/obj/drivers/pwm_both_timers.o
-                                        0x7e0 (size before relaxing)
- .debug_str     0x000000000000179c      0x163 build/obj/drivers/ir_remote_ta1.o
+ .debug_str     0x0000000000000bdc      0x60d build/obj/drivers/vl53l0x.o
+                                        0xb85 (size before relaxing)
+ .debug_str     0x00000000000011e9      0x319 build/obj/drivers/io.o
+                                        0x9cb (size before relaxing)
+ .debug_str     0x0000000000001502      0x1b2 build/obj/drivers/tb6612fng.o
+                                        0x490 (size before relaxing)
+ .debug_str     0x00000000000016b4       0xea build/obj/drivers/pwm_both_timers.o
+                                        0x7e2 (size before relaxing)
+ .debug_str     0x000000000000179e      0x163 build/obj/drivers/ir_remote_ta1.o
                                         0x780 (size before relaxing)
- .debug_str     0x00000000000018ff      0x126 build/obj/drivers/uart.o
+ .debug_str     0x0000000000001901      0x126 build/obj/drivers/uart.o
                                         0x63e (size before relaxing)
- .debug_str     0x0000000000001a25       0x32 build/obj/drivers/mcu_init.o
+ .debug_str     0x0000000000001a27       0x32 build/obj/drivers/mcu_init.o
                                         0x4a0 (size before relaxing)
- .debug_str     0x0000000000001a57      0x411 build/obj/common/ring_buffer.o
+ .debug_str     0x0000000000001a59      0x411 build/obj/common/ring_buffer.o
                                         0x68a (size before relaxing)
- .debug_str     0x0000000000001e68       0x3d build/obj/common/trace.o
+ .debug_str     0x0000000000001e6a       0x3d build/obj/common/trace.o
                                         0x157 (size before relaxing)
- .debug_str     0x0000000000001ea5       0x95 build/obj/app/drive.o
+ .debug_str     0x0000000000001ea7       0x95 build/obj/app/drive.o
                                         0x495 (size before relaxing)
- .debug_str     0x0000000000001f3a      0x122 external/printf/printf.o
+ .debug_str     0x0000000000001f3c      0x122 external/printf/printf.o
                                         0x2fa (size before relaxing)
 
 .debug_loc      0x0000000000000000     0x2a62
