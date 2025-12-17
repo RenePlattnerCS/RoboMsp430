@@ -11,6 +11,12 @@
 #include "drivers/i2c.h"
 #include "drivers/vl53l0x.h"
 #include "app/wall.h"
+#include "app/state_machine.h"
+
+
+#define DDISABLE_ENUM_STRINGS
+
+
 
 #define IO_TEST_BUTTON IO_MOTORS_RIGHT_CC_2 // Alias P1.3 for clarity
 #define IO_TEST_LED    IO_MOTORS_RIGHT_CC_2
@@ -23,7 +29,7 @@
 // Timer counts from 0, so should decrement by 1
 #define PWM_CCR02 (PWM_PERIOD_TICKS2 - 1)
 
-
+/*
 SUPPRESS_UNUSED
 void isr_test_toggle_led(void)
 {
@@ -229,7 +235,7 @@ uint8_t i = 0;
     }
 
 }
-
+*/
 SUPPRESS_UNUSED
 void test_driver(void)
 {
@@ -369,15 +375,31 @@ void test_multiple_vlx(void)
 
 }
 
+
+void test_state_machine(void)
+{
+	mcu_init();
+        trace_init();
+	//TRACE("HELOO");
+	//BUSY_WAIT_ms(100);
+	drive_init();
+	wall_init();
+        ir_remote_init_ta1();
+
+	state_machine_run();
+	
+}
+
 int main(void)
 {
-   //test_ir_ta1();
+  // test_ir_ta1();
    //test_pwm_timers();
    //test_motor();
-   //test_driver();
+  // test_driver();
   // test_vlx();
 //test_multiple_vlx();
    //test_i2c();
-test_wall();
+//test_wall();
+ test_state_machine();
 return 0;
 }
