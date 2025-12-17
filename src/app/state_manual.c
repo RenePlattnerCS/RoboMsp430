@@ -1,5 +1,4 @@
 #include "app/state_manual.h"
-#include "app/drive.h"
 #include "common/defines.h"
 #include "common/trace.h"
 
@@ -17,16 +16,16 @@ void state_manual_enter(struct state_manual_data *data, state_e from, state_even
     switch (data->common->cmd) {
 
     case IR_CMD_UP:
-        drive_set(DRIVE_DIR_FORWARD, DRIVE_SPEED_MEDIUM);
+        drive_set(DRIVE_DIR_FORWARD, data->curr_speed);
 	break;
     case IR_CMD_DOWN:
-        drive_set(DRIVE_DIR_REVERSE, DRIVE_SPEED_MEDIUM);
+        drive_set(DRIVE_DIR_REVERSE, data->curr_speed);
         break;
     case IR_CMD_LEFT:
-        drive_set(DRIVE_DIR_ROTATE_LEFT, DRIVE_SPEED_MEDIUM);
+        drive_set(DRIVE_DIR_ROTATE_LEFT, data->curr_speed);
         break;
     case IR_CMD_RIGHT:
-        drive_set(DRIVE_DIR_ROTATE_RIGHT, DRIVE_SPEED_MEDIUM);
+        drive_set(DRIVE_DIR_ROTATE_RIGHT, data->curr_speed);
         break;
     case IR_CMD_0:
 	drive_stop();
@@ -37,9 +36,21 @@ void state_manual_enter(struct state_manual_data *data, state_e from, state_even
         break;
 
     case IR_CMD_1:
+	TRACE("1");
+	data->curr_speed = DRIVE_SPEED_SLOW;
+	break;
     case IR_CMD_2:
+	TRACE("2");
+	data->curr_speed = DRIVE_SPEED_MEDIUM;
+        break;
     case IR_CMD_3:
+	TRACE("3");
+	data->curr_speed = DRIVE_SPEED_FAST;
+        break;
     case IR_CMD_4:
+	TRACE("4");
+	data->curr_speed = DRIVE_SPEED_MAX;
+        break;
     case IR_CMD_5:
     case IR_CMD_6:
     case IR_CMD_7:
@@ -55,3 +66,9 @@ void state_manual_enter(struct state_manual_data *data, state_e from, state_even
     UNUSED(event);
 #endif
 }
+
+void state_manual_init(struct state_manual_data *data)
+{
+    data->curr_speed = DRIVE_SPEED_MEDIUM;
+}
+

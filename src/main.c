@@ -395,11 +395,12 @@ int main(void)
   // test_ir_ta1();
    //test_pwm_timers();
    //test_motor();
-  // test_driver();
+ //  test_driver();
   // test_vlx();
 //test_multiple_vlx();
    //test_i2c();
 //test_wall();
- test_state_machine();
+ 
+test_state_machine();
 return 0;
 }

@@ -28,6 +28,8 @@
 // Timer counts from 0, so should decrement by 1
 #define PWM_CCR0 (PWM_PERIOD_TICKS - 1)
 
+#define PWM_PERIOD_TICKS2   (PWM_PERIOD_TICKS * 8u)
+
 static pwm_speed_e current_speed_right;
 bool is_chanel_enabled[2] = { false, false}; 
 
@@ -43,21 +45,21 @@ static uint16_t ta1_ccr0_base = 0;
 //structs to help set the period
 struct pwm_period
 {
-    uint8_t a1_period[2];
+    uint16_t a1_period[2];
     uint8_t a0_period;
 };
 
 
 
 static struct pwm_period pwm_periods[] = {
-	[PWM_MAX_SPEED] = { .a1_period = {PWM_PERIOD_TICKS * 2u, PWM_PERIOD_TICKS *1u}, .a0_period = 67u},
-	[PWM_HALF_PLUS_SPEED] = { .a1_period = {PWM_PERIOD_TICKS + (PWM_PERIOD_TICKS /2), PWM_PERIOD_TICKS *1u}, .a0_period = 60u},
-	[PWM_HALF_SPEED] = { .a1_period = {PWM_PERIOD_TICKS * 1u, PWM_PERIOD_TICKS * 1u}, .a0_period = 50u},
-	[PWM_QUARTER_PLUS_SPEED] = { .a1_period = {(PWM_PERIOD_TICKS / 2) + (PWM_PERIOD_TICKS / 4), PWM_PERIOD_TICKS *1u}, .a0_period = 43u},
-	[PWM_QUARTER_SPEED] = { .a1_period = {PWM_PERIOD_TICKS / 2, PWM_PERIOD_TICKS}, .a0_period = 33u},
-	[PWM_EIGHTH_PLUS_SPEED] = { .a1_period = {(PWM_PERIOD_TICKS / 4) + (PWM_PERIOD_TICKS / 8), PWM_PERIOD_TICKS *1u}, .a0_period = 27u},
-	[PWM_EIGHTH_SPEED] = { .a1_period ={PWM_PERIOD_TICKS / 4, PWM_PERIOD_TICKS}, .a0_period = 20u},
-	[PWM_STOP_SPEED] = { .a1_period ={1u, PWM_PERIOD_TICKS}, .a0_period = 0u}
+	[PWM_MAX_SPEED] = { .a1_period = {PWM_PERIOD_TICKS2 * 2u, PWM_PERIOD_TICKS2 *1u}, .a0_period = 67u},
+	[PWM_HALF_PLUS_SPEED] = { .a1_period = {PWM_PERIOD_TICKS2 + (PWM_PERIOD_TICKS2 /2), PWM_PERIOD_TICKS2 *1u}, .a0_period = 60u},
+	[PWM_HALF_SPEED] = { .a1_period = {PWM_PERIOD_TICKS2 * 1u, PWM_PERIOD_TICKS2 * 1u}, .a0_period = 50u},
+	[PWM_QUARTER_PLUS_SPEED] = { .a1_period = {(PWM_PERIOD_TICKS2 / 2) + (PWM_PERIOD_TICKS2 / 4), PWM_PERIOD_TICKS2 *1u}, .a0_period = 43u},
+	[PWM_QUARTER_SPEED] = { .a1_period = {PWM_PERIOD_TICKS2 / 2, PWM_PERIOD_TICKS2}, .a0_period = 33u},
+	[PWM_EIGHTH_PLUS_SPEED] = { .a1_period = {(PWM_PERIOD_TICKS2 / 4) + (PWM_PERIOD_TICKS2 / 8), PWM_PERIOD_TICKS2 *1u}, .a0_period = 27u},
+	[PWM_EIGHTH_SPEED] = { .a1_period ={PWM_PERIOD_TICKS2 / 4, PWM_PERIOD_TICKS2}, .a0_period = 20u},
+	[PWM_STOP_SPEED] = { .a1_period ={1u, PWM_PERIOD_TICKS2}, .a0_period = 0u}
 
 };
 

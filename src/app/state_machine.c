@@ -10,6 +10,7 @@
 #include "common/defines.h"
 #include "common/enum_to_string.h"
 #include "common/ring_buffer.h"
+#include "app/wall.h"
 
 /* A state machine implemented as a set of enums and functions. The states are linked through
  * transitions, which are triggered by events.
@@ -131,6 +132,7 @@ static inline state_event_e process_input(struct state_machine_data *data)
     data->common.wall = wall_get(); //get walls position > save in history
     data->common.cmd = ir_remote_get_cmd_ta1();
     const struct input input = { .wall = data->common.wall};
+    
     input_history_save(&data->input_history, &input);
 
     if (data->common.cmd != IR_CMD_NONE) {
@@ -164,8 +166,10 @@ static inline void state_machine_init(struct state_machine_data *data)
     data->explore.common = &data->common;
     data->stop.common = &data->common;
     data->manual.common = &data->common;
+
     state_explore_init(&data->explore);
     state_stop_init(&data->stop);
+    state_manual_init(&data->manual);
 }
 
 #define INPUT_HISTORY_BUFFER_SIZE (6u)
