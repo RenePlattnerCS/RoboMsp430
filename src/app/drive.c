@@ -3,6 +3,7 @@
 #include "common/defines.h"
 #include <stdbool.h>
 #include "drivers/pwm_both_timers.h"
+#include "common/trace.h"
 
 struct drive_speeds
 {

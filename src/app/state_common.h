@@ -17,7 +17,7 @@ typedef enum {
 typedef enum {
     STATE_EVENT_TIMEOUT,
     STATE_EVENT_WALL,
-    // STATE_EVENT_FINISHED,
+    STATE_EVENT_OK,
     STATE_EVENT_COMMAND,
     STATE_EVENT_NONE
 } state_event_e;

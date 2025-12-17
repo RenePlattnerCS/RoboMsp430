@@ -39,7 +39,6 @@ struct state_transition
 // See docs/state_machine.png (docs/state_machine.uml)
 static const struct state_transition state_transitions[] = {
     { STATE_WAIT, STATE_EVENT_NONE, STATE_WAIT },
-    { STATE_WAIT, STATE_EVENT_WALL, STATE_WAIT },
     { STATE_WAIT, STATE_EVENT_COMMAND, STATE_MANUAL }, //put back to EXPLORE
     { STATE_EXPLORE, STATE_EVENT_NONE, STATE_EXPLORE },
     { STATE_EXPLORE, STATE_EVENT_TIMEOUT, STATE_EXPLORE },
@@ -49,7 +48,7 @@ static const struct state_transition state_transitions[] = {
     { STATE_STOP, STATE_EVENT_COMMAND, STATE_STOP },
     { STATE_MANUAL, STATE_EVENT_COMMAND, STATE_MANUAL },
     { STATE_MANUAL, STATE_EVENT_NONE, STATE_MANUAL },
-    //{ STATE_MANUAL, STATE_EVENT_WALL, STATE_MANUAL },
+    { STATE_MANUAL, STATE_EVENT_OK, STATE_EXPLORE },
 };
 
 struct state_machine_data

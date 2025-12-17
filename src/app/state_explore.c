@@ -3,7 +3,7 @@
 #include "app/timer.h"
 #include "common/enum_to_string.h"
 #include <stdbool.h>
-
+#include "common/trace.h"
 #define MOVE_MAX_CNT (3u)
 
 struct move
@@ -176,6 +176,7 @@ static void state_explore_run(struct state_explore_data *data)
 // No blocking code (e.g. busy wait) allowed in this function
 void state_explore_enter(struct state_explore_data *data, state_e from, state_event_e event)
 {
+	TRACE("enter explore");
 	UNUSED(data);
 	UNUSED(event);
 	UNUSED(from);
