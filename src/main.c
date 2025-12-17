@@ -10,6 +10,7 @@
 #include "app/drive.h"
 #include "drivers/i2c.h"
 #include "drivers/vl53l0x.h"
+#include "app/wall.h"
 
 #define IO_TEST_BUTTON IO_MOTORS_RIGHT_CC_2 // Alias P1.3 for clarity
 #define IO_TEST_LED    IO_MOTORS_RIGHT_CC_2
@@ -28,6 +29,19 @@ void isr_test_toggle_led(void)
 {
 	io_set_out(IO_MOTORS_RIGHT_CC_2, IO_OUT_HIGH);
 	
+}
+
+SUPPRESS_UNUSED
+void test_wall(void)
+{
+	mcu_init();
+	trace_init();
+	wall_init();
+	while(1) {
+		struct walls wall = wall_get();
+		TRACE("position %d , range F %d , range L %d, range R %d ", wall.positions, wall.range_front, wall.range_left, wall.range_right);
+		BUSY_WAIT_ms(1000);
+	}
 }
 
 // Define the bit mask for P2.5
@@ -362,7 +376,8 @@ int main(void)
    //test_motor();
    //test_driver();
   // test_vlx();
-test_multiple_vlx();
+//test_multiple_vlx();
    //test_i2c();
-   return 0;
+test_wall();
+return 0;
 }
