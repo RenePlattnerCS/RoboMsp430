@@ -10,6 +10,7 @@ struct state_manual_data
 {
     const struct state_common_data *common;
     drive_speed_e curr_speed;
+    drive_dir_e curr_dir;
 };
 
 void state_manual_enter(struct state_manual_data *data, state_e from, state_event_e event);

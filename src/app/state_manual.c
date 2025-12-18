@@ -17,15 +17,20 @@ void state_manual_enter(struct state_manual_data *data, state_e from, state_even
 
     case IR_CMD_UP:
         drive_set(DRIVE_DIR_FORWARD, data->curr_speed);
+	data->curr_dir = DRIVE_DIR_FORWARD;
 	break;
     case IR_CMD_DOWN:
         drive_set(DRIVE_DIR_REVERSE, data->curr_speed);
-        break;
+        data->curr_dir = DRIVE_DIR_REVERSE;
+	break;
     case IR_CMD_LEFT:
-        drive_set(DRIVE_DIR_ROTATE_LEFT, data->curr_speed);
-        break;
+        drive_set(DRIVE_DIR_ARCTURN_SHARP_LEFT, data->curr_speed);
+        data->curr_dir = DRIVE_DIR_ARCTURN_SHARP_LEFT;
+	break;
     case IR_CMD_RIGHT:
-        drive_set(DRIVE_DIR_ROTATE_RIGHT, data->curr_speed);
+        drive_set(DRIVE_DIR_ARCTURN_SHARP_RIGHT, data->curr_speed);
+	data->curr_dir = DRIVE_DIR_ARCTURN_SHARP_RIGHT;
+
         break;
     case IR_CMD_0:
 	drive_stop();
@@ -37,18 +42,19 @@ void state_manual_enter(struct state_manual_data *data, state_e from, state_even
 
     case IR_CMD_1:
 	data->curr_speed = DRIVE_SPEED_SLOW;
+	drive_set(data->curr_dir, data->curr_speed);
 	break;
     case IR_CMD_2:
 	data->curr_speed = DRIVE_SPEED_MEDIUM;
-
+        drive_set(data->curr_dir, data->curr_speed);
         break;
     case IR_CMD_3:
 	data->curr_speed = DRIVE_SPEED_FAST;
-
+        drive_set(data->curr_dir, data->curr_speed);
         break;
     case IR_CMD_4:
 	data->curr_speed = DRIVE_SPEED_MAX;
-
+        drive_set(data->curr_dir, data->curr_speed);
         break;
     case IR_CMD_5:
     case IR_CMD_6:
@@ -68,6 +74,7 @@ void state_manual_enter(struct state_manual_data *data, state_e from, state_even
 
 void state_manual_init(struct state_manual_data *data)
 {
+    data->curr_dir = DRIVE_DIR_FORWARD;
     data->curr_speed = DRIVE_SPEED_MEDIUM;
 }
 

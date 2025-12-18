@@ -56,8 +56,11 @@ static const struct drive_speeds drive_primary_speeds[][4] =
 static inline drive_dir_e drive_primary_direction(drive_dir_e dir)
 {
     switch (dir) {
-    case DRIVE_DIR_REVERSE:        return DRIVE_DIR_FORWARD;
-    case DRIVE_DIR_ROTATE_RIGHT:   return DRIVE_DIR_ROTATE_LEFT;
+    case DRIVE_DIR_REVERSE:            return DRIVE_DIR_FORWARD;
+    case DRIVE_DIR_ROTATE_RIGHT:       return DRIVE_DIR_ROTATE_LEFT;
+    case DRIVE_DIR_ARCTURN_SHARP_RIGHT: return DRIVE_DIR_ARCTURN_SHARP_LEFT;
+    case DRIVE_DIR_ARCTURN_MID_RIGHT:   return DRIVE_DIR_ARCTURN_MID_LEFT;
+    case DRIVE_DIR_ARCTURN_WIDE_RIGHT:  return DRIVE_DIR_ARCTURN_WIDE_LEFT;
     default:                       return dir;
     }
 }
@@ -86,7 +89,6 @@ case DRIVE_DIR_ROTATE_RIGHT:
     left_forward  = true;
     right_forward = false;
     break;
-
 default:
     left_forward = true;
     right_forward = true;
@@ -98,6 +100,13 @@ default:
     pwm_speed_e speed_left = drive_primary_speeds[primary_direction][speed].left;
     pwm_speed_e speed_right = drive_primary_speeds[primary_direction][speed].right;
     
+    if(direction ==DRIVE_DIR_ARCTURN_SHARP_RIGHT || direction ==DRIVE_DIR_ROTATE_RIGHT || direction == DRIVE_DIR_ARCTURN_MID_RIGHT || direction == DRIVE_DIR_ARCTURN_WIDE_RIGHT ){
+    	
+	pwm_speed_e tmp = speed_left;   
+	speed_left = speed_right;
+    	speed_right = tmp;
+    }
+
     tb6612fng_set_mode(TB6612FNG_LEFT,
     left_forward ? TB6612FNG_MODE_FORWARD : TB6612FNG_MODE_REVERSE);
 

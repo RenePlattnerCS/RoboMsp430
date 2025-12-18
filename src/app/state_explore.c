@@ -1,5 +1,4 @@
 #include "app/state_explore.h"
-#include "app/drive.h"
 #include "app/timer.h"
 #include "common/enum_to_string.h"
 #include <stdbool.h>
@@ -11,7 +10,6 @@
 struct move
 {
     drive_dir_e dir;
-    drive_speed_e speed;
     uint16_t duration;
 };
 
@@ -26,32 +24,32 @@ static const struct explore_state explore_states[] =
     [EXPLORE_REVERSE] =
     {
         .move_cnt = 1,
-        .moves = { { DRIVE_DIR_REVERSE, DRIVE_SPEED_MAX, 2800 } },
+        .moves = { { DRIVE_DIR_REVERSE, 2800 } },
     },
     [EXPLORE_FORWARD] =
     {
         .move_cnt = 1,
-        .moves = { { DRIVE_DIR_FORWARD, DRIVE_SPEED_FAST, 2800 } },
+        .moves = { { DRIVE_DIR_FORWARD, 2800 } },
     },
     [EXPLORE_ROTATE_LEFT] =
     {
         .move_cnt = 1,
-        .moves = { { DRIVE_DIR_ROTATE_LEFT, DRIVE_SPEED_FAST,2850 } },
+        .moves = { { DRIVE_DIR_ROTATE_LEFT,2850 } },
     },
     [EXPLORE_ROTATE_RIGHT] =
     {
         .move_cnt = 1,
-        .moves = { { DRIVE_DIR_ROTATE_RIGHT, DRIVE_SPEED_FAST,2850 } },
+        .moves = { { DRIVE_DIR_ROTATE_RIGHT,2850 } },
     },
     [EXPLORE_ARCTURN_LEFT] =
     {
         .move_cnt = 1,
-        .moves = { { DRIVE_DIR_ARCTURN_MID_LEFT, DRIVE_SPEED_FAST,2850 } },
+        .moves = { { DRIVE_DIR_ARCTURN_SHARP_LEFT,2850 } },
     },
     [EXPLORE_ARCTURN_RIGHT] =
     {
         .move_cnt = 1,
-        .moves = { { DRIVE_DIR_ARCTURN_MID_RIGHT, DRIVE_SPEED_FAST,2850 } },}
+        .moves = { { DRIVE_DIR_ARCTURN_SHARP_RIGHT,2850 } },}
 };
 
 
@@ -74,30 +72,32 @@ static explore_state_e next_explore_state(const struct state_explore_data *data)
 
 		if(wall_front && wall_left && wall_right)
 		{
-			printf("wall reverse");
 			return EXPLORE_REVERSE;
 		}
-	        if(wall_left){
-			printf("Wall move R\n");
+	        if(wall_left && wall_front){
                 	return EXPLORE_ROTATE_RIGHT;
 		}	
-		if(wall_right){
-                        printf("Wall move L\n");
+		if(wall_right && wall_front){
                         return EXPLORE_ROTATE_LEFT;
                 }
 		if(wall_front)
 		{
-			printf("wall in front\n");
 			uint16_t dir = (rand_simple() >> 8) & 1;
 
 			if(dir){
-				printf("wall in front go left\n");
 				return EXPLORE_ARCTURN_LEFT;
 			} else {
-				printf("wall in front go right\n");
 				return EXPLORE_ARCTURN_RIGHT;
 			}
 		}
+		if(wall_left){
+			printf("wl: go right");
+			return EXPLORE_ARCTURN_RIGHT;
+		}
+		if(wall_right){
+			printf("wr: go left");
+                        return EXPLORE_ARCTURN_LEFT;
+                }
 	}
 
 
@@ -105,20 +105,16 @@ static explore_state_e next_explore_state(const struct state_explore_data *data)
 
     switch (dir) {
     case 0: 
-	    printf("rand: F\n");
 	    return EXPLORE_FORWARD;
 	    break;
     case 1: 
-	    printf("rand: L\n");
 	    return EXPLORE_ARCTURN_LEFT;
 	    break;
     case 2: 
-	    printf("rand: R\n");
 	    return EXPLORE_ARCTURN_RIGHT;
 	    break;
     default:return EXPLORE_FORWARD;
 
-	//return EXPLORE_FORWARD;
 
     }
 }
@@ -127,7 +123,7 @@ static void start_explore_move(const struct state_explore_data *data)
 {
     const struct move move = explore_states[data->state].moves[data->move_idx];
     timer_start(data->common->timer, move.duration);
-    drive_set(move.dir, move.speed);
+    drive_set(move.dir, data->curr_speed);
 }
 
 SUPPRESS_UNUSED
@@ -162,10 +158,6 @@ case STATE_MANUAL:
 
 case STATE_EXPLORE:	
 	       	switch (event) {
-    case STATE_EVENT_COMMAND:
-        // handled by top-level FSM
-        break;
-
     case STATE_EVENT_WALL:
 	if(data->handling_wall == false){//react immeaditely to wall detection BUT not if we are already handling the wall
         	data->handling_wall = true;
@@ -175,12 +167,33 @@ case STATE_EXPLORE:
         break;
 
     case STATE_EVENT_TIMEOUT:
-	printf("T\n");
 	data->handling_wall = false;
         data->move_idx = 0;
-        //data->state = next_explore_state(data);
         state_explore_run(data);
         break;
+
+    case STATE_EVENT_COMMAND:
+	switch(data->common->cmd){
+	case IR_CMD_1:
+        	data->curr_speed = DRIVE_SPEED_SLOW;
+        break;
+        case IR_CMD_2:
+        	data->curr_speed = DRIVE_SPEED_MEDIUM;
+
+        break;
+        case IR_CMD_3:
+        	data->curr_speed = DRIVE_SPEED_FAST;
+
+        break;
+        case IR_CMD_4:
+        	data->curr_speed = DRIVE_SPEED_MAX;
+		break;
+	case IR_CMD_OK:
+        drive_stop();
+        state_machine_post_internal_event(data->common->state_machine_data, STATE_EVENT_OK);
+	default:
+		break;
+	}
 
     case STATE_EVENT_NONE:
         break;
@@ -207,5 +220,6 @@ void state_explore_init(struct state_explore_data *data)
 {
     data->state = EXPLORE_FORWARD;
     data->move_idx = 0;
+    data->curr_speed = DRIVE_SPEED_FAST;
     data->handling_wall = false;
 }

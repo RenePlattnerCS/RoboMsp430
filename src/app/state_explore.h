@@ -4,6 +4,7 @@
 // Drive away from the detected line
 
 #include "app/state_common.h"
+#include "app/drive.h"
 
 typedef enum {
     EXPLORE_REVERSE,
@@ -20,6 +21,7 @@ struct state_explore_data
     explore_state_e state;
     int move_idx;
     bool handling_wall;
+    drive_speed_e curr_speed;
 };
 
 void state_explore_init(struct state_explore_data *data);
