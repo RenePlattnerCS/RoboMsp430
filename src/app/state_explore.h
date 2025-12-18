@@ -10,8 +10,8 @@ typedef enum {
     EXPLORE_FORWARD,
     EXPLORE_ROTATE_LEFT,
     EXPLORE_ROTATE_RIGHT,
-   // EXPLORE_STATE_ARCTURN_LEFT,
-   // EXPLORE_STATE_ARCTURN_RIGHT,
+    EXPLORE_ARCTURN_LEFT,
+    EXPLORE_ARCTURN_RIGHT,
 } explore_state_e;
 
 struct state_explore_data
@@ -19,6 +19,7 @@ struct state_explore_data
     const struct state_common_data *common;
     explore_state_e state;
     int move_idx;
+    bool handling_wall;
 };
 
 void state_explore_init(struct state_explore_data *data);

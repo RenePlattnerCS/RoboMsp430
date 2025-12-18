@@ -6,6 +6,7 @@
 #include "printf.h"
 //#include "common/trace.h"
 #define MOVE_MAX_CNT (3u)
+#include "common/random.h"
 
 struct move
 {
@@ -25,24 +26,34 @@ static const struct explore_state explore_states[] =
     [EXPLORE_REVERSE] =
     {
         .move_cnt = 1,
-        .moves = { { DRIVE_DIR_REVERSE, DRIVE_SPEED_MAX, 800 } },
+        .moves = { { DRIVE_DIR_REVERSE, DRIVE_SPEED_MAX, 2800 } },
     },
     [EXPLORE_FORWARD] =
     {
         .move_cnt = 1,
-        .moves = { { DRIVE_DIR_FORWARD, DRIVE_SPEED_FAST, 800 } },
+        .moves = { { DRIVE_DIR_FORWARD, DRIVE_SPEED_FAST, 2800 } },
     },
     [EXPLORE_ROTATE_LEFT] =
     {
         .move_cnt = 1,
-        .moves = { { DRIVE_DIR_ROTATE_LEFT, DRIVE_SPEED_FAST, 850 } },
+        .moves = { { DRIVE_DIR_ROTATE_LEFT, DRIVE_SPEED_FAST,2850 } },
     },
     [EXPLORE_ROTATE_RIGHT] =
     {
         .move_cnt = 1,
-        .moves = { { DRIVE_DIR_ROTATE_RIGHT, DRIVE_SPEED_FAST, 850 } },
+        .moves = { { DRIVE_DIR_ROTATE_RIGHT, DRIVE_SPEED_FAST,2850 } },
     },
+    [EXPLORE_ARCTURN_LEFT] =
+    {
+        .move_cnt = 1,
+        .moves = { { DRIVE_DIR_ARCTURN_MID_LEFT, DRIVE_SPEED_FAST,2850 } },
+    },
+    [EXPLORE_ARCTURN_RIGHT] =
+    {
+        .move_cnt = 1,
+        .moves = { { DRIVE_DIR_ARCTURN_MID_RIGHT, DRIVE_SPEED_FAST,2850 } },}
 };
+
 
 SUPPRESS_UNUSED
 static const struct move *current_move(const struct state_explore_data *data)
@@ -53,25 +64,64 @@ static const struct move *current_move(const struct state_explore_data *data)
 static explore_state_e next_explore_state(const struct state_explore_data *data)
 {
 
-	UNUSED(data);
+ 	if(wall_detected(&data->common->wall)){
+		bool wall_front = false;
+		bool wall_left = false;
+		bool wall_right = false;
+		wall_front = wall_at_front(&data->common->wall);
+		wall_left = wall_at_left(&data->common->wall);
+		wall_right = wall_at_right(&data->common->wall);
 
-	if (wall_at_right(&data->common->wall))
-	{
-		return EXPLORE_ROTATE_LEFT;
-	} else if(wall_at_left(&data->common->wall)) {
-		return EXPLORE_ROTATE_RIGHT;
+		if(wall_front && wall_left && wall_right)
+		{
+			printf("wall reverse");
+			return EXPLORE_REVERSE;
+		}
+	        if(wall_left){
+			printf("Wall move R\n");
+                	return EXPLORE_ROTATE_RIGHT;
+		}	
+		if(wall_right){
+                        printf("Wall move L\n");
+                        return EXPLORE_ROTATE_LEFT;
+                }
+		if(wall_front)
+		{
+			printf("wall in front\n");
+			uint16_t dir = (rand_simple() >> 8) & 1;
+
+			if(dir){
+				printf("wall in front go left\n");
+				return EXPLORE_ARCTURN_LEFT;
+			} else {
+				printf("wall in front go right\n");
+				return EXPLORE_ARCTURN_RIGHT;
+			}
+		}
 	}
 
-    //switch (rand() % 4) {
-    //case 0: return EXPLORE_FORWARD;
-    //case 1: return EXPLORE_TURN_LEFT;
-    //case 2: return EXPLORE_TURN_RIGHT;
-   // default:return EXPLORE_FORWARD;
 
-	return EXPLORE_FORWARD;
+    uint16_t dir = (rand_simple() >> 8) & 3;
+
+    switch (dir) {
+    case 0: 
+	    printf("rand: F\n");
+	    return EXPLORE_FORWARD;
+	    break;
+    case 1: 
+	    printf("rand: L\n");
+	    return EXPLORE_ARCTURN_LEFT;
+	    break;
+    case 2: 
+	    printf("rand: R\n");
+	    return EXPLORE_ARCTURN_RIGHT;
+	    break;
+    default:return EXPLORE_FORWARD;
+
+	//return EXPLORE_FORWARD;
 
     }
-
+}
 SUPPRESS_UNUSED
 static void start_explore_move(const struct state_explore_data *data)
 {
@@ -98,46 +148,47 @@ static void state_explore_run(struct state_explore_data *data)
 void state_explore_enter(struct state_explore_data *data, state_e from, state_event_e event)
 {
 	if(from != STATE_EXPLORE)
-                printf("explore entered");
+                printf("explore entered\n");
 
 switch(from){
 case STATE_MANUAL:
-
+	data->move_idx = 0;
+        data->state = EXPLORE_FORWARD;
+        state_explore_run(data);
+		break;
+	default:
 		break;
 
-case STATE_EXPLORE:
-    switch (event) {
 
+case STATE_EXPLORE:	
+	       	switch (event) {
     case STATE_EVENT_COMMAND:
         // handled by top-level FSM
         break;
 
     case STATE_EVENT_WALL:
-        data->move_idx = 0;
-        data->state = next_explore_state(data);
-        //start_explore_move(data);
-	state_explore_run(data);
+	if(data->handling_wall == false){//react immeaditely to wall detection BUT not if we are already handling the wall
+        	data->handling_wall = true;
+		data->move_idx = 0;
+		state_explore_run(data);
+	}
         break;
 
     case STATE_EVENT_TIMEOUT:
+	printf("T\n");
+	data->handling_wall = false;
         data->move_idx = 0;
-        data->state = next_explore_state(data);
+        //data->state = next_explore_state(data);
         state_explore_run(data);
         break;
 
     case STATE_EVENT_NONE:
-        //data->move_idx = 0;
-        //data->state = EXPLORE_FORWARD;
-        //state_explore_run(data);
         break;
 
     default:
         break;
     }
-break;
-
-default:
-break;
+}
 /*
         case STATE_EVENT_TIMEOUT:
             data->move_idx++;
@@ -148,7 +199,6 @@ break;
                 start_retreat_move(data);
             }
     */
-	}
 }
 
 
@@ -157,4 +207,5 @@ void state_explore_init(struct state_explore_data *data)
 {
     data->state = EXPLORE_FORWARD;
     data->move_idx = 0;
+    data->handling_wall = false;
 }

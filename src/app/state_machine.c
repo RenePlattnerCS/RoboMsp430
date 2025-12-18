@@ -6,12 +6,12 @@
 #include "app/state_manual.h"
 #include "app/timer.h"
 #include "app/input_history.h"
-#include "common/trace.h"
+//#include "common/trace.h"
 #include "common/defines.h"
 #include "common/enum_to_string.h"
 #include "common/ring_buffer.h"
 #include "app/wall.h"
-
+#include "printf.h"
 /* A state machine implemented as a set of enums and functions. The states are linked through
  * transitions, which are triggered by events.
  *
@@ -44,6 +44,7 @@ static const struct state_transition state_transitions[] = {
     { STATE_EXPLORE, STATE_EVENT_NONE, STATE_EXPLORE },
     { STATE_EXPLORE, STATE_EVENT_TIMEOUT, STATE_EXPLORE },
     { STATE_EXPLORE, STATE_EVENT_COMMAND, STATE_EXPLORE },
+    { STATE_EXPLORE, STATE_EVENT_WALL, STATE_EXPLORE },
     { STATE_STOP, STATE_EVENT_TIMEOUT, STATE_STOP },
     { STATE_STOP, STATE_EVENT_NONE, STATE_STOP },
     { STATE_STOP, STATE_EVENT_COMMAND, STATE_STOP },
@@ -118,19 +119,12 @@ static inline void process_event(struct state_machine_data *data, state_event_e 
 	//find a match in table => transitiont => enter next state
     for (uint16_t i = 0; i < ARRAY_SIZE(state_transitions); i++) {
         if (data->state == state_transitions[i].from && next_event == state_transitions[i].event) {
-		if(data->state == STATE_EXPLORE){
-			//if(next_event == STATE_EVENT_COMMAND)
-				//TRACE("!!! %d", state_transitions[i].to);
-		}
 		
             state_enter(data, state_transitions[i].from, next_event, state_transitions[i].to);
             return;
         }
     }
 }
-    //TRACE("No transition: state=%s event=%s",
-      //state_to_string(data->state),
-      //state_event_to_string(next_event));
 
 static inline state_event_e process_input(struct state_machine_data *data)
 {

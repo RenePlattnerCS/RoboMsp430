@@ -5,8 +5,8 @@
 #define RANGE_DETECT_THRESHOLD (600u) // mm
 #define INVALID_RANGE (UINT16_MAX)
 #define RANGE_CLOSE (100u) // mm
-#define RANGE_MID (200u) // mm
-#define RANGE_FAR (300u) // mm
+#define RANGE_MID (500u) // mm
+#define RANGE_FAR (700u) // mm
 
 struct walls wall_get(void)
 {
@@ -136,8 +136,13 @@ bool wall_detected(const struct walls *walls)
     return walls->positions != WALL_POS_NONE;
 }
 
+//only return true if wall is MID range
 bool wall_at_left(const struct walls *walls)
 {
+	if(walls->range_left == WALL_RANGE_FAR || walls->range_left == WALL_RANGE_NONE )
+		return false;
+
+
     return walls->positions == WALL_POS_FRONT_LEFT
         || walls->positions == WALL_POS_FRONT_AND_FRONT_LEFT
 	|| walls->positions == WALL_POS_FRONT_ALL;
@@ -145,6 +150,8 @@ bool wall_at_left(const struct walls *walls)
 
 bool wall_at_right(const struct walls *walls)
 {
+	if(walls->range_right == WALL_RANGE_FAR || walls->range_right == WALL_RANGE_NONE )
+                return false;
     return walls->positions == WALL_POS_FRONT_RIGHT
         || walls->positions == WALL_POS_FRONT_AND_FRONT_RIGHT
 	|| walls->positions == WALL_POS_FRONT_ALL;
@@ -152,10 +159,17 @@ bool wall_at_right(const struct walls *walls)
 
 bool wall_at_front(const struct walls *walls)
 {
+	if(walls->range_front == WALL_RANGE_FAR || walls->range_front == WALL_RANGE_NONE )
+                return false;
+
+
     return walls->positions == WALL_POS_FRONT || walls->positions == WALL_POS_FRONT_ALL
 	    || walls->positions == WALL_POS_FRONT_AND_FRONT_RIGHT
 	    || walls->positions == WALL_POS_FRONT_AND_FRONT_LEFT;
 }
+
+
+
 
 void wall_init(void)
 {
