@@ -40,10 +40,10 @@ struct state_transition
 // See docs/state_machine.png (docs/state_machine.uml)
 static const struct state_transition state_transitions[] = {
     { STATE_WAIT, STATE_EVENT_NONE, STATE_WAIT },
-    { STATE_WAIT, STATE_EVENT_COMMAND, STATE_MANUAL }, //put back to EXPLORE
+    { STATE_WAIT, STATE_EVENT_COMMAND, STATE_MANUAL }, 
     { STATE_EXPLORE, STATE_EVENT_NONE, STATE_EXPLORE },
     { STATE_EXPLORE, STATE_EVENT_TIMEOUT, STATE_EXPLORE },
-    { STATE_EXPLORE, STATE_EVENT_COMMAND, STATE_MANUAL },
+    { STATE_EXPLORE, STATE_EVENT_COMMAND, STATE_EXPLORE },
     { STATE_STOP, STATE_EVENT_TIMEOUT, STATE_STOP },
     { STATE_STOP, STATE_EVENT_NONE, STATE_STOP },
     { STATE_STOP, STATE_EVENT_COMMAND, STATE_STOP },
@@ -118,6 +118,11 @@ static inline void process_event(struct state_machine_data *data, state_event_e 
 	//find a match in table => transitiont => enter next state
     for (uint16_t i = 0; i < ARRAY_SIZE(state_transitions); i++) {
         if (data->state == state_transitions[i].from && next_event == state_transitions[i].event) {
+		if(data->state == STATE_EXPLORE){
+			//if(next_event == STATE_EVENT_COMMAND)
+				//TRACE("!!! %d", state_transitions[i].to);
+		}
+		
             state_enter(data, state_transitions[i].from, next_event, state_transitions[i].to);
             return;
         }
@@ -136,7 +141,8 @@ static inline state_event_e process_input(struct state_machine_data *data)
     input_history_save(&data->input_history, &input);
 
     if (data->common.cmd != IR_CMD_NONE) {
-        return STATE_EVENT_COMMAND;
+             return STATE_EVENT_COMMAND;
+        
     } else if (has_internal_event(data)) {
         return take_internal_event(data);
     } else if (timer_timeout(&data->timer)) {
@@ -175,9 +181,7 @@ static inline void state_machine_init(struct state_machine_data *data)
 #define INPUT_HISTORY_BUFFER_SIZE (6u)
 void state_machine_run(void)
 {
-    //TRACE("start running");
     struct state_machine_data data;
-     //BUSY_WAIT_ms(1000);
     // Allocate input history here so the internal buffer remains allocated
     LOCAL_RING_BUFFER(input_history, INPUT_HISTORY_BUFFER_SIZE, struct input);
     data.input_history = input_history;
@@ -188,6 +192,5 @@ void state_machine_run(void)
     while (1) {
         const state_event_e next_event = process_input(&data);
         process_event(&data, next_event);
-//	BUSY_WAIT_ms(3000);
     }
 }

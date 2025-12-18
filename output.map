@@ -378,7 +378,7 @@ __reset_vector  0x000000000000fffe        0x2
  *(.resetvec)
  .resetvec      0x000000000000fffe        0x2 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/../../../../msp430-elf/lib/430/crt0.o
 
-.rodata         0x000000000000c000      0x66c
+.rodata         0x000000000000c000      0x66e
                 0x000000000000c000                . = ALIGN (0x2)
  *(.plt)
  *(.rodata .rodata.* .gnu.linkonce.r.* .const .const:*)
@@ -396,36 +396,37 @@ __reset_vector  0x000000000000fffe        0x2
                 0x000000000000c428       0xb0 build/obj/drivers/ir_remote_ta1.o
  .rodata        0x000000000000c4d8       0x42 build/obj/app/state_machine.o
  .rodata.str1.1
-                0x000000000000c51a       0x3f build/obj/app/state_manual.o
+                0x000000000000c51a        0xf build/obj/app/state_manual.o
  .rodata.str1.1
-                0x000000000000c559       0x54 build/obj/app/wall.o
+                0x000000000000c529       0x54 build/obj/app/wall.o
  .rodata.str1.1
-                0x000000000000c5ad       0x2e build/obj/app/state_explore.o
- *fill*         0x000000000000c5db        0x1 
- .rodata        0x000000000000c5dc       0x90 build/obj/app/drive.o
+                0x000000000000c57d       0x10 build/obj/app/state_explore.o
+ *fill*         0x000000000000c58d        0x1 
+ .rodata        0x000000000000c58e       0x50 build/obj/app/state_explore.o
+ .rodata        0x000000000000c5de       0x90 build/obj/app/drive.o
  *(.rodata1)
  *(.gcc_except_table)
  *(.gcc_except_table.*)
 
-.rodata2        0x000000000000c66c       0x6e
-                0x000000000000c66c                . = ALIGN (0x2)
+.rodata2        0x000000000000c66e       0x6e
+                0x000000000000c66e                . = ALIGN (0x2)
                 [!provide]                        PROVIDE (__preinit_array_start = .)
  *(.preinit_array)
                 [!provide]                        PROVIDE (__preinit_array_end = .)
-                0x000000000000c66c                . = ALIGN (0x2)
+                0x000000000000c66e                . = ALIGN (0x2)
                 [!provide]                        PROVIDE (__init_array_start = .)
  *(SORT_BY_NAME(.init_array.*))
  *(.init_array)
                 [!provide]                        PROVIDE (__init_array_end = .)
-                0x000000000000c66c                . = ALIGN (0x2)
+                0x000000000000c66e                . = ALIGN (0x2)
                 [!provide]                        PROVIDE (__fini_array_start = .)
  *(.fini_array)
  *(SORT_BY_NAME(.fini_array.*))
                 [!provide]                        PROVIDE (__fini_array_end = .)
-                0x000000000000c66c                . = ALIGN (0x2)
+                0x000000000000c66e                . = ALIGN (0x2)
  *(.eh_frame_hdr)
  *(.eh_frame)
- .eh_frame      0x000000000000c66c       0x6e /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/430/libgcc.a(_udivdi3.o)
+ .eh_frame      0x000000000000c66e       0x6e /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/430/libgcc.a(_udivdi3.o)
  *crtbegin*.o(.ctors)
  *(EXCLUDE_FILE(*crtend*.o) .ctors)
  *(SORT_BY_NAME(.ctors.*))
@@ -435,7 +436,7 @@ __reset_vector  0x000000000000fffe        0x2
  *(SORT_BY_NAME(.dtors.*))
  *(.dtors)
 
-.text           0x000000000000c6dc     0x323a
+.text           0x000000000000c6dc     0x32ca
                 0x000000000000c6dc                . = ALIGN (0x2)
                 0x000000000000c6dc                PROVIDE (_start = .)
  *(SORT_BY_NAME(.crt_*))
@@ -538,139 +539,139 @@ __reset_vector  0x000000000000fffe        0x2
                 0x000000000000e3ec                state_machine_post_internal_event
                 0x000000000000e3fa                state_machine_run
  *fill*         0x000000000000e5e4        0x0 
- .text          0x000000000000e5e4      0x18e build/obj/app/state_manual.o
+ .text          0x000000000000e5e4      0x148 build/obj/app/state_manual.o
                 0x000000000000e5e4                state_manual_enter
-                0x000000000000e76a                state_manual_init
- .text          0x000000000000e772      0x1f8 build/obj/app/wall.o
-                0x000000000000e772                wall_get
-                0x000000000000e8c4                wall_detected
-                0x000000000000e8d2                wall_at_left
-                0x000000000000e8f2                wall_at_right
-                0x000000000000e916                wall_at_front
-                0x000000000000e940                wall_init
- .text          0x000000000000e96a       0x2a build/obj/app/state_explore.o
-                0x000000000000e96a                state_explore_enter
-                0x000000000000e98a                state_explore_init
- .text          0x000000000000e994       0xb0 build/obj/app/drive.o
-                0x000000000000e994                drive_set
-                0x000000000000ea14                drive_stop
-                0x000000000000ea3e                drive_init
- .text          0x000000000000ea44       0xde build/obj/app/input_history.o
-                0x000000000000ea76                input_history_save
-                0x000000000000eab4                input_history_last_detected_walls
- .text          0x000000000000eb22        0x8 build/obj/app/state_stop.o
-                0x000000000000eb22                state_stop_enter
-                0x000000000000eb24                state_stop_init
- *fill*         0x000000000000eb2a        0x2 
- .text          0x000000000000eb2c      0xbba external/printf/printf.o
-                0x000000000000f62c                printf_
-                0x000000000000f64e                sprintf_
-                0x000000000000f66a                snprintf_
-                0x000000000000f686                vprintf_
-                0x000000000000f6a2                vsnprintf_
-                0x000000000000f6ba                fctprintf
+                0x000000000000e724                state_manual_init
+ .text          0x000000000000e72c      0x1f8 build/obj/app/wall.o
+                0x000000000000e72c                wall_get
+                0x000000000000e87e                wall_detected
+                0x000000000000e88c                wall_at_left
+                0x000000000000e8ac                wall_at_right
+                0x000000000000e8d0                wall_at_front
+                0x000000000000e8fa                wall_init
+ .text          0x000000000000e924      0x102 build/obj/app/state_explore.o
+                0x000000000000e9c0                state_explore_enter
+                0x000000000000ea1c                state_explore_init
+ .text          0x000000000000ea26       0xb0 build/obj/app/drive.o
+                0x000000000000ea26                drive_set
+                0x000000000000eaa6                drive_stop
+                0x000000000000ead0                drive_init
+ .text          0x000000000000ead6       0xde build/obj/app/input_history.o
+                0x000000000000eb08                input_history_save
+                0x000000000000eb46                input_history_last_detected_walls
+ .text          0x000000000000ebb4        0x8 build/obj/app/state_stop.o
+                0x000000000000ebb4                state_stop_enter
+                0x000000000000ebb6                state_stop_init
+ *fill*         0x000000000000ebbc        0x0 
+ .text          0x000000000000ebbc      0xbba external/printf/printf.o
+                0x000000000000f6bc                printf_
+                0x000000000000f6de                sprintf_
+                0x000000000000f6fa                snprintf_
+                0x000000000000f716                vprintf_
+                0x000000000000f732                vsnprintf_
+                0x000000000000f74a                fctprintf
  .text.udivmodsi4
-                0x000000000000f6e6       0x86 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/430/libgcc.a(lib2divSI.o)
-                0x000000000000f6e6                udivmodsi4
+                0x000000000000f776       0x86 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/430/libgcc.a(lib2divSI.o)
+                0x000000000000f776                udivmodsi4
  .text.__udivsi3
-                0x000000000000f76c        0xe /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/430/libgcc.a(lib2divSI.o)
-                0x000000000000f76c                __mspabi_divul
-                0x000000000000f76c                __mspabi_divlu
+                0x000000000000f7fc        0xe /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/430/libgcc.a(lib2divSI.o)
+                0x000000000000f7fc                __mspabi_divul
+                0x000000000000f7fc                __mspabi_divlu
  .text.__umodsi3
-                0x000000000000f77a        0xe /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/430/libgcc.a(lib2divSI.o)
-                0x000000000000f77a                __mspabi_remul
- .text          0x000000000000f788       0x10 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/430/libgcc.a(epilogue.o)
-                0x000000000000f788                __mspabi_func_epilog_7
-                0x000000000000f78a                __mspabi_func_epilog_6
-                0x000000000000f78c                __mspabi_func_epilog_5
-                0x000000000000f78e                __mspabi_func_epilog_4
-                0x000000000000f790                __mspabi_func_epilog_3
-                0x000000000000f792                __mspabi_func_epilog_2
-                0x000000000000f794                __mspabi_func_epilog_1
+                0x000000000000f80a        0xe /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/430/libgcc.a(lib2divSI.o)
+                0x000000000000f80a                __mspabi_remul
+ .text          0x000000000000f818       0x10 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/430/libgcc.a(epilogue.o)
+                0x000000000000f818                __mspabi_func_epilog_7
+                0x000000000000f81a                __mspabi_func_epilog_6
+                0x000000000000f81c                __mspabi_func_epilog_5
+                0x000000000000f81e                __mspabi_func_epilog_4
+                0x000000000000f820                __mspabi_func_epilog_3
+                0x000000000000f822                __mspabi_func_epilog_2
+                0x000000000000f824                __mspabi_func_epilog_1
  .text.__mspabi_slli
-                0x000000000000f798        0xa /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/430/libgcc.a(slli.o)
-                0x000000000000f79c                __mspabi_slli
+                0x000000000000f828        0xa /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/430/libgcc.a(slli.o)
+                0x000000000000f82c                __mspabi_slli
  .text.__mspabi_srai_n
-                0x000000000000f7a2       0x20 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/430/libgcc.a(srai.o)
-                0x000000000000f7a2                __mspabi_srai_15
-                0x000000000000f7a4                __mspabi_srai_14
-                0x000000000000f7a6                __mspabi_srai_13
-                0x000000000000f7a8                __mspabi_srai_12
-                0x000000000000f7aa                __mspabi_srai_11
-                0x000000000000f7ac                __mspabi_srai_10
-                0x000000000000f7ae                __mspabi_srai_9
-                0x000000000000f7b0                __mspabi_srai_8
-                0x000000000000f7b2                __mspabi_srai_7
-                0x000000000000f7b4                __mspabi_srai_6
-                0x000000000000f7b6                __mspabi_srai_5
-                0x000000000000f7b8                __mspabi_srai_4
-                0x000000000000f7ba                __mspabi_srai_3
-                0x000000000000f7bc                __mspabi_srai_2
-                0x000000000000f7be                __mspabi_srai_1
+                0x000000000000f832       0x20 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/430/libgcc.a(srai.o)
+                0x000000000000f832                __mspabi_srai_15
+                0x000000000000f834                __mspabi_srai_14
+                0x000000000000f836                __mspabi_srai_13
+                0x000000000000f838                __mspabi_srai_12
+                0x000000000000f83a                __mspabi_srai_11
+                0x000000000000f83c                __mspabi_srai_10
+                0x000000000000f83e                __mspabi_srai_9
+                0x000000000000f840                __mspabi_srai_8
+                0x000000000000f842                __mspabi_srai_7
+                0x000000000000f844                __mspabi_srai_6
+                0x000000000000f846                __mspabi_srai_5
+                0x000000000000f848                __mspabi_srai_4
+                0x000000000000f84a                __mspabi_srai_3
+                0x000000000000f84c                __mspabi_srai_2
+                0x000000000000f84e                __mspabi_srai_1
  .text.__mspabi_srai
-                0x000000000000f7c2        0xa /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/430/libgcc.a(srai.o)
-                0x000000000000f7c6                __mspabi_srai
+                0x000000000000f852        0xa /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/430/libgcc.a(srai.o)
+                0x000000000000f856                __mspabi_srai
  .text.__mspabi_sral
-                0x000000000000f7cc        0xc /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/430/libgcc.a(srai.o)
-                0x000000000000f7d2                __mspabi_sral
+                0x000000000000f85c        0xc /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/430/libgcc.a(srai.o)
+                0x000000000000f862                __mspabi_sral
  .text.__mspabi_srli_n
-                0x000000000000f7d8       0x3e /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/430/libgcc.a(srli.o)
-                0x000000000000f7d8                __mspabi_srli_15
-                0x000000000000f7dc                __mspabi_srli_14
-                0x000000000000f7e0                __mspabi_srli_13
-                0x000000000000f7e4                __mspabi_srli_12
-                0x000000000000f7e8                __mspabi_srli_11
-                0x000000000000f7ec                __mspabi_srli_10
-                0x000000000000f7f0                __mspabi_srli_9
-                0x000000000000f7f4                __mspabi_srli_8
-                0x000000000000f7f8                __mspabi_srli_7
-                0x000000000000f7fc                __mspabi_srli_6
-                0x000000000000f800                __mspabi_srli_5
-                0x000000000000f804                __mspabi_srli_4
-                0x000000000000f808                __mspabi_srli_3
-                0x000000000000f80c                __mspabi_srli_2
-                0x000000000000f810                __mspabi_srli_1
+                0x000000000000f868       0x3e /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/430/libgcc.a(srli.o)
+                0x000000000000f868                __mspabi_srli_15
+                0x000000000000f86c                __mspabi_srli_14
+                0x000000000000f870                __mspabi_srli_13
+                0x000000000000f874                __mspabi_srli_12
+                0x000000000000f878                __mspabi_srli_11
+                0x000000000000f87c                __mspabi_srli_10
+                0x000000000000f880                __mspabi_srli_9
+                0x000000000000f884                __mspabi_srli_8
+                0x000000000000f888                __mspabi_srli_7
+                0x000000000000f88c                __mspabi_srli_6
+                0x000000000000f890                __mspabi_srli_5
+                0x000000000000f894                __mspabi_srli_4
+                0x000000000000f898                __mspabi_srli_3
+                0x000000000000f89c                __mspabi_srli_2
+                0x000000000000f8a0                __mspabi_srli_1
  .text.__mspabi_srll_n
-                0x000000000000f816       0x5c /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/430/libgcc.a(srli.o)
-                0x000000000000f816                __mspabi_srll_15
-                0x000000000000f81c                __mspabi_srll_14
-                0x000000000000f822                __mspabi_srll_13
-                0x000000000000f828                __mspabi_srll_12
-                0x000000000000f82e                __mspabi_srll_11
-                0x000000000000f834                __mspabi_srll_10
-                0x000000000000f83a                __mspabi_srll_9
-                0x000000000000f840                __mspabi_srll_8
-                0x000000000000f846                __mspabi_srll_7
-                0x000000000000f84c                __mspabi_srll_6
-                0x000000000000f852                __mspabi_srll_5
-                0x000000000000f858                __mspabi_srll_4
-                0x000000000000f85e                __mspabi_srll_3
-                0x000000000000f864                __mspabi_srll_2
-                0x000000000000f86a                __mspabi_srll_1
+                0x000000000000f8a6       0x5c /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/430/libgcc.a(srli.o)
+                0x000000000000f8a6                __mspabi_srll_15
+                0x000000000000f8ac                __mspabi_srll_14
+                0x000000000000f8b2                __mspabi_srll_13
+                0x000000000000f8b8                __mspabi_srll_12
+                0x000000000000f8be                __mspabi_srll_11
+                0x000000000000f8c4                __mspabi_srll_10
+                0x000000000000f8ca                __mspabi_srll_9
+                0x000000000000f8d0                __mspabi_srll_8
+                0x000000000000f8d6                __mspabi_srll_7
+                0x000000000000f8dc                __mspabi_srll_6
+                0x000000000000f8e2                __mspabi_srll_5
+                0x000000000000f8e8                __mspabi_srll_4
+                0x000000000000f8ee                __mspabi_srll_3
+                0x000000000000f8f4                __mspabi_srll_2
+                0x000000000000f8fa                __mspabi_srll_1
  .text.__mulhi3
-                0x000000000000f872       0x42 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/430/libmul_none.a(mpy.o)
-                0x000000000000f872                __mspabi_mpyi
- .text.memcpy   0x000000000000f8b4       0x12 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/../../../../msp430-elf/lib/430/libc.a(lib_a-memcpy.o)
-                0x000000000000f8b4                memcpy
- .text.exit     0x000000000000f8c6        0x2 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/../../../../msp430-elf/lib/430/libnosys.a(exit.o)
-                0x000000000000f8c6                exit
-                0x000000000000f8c6                _exit
- .text.memmove  0x000000000000f8c8       0x3c /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/../../../../msp430-elf/lib/430/libc.a(lib_a-memmove.o)
-                0x000000000000f8c8                memmove
- .text.memset   0x000000000000f904       0x12 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/../../../../msp430-elf/lib/430/libc.a(lib_a-memset.o)
-                0x000000000000f904                memset
+                0x000000000000f902       0x42 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/430/libmul_none.a(mpy.o)
+                0x000000000000f902                __mspabi_mpyi
+ .text.memcpy   0x000000000000f944       0x12 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/../../../../msp430-elf/lib/430/libc.a(lib_a-memcpy.o)
+                0x000000000000f944                memcpy
+ .text.exit     0x000000000000f956        0x2 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/../../../../msp430-elf/lib/430/libnosys.a(exit.o)
+                0x000000000000f956                exit
+                0x000000000000f956                _exit
+ .text.memmove  0x000000000000f958       0x3c /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/../../../../msp430-elf/lib/430/libc.a(lib_a-memmove.o)
+                0x000000000000f958                memmove
+ .text.memset   0x000000000000f994       0x12 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/../../../../msp430-elf/lib/430/libc.a(lib_a-memset.o)
+                0x000000000000f994                memset
  *(.text.*personality*)
  *(.gnu.warning)
  *(.interp .hash .dynsym .dynstr .gnu.version*)
                 [!provide]                        PROVIDE (__etext = .)
                 [!provide]                        PROVIDE (_etext = .)
                 [!provide]                        PROVIDE (etext = .)
-                0x000000000000f916                . = ALIGN (0x2)
+                0x000000000000f9a6                . = ALIGN (0x2)
  *(.init)
  *(.fini)
  *(.tm_clone_table)
 
-.data           0x0000000000000200       0x1a load address 0x000000000000f916
+.data           0x0000000000000200       0x1a load address 0x000000000000f9a6
                 0x0000000000000200                . = ALIGN (0x2)
                 0x0000000000000200                PROVIDE (__datastart = .)
  *(.jcr)
@@ -691,10 +692,10 @@ __reset_vector  0x000000000000fffe        0x2
                 0x000000000000021a                _edata = .
                 [!provide]                        PROVIDE (edata = .)
                 [!provide]                        PROVIDE (__dataend = .)
-                0x000000000000f916                PROVIDE (__romdatastart = LOADADDR (.data))
+                0x000000000000f9a6                PROVIDE (__romdatastart = LOADADDR (.data))
                 0x000000000000001a                PROVIDE (__romdatacopysize = SIZEOF (.data))
 
-.bss            0x000000000000021a       0xa6 load address 0x000000000000f930
+.bss            0x000000000000021a       0xa6 load address 0x000000000000f9c0
                 0x000000000000021a                . = ALIGN (0x2)
                 0x000000000000021a                PROVIDE (__bssstart = .)
  *(.dynbss)
@@ -712,7 +713,7 @@ __reset_vector  0x000000000000fffe        0x2
                 [!provide]                        PROVIDE (__bssend = .)
                 0x00000000000000a6                PROVIDE (__bsssize = SIZEOF (.bss))
 
-.noinit         0x00000000000002c0        0x0 load address 0x000000000000f930
+.noinit         0x00000000000002c0        0x0 load address 0x000000000000f9c0
                 0x00000000000002c0                . = ALIGN (0x2)
                 [!provide]                        PROVIDE (__noinit_start = .)
  *(.noinit)
@@ -720,7 +721,7 @@ __reset_vector  0x000000000000fffe        0x2
                 [!provide]                        PROVIDE (__noinit_end = .)
                 0x00000000000002c0                end = .
 
-.heap           0x00000000000002c0        0x4 load address 0x000000000000f930
+.heap           0x00000000000002c0        0x4 load address 0x000000000000f9c0
                 0x00000000000002c0                . = ALIGN (0x2)
                 0x00000000000002c0                __heap_start__ = .
                 0x00000000000002c0                _end = __heap_start__
@@ -959,7 +960,7 @@ __reset_vector  0x000000000000fffe        0x2
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x0000000000000000     0xb26c
+.debug_info     0x0000000000000000     0xb299
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x0000000000000000      0xdb4 build/obj/main.o
  .debug_info    0x0000000000000db4      0xbea build/obj/drivers/i2c.o
@@ -975,17 +976,17 @@ __reset_vector  0x000000000000fffe        0x2
  .debug_info    0x0000000000007931      0x100 build/obj/common/trace.o
  .debug_info    0x0000000000007a31      0x31b build/obj/app/state_wait.o
  .debug_info    0x0000000000007d4c      0x14d build/obj/app/timer.o
- .debug_info    0x0000000000007e99      0xa36 build/obj/app/state_machine.o
- .debug_info    0x00000000000088cf      0x512 build/obj/app/state_manual.o
- .debug_info    0x0000000000008de1      0x434 build/obj/app/wall.o
- .debug_info    0x0000000000009215      0x5ca build/obj/app/state_explore.o
- .debug_info    0x00000000000097df      0x3ac build/obj/app/drive.o
- .debug_info    0x0000000000009b8b      0x3c4 build/obj/app/input_history.o
- .debug_info    0x0000000000009f4f      0x376 build/obj/app/state_stop.o
- .debug_info    0x000000000000a2c5      0xf58 external/printf/printf.o
- .debug_info    0x000000000000b21d       0x4f /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/../../../../msp430-elf/lib/430/libnosys.a(exit.o)
+ .debug_info    0x0000000000007e99      0xa1e build/obj/app/state_machine.o
+ .debug_info    0x00000000000088b7      0x48d build/obj/app/state_manual.o
+ .debug_info    0x0000000000008d44      0x434 build/obj/app/wall.o
+ .debug_info    0x0000000000009178      0x694 build/obj/app/state_explore.o
+ .debug_info    0x000000000000980c      0x3ac build/obj/app/drive.o
+ .debug_info    0x0000000000009bb8      0x3c4 build/obj/app/input_history.o
+ .debug_info    0x0000000000009f7c      0x376 build/obj/app/state_stop.o
+ .debug_info    0x000000000000a2f2      0xf58 external/printf/printf.o
+ .debug_info    0x000000000000b24a       0x4f /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/../../../../msp430-elf/lib/430/libnosys.a(exit.o)
 
-.debug_abbrev   0x0000000000000000     0x23d4
+.debug_abbrev   0x0000000000000000     0x2422
  *(.debug_abbrev)
  .debug_abbrev  0x0000000000000000      0x17b build/obj/main.o
  .debug_abbrev  0x000000000000017b      0x1f3 build/obj/drivers/i2c.o
@@ -1004,14 +1005,14 @@ __reset_vector  0x000000000000fffe        0x2
  .debug_abbrev  0x0000000000001691      0x254 build/obj/app/state_machine.o
  .debug_abbrev  0x00000000000018e5      0x121 build/obj/app/state_manual.o
  .debug_abbrev  0x0000000000001a06      0x166 build/obj/app/wall.o
- .debug_abbrev  0x0000000000001b6c      0x12c build/obj/app/state_explore.o
- .debug_abbrev  0x0000000000001c98      0x161 build/obj/app/drive.o
- .debug_abbrev  0x0000000000001df9      0x197 build/obj/app/input_history.o
- .debug_abbrev  0x0000000000001f90       0xe8 build/obj/app/state_stop.o
- .debug_abbrev  0x0000000000002078      0x30d external/printf/printf.o
- .debug_abbrev  0x0000000000002385       0x4f /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/../../../../msp430-elf/lib/430/libnosys.a(exit.o)
+ .debug_abbrev  0x0000000000001b6c      0x17a build/obj/app/state_explore.o
+ .debug_abbrev  0x0000000000001ce6      0x161 build/obj/app/drive.o
+ .debug_abbrev  0x0000000000001e47      0x197 build/obj/app/input_history.o
+ .debug_abbrev  0x0000000000001fde       0xe8 build/obj/app/state_stop.o
+ .debug_abbrev  0x00000000000020c6      0x30d external/printf/printf.o
+ .debug_abbrev  0x00000000000023d3       0x4f /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/../../../../msp430-elf/lib/430/libnosys.a(exit.o)
 
-.debug_line     0x0000000000000000     0x72c9
+.debug_line     0x0000000000000000     0x746b
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x0000000000000000      0x4db build/obj/main.o
  .debug_line    0x00000000000004db      0x88c build/obj/drivers/i2c.o
@@ -1027,21 +1028,21 @@ __reset_vector  0x000000000000fffe        0x2
  .debug_line    0x0000000000004522       0xf9 build/obj/common/trace.o
  .debug_line    0x000000000000461b      0x138 build/obj/app/state_wait.o
  .debug_line    0x0000000000004753      0x173 build/obj/app/timer.o
- .debug_line    0x00000000000048c6      0x56b build/obj/app/state_machine.o
- .debug_line    0x0000000000004e31      0x28f build/obj/app/state_manual.o
- .debug_line    0x00000000000050c0      0x631 build/obj/app/wall.o
- .debug_line    0x00000000000056f1      0x19a build/obj/app/state_explore.o
- .debug_line    0x000000000000588b      0x19f build/obj/app/drive.o
- .debug_line    0x0000000000005a2a      0x291 build/obj/app/input_history.o
- .debug_line    0x0000000000005cbb      0x15a build/obj/app/state_stop.o
- .debug_line    0x0000000000005e15     0x1433 external/printf/printf.o
- .debug_line    0x0000000000007248       0x4d /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/../../../../msp430-elf/lib/430/libnosys.a(exit.o)
+ .debug_line    0x00000000000048c6      0x57b build/obj/app/state_machine.o
+ .debug_line    0x0000000000004e41      0x28f build/obj/app/state_manual.o
+ .debug_line    0x00000000000050d0      0x631 build/obj/app/wall.o
+ .debug_line    0x0000000000005701      0x32c build/obj/app/state_explore.o
+ .debug_line    0x0000000000005a2d      0x19f build/obj/app/drive.o
+ .debug_line    0x0000000000005bcc      0x291 build/obj/app/input_history.o
+ .debug_line    0x0000000000005e5d      0x15a build/obj/app/state_stop.o
+ .debug_line    0x0000000000005fb7     0x1433 external/printf/printf.o
+ .debug_line    0x00000000000073ea       0x4d /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/../../../../msp430-elf/lib/430/libnosys.a(exit.o)
  .debug_line.text.exit
-                0x0000000000007295       0x34 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/../../../../msp430-elf/lib/430/libnosys.a(exit.o)
+                0x0000000000007437       0x34 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/../../../../msp430-elf/lib/430/libnosys.a(exit.o)
  .debug_line_end
-                0x00000000000072c9        0x0 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/../../../../msp430-elf/lib/430/libnosys.a(exit.o)
+                0x000000000000746b        0x0 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/../../../../msp430-elf/lib/430/libnosys.a(exit.o)
 
-.debug_frame    0x0000000000000000     0x186c
+.debug_frame    0x0000000000000000     0x1910
  *(.debug_frame)
  .debug_frame   0x0000000000000000       0x9c build/obj/main.o
  .debug_frame   0x000000000000009c      0x1bc build/obj/drivers/i2c.o
@@ -1058,16 +1059,16 @@ __reset_vector  0x000000000000fffe        0x2
  .debug_frame   0x0000000000001138       0x24 build/obj/app/state_wait.o
  .debug_frame   0x000000000000115c       0x8c build/obj/app/timer.o
  .debug_frame   0x00000000000011e8       0x8c build/obj/app/state_machine.o
- .debug_frame   0x0000000000001274       0x5c build/obj/app/state_manual.o
- .debug_frame   0x00000000000012d0       0xb4 build/obj/app/wall.o
- .debug_frame   0x0000000000001384       0x44 build/obj/app/state_explore.o
- .debug_frame   0x00000000000013c8       0x84 build/obj/app/drive.o
- .debug_frame   0x000000000000144c       0xb0 build/obj/app/input_history.o
- .debug_frame   0x00000000000014fc       0x34 build/obj/app/state_stop.o
- .debug_frame   0x0000000000001530      0x318 external/printf/printf.o
- .debug_frame   0x0000000000001848       0x24 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/../../../../msp430-elf/lib/430/libnosys.a(exit.o)
+ .debug_frame   0x0000000000001274       0x64 build/obj/app/state_manual.o
+ .debug_frame   0x00000000000012d8       0xb4 build/obj/app/wall.o
+ .debug_frame   0x000000000000138c       0xe0 build/obj/app/state_explore.o
+ .debug_frame   0x000000000000146c       0x84 build/obj/app/drive.o
+ .debug_frame   0x00000000000014f0       0xb0 build/obj/app/input_history.o
+ .debug_frame   0x00000000000015a0       0x34 build/obj/app/state_stop.o
+ .debug_frame   0x00000000000015d4      0x318 external/printf/printf.o
+ .debug_frame   0x00000000000018ec       0x24 /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/../../../../msp430-elf/lib/430/libnosys.a(exit.o)
 
-.debug_str      0x0000000000000000     0x27bf
+.debug_str      0x0000000000000000     0x2762
  *(.debug_str)
  .debug_str     0x0000000000000000      0xa7e build/obj/main.o
                                         0xad7 (size before relaxing)
@@ -1097,26 +1098,26 @@ __reset_vector  0x000000000000fffe        0x2
                                         0x481 (size before relaxing)
  .debug_str     0x0000000000002118       0x41 build/obj/app/timer.o
                                         0x1aa (size before relaxing)
- .debug_str     0x0000000000002159      0x2fd build/obj/app/state_machine.o
-                                        0x870 (size before relaxing)
- .debug_str     0x0000000000002456       0x22 build/obj/app/state_manual.o
-                                        0x630 (size before relaxing)
- .debug_str     0x0000000000002478       0x63 build/obj/app/wall.o
+ .debug_str     0x0000000000002159      0x27b build/obj/app/state_machine.o
+                                        0x7ee (size before relaxing)
+ .debug_str     0x00000000000023d4       0x22 build/obj/app/state_manual.o
+                                        0x63e (size before relaxing)
+ .debug_str     0x00000000000023f6       0x63 build/obj/app/wall.o
                                         0x494 (size before relaxing)
- .debug_str     0x00000000000024db       0x55 build/obj/app/state_explore.o
-                                        0x74e (size before relaxing)
- .debug_str     0x0000000000002530       0x70 build/obj/app/drive.o
+ .debug_str     0x0000000000002459       0x7a build/obj/app/state_explore.o
+                                        0x743 (size before relaxing)
+ .debug_str     0x00000000000024d3       0x70 build/obj/app/drive.o
                                         0x495 (size before relaxing)
- .debug_str     0x00000000000025a0       0x5b build/obj/app/input_history.o
+ .debug_str     0x0000000000002543       0x5b build/obj/app/input_history.o
                                         0x3a1 (size before relaxing)
- .debug_str     0x00000000000025fb       0x15 build/obj/app/state_stop.o
+ .debug_str     0x000000000000259e       0x15 build/obj/app/state_stop.o
                                         0x4d8 (size before relaxing)
- .debug_str     0x0000000000002610      0x122 external/printf/printf.o
+ .debug_str     0x00000000000025b3      0x122 external/printf/printf.o
                                         0x2fa (size before relaxing)
- .debug_str     0x0000000000002732       0x8d /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/../../../../msp430-elf/lib/430/libnosys.a(exit.o)
+ .debug_str     0x00000000000026d5       0x8d /home/rene/tools/msp430-gcc/bin/../lib/gcc/msp430-elf/9.3.1/../../../../msp430-elf/lib/430/libnosys.a(exit.o)
                                          0x99 (size before relaxing)
 
-.debug_loc      0x0000000000000000     0x349f
+.debug_loc      0x0000000000000000     0x3436
  *(.debug_loc)
  .debug_loc     0x0000000000000000       0x90 build/obj/main.o
  .debug_loc     0x0000000000000090      0x548 build/obj/drivers/i2c.o
@@ -1131,12 +1132,12 @@ __reset_vector  0x000000000000fffe        0x2
  .debug_loc     0x0000000000001991       0x20 build/obj/common/trace.o
  .debug_loc     0x00000000000019b1       0x7b build/obj/app/timer.o
  .debug_loc     0x0000000000001a2c      0x13f build/obj/app/state_machine.o
- .debug_loc     0x0000000000001b6b      0x15a build/obj/app/state_manual.o
- .debug_loc     0x0000000000001cc5      0x596 build/obj/app/wall.o
- .debug_loc     0x000000000000225b       0x63 build/obj/app/state_explore.o
- .debug_loc     0x00000000000022be      0x15b build/obj/app/drive.o
- .debug_loc     0x0000000000002419      0x109 build/obj/app/input_history.o
- .debug_loc     0x0000000000002522      0xf7d external/printf/printf.o
+ .debug_loc     0x0000000000001b6b       0x76 build/obj/app/state_manual.o
+ .debug_loc     0x0000000000001be1      0x596 build/obj/app/wall.o
+ .debug_loc     0x0000000000002177       0xde build/obj/app/state_explore.o
+ .debug_loc     0x0000000000002255      0x15b build/obj/app/drive.o
+ .debug_loc     0x00000000000023b0      0x109 build/obj/app/input_history.o
+ .debug_loc     0x00000000000024b9      0xf7d external/printf/printf.o
 
 .debug_macinfo
  *(.debug_macinfo)

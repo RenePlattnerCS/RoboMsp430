@@ -1,13 +1,13 @@
 #include "app/state_manual.h"
 #include "common/defines.h"
-#include "common/trace.h"
-
+//#include "common/trace.h"
+#include "printf.h"
 // No blocking code (e.g. busy wait) allowed in this function
 void state_manual_enter(struct state_manual_data *data, state_e from, state_event_e event)
 {
-  // TRACE("manual entered");
-   UNUSED(from);
-
+	if(from != STATE_MANUAL)
+   		printf("manual entered");
+    
 #ifndef DISABLE_IR_REMOTE
     if (event != STATE_EVENT_COMMAND) {
         return;
@@ -36,20 +36,19 @@ void state_manual_enter(struct state_manual_data *data, state_e from, state_even
         break;
 
     case IR_CMD_1:
-	TRACE("1");
 	data->curr_speed = DRIVE_SPEED_SLOW;
 	break;
     case IR_CMD_2:
-	TRACE("2");
 	data->curr_speed = DRIVE_SPEED_MEDIUM;
+
         break;
     case IR_CMD_3:
-	TRACE("3");
 	data->curr_speed = DRIVE_SPEED_FAST;
+
         break;
     case IR_CMD_4:
-	TRACE("4");
 	data->curr_speed = DRIVE_SPEED_MAX;
+
         break;
     case IR_CMD_5:
     case IR_CMD_6:
